@@ -15,6 +15,9 @@ function (_) {
       {text: "Percentiles",  value: 'percentiles', requiresField: true, supportsMissing: true, supportsInlineScript: true},
       {text: "Unique Count", value: "cardinality", requiresField: true, supportsMissing: true},
       {text: "Moving Average",  value: 'moving_avg', requiresField: false, isPipelineAgg: true, minVersion: 2},
+      {text: "Calculated Metric", value: "calc_metric", requiresField: false, experimental: true},
+      {text: "Scripted", value: "scripted_metric", requiresField: false, experimental: true},
+      {text: "Grouped Average", value: "grouped_average", requiresField: false, experimental: false},
       {text: "Derivative",  value: 'derivative', requiresField: false, isPipelineAgg: true, minVersion: 2 },
       {text: "Raw Document", value: "raw_document", requiresField: false}
     ],
@@ -35,6 +38,18 @@ function (_) {
       {text: "Bottom",  value: 'asc' },
     ],
 
+    scriptedMetricOptions: [
+      {text: 'Init', value: 'init_script'},
+      {text: 'Map', value: 'map_script'},
+      {text: 'Combine', value: 'combine_script'},
+      {text: 'Reduce', value: 'reduce_script'}
+    ],
+
+    groupedAverageMetricOptions: [
+      {text: 'Field 1', value: 'field1'},
+      {text: 'Field 2', value: 'field2'}
+    ],
+
     sizeOptions: [
       {text: "No limit", value: '0' },
       {text: "1", value: '1' },
@@ -44,6 +59,13 @@ function (_) {
       {text: "10", value: '10' },
       {text: "15", value: '15' },
       {text: "20", value: '20' },
+    ],
+
+    bodmasOptions: [
+      {text: 'Add', value: 'add'},
+      {text: 'Subtract', value: 'sub'},
+      {text: 'Multiply', value: 'mul'},
+      {text: 'Divide', value: 'div'}
     ],
 
     extendedStats: [

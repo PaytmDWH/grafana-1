@@ -58,6 +58,7 @@ function (queryDef) {
     esAgg.field = this.timeField;
     esAgg.min_doc_count = settings.min_doc_count || 0;
     esAgg.extended_bounds = {min: "$timeFrom", max: "$timeTo"};
+    esAgg.offset = "+5.5h";
 
     if (esAgg.interval === 'auto') {
       esAgg.interval = "$interval";
@@ -186,8 +187,13 @@ function (queryDef) {
           metricAgg[prop] = metric.settings[prop];
         }
       }
-
-      aggField[metric.type] = metricAgg;
+      if(metric.type === "grouped_average"){
+        aggField["scripted_metric"] = metricAgg
+      }
+      else{
+        aggField[metric.type] = metricAgg;
+      }
+     
       nestedAggs.aggs[metric.id] = aggField;
     }
 

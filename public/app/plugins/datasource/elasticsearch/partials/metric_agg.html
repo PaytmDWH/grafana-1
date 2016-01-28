@@ -39,7 +39,30 @@
 
 <div class="tight-form" ng-if="showOptions">
 	<div class="tight-form-inner-box tight-form-container">
-		<div class="tight-form" ng-if="agg.type === 'derivative'">
+		<div class="tight-form" ng-if="agg.type === 'sum'">
+			<div class="tight-form" ng-repeat="opt in bodmasOptions">
+				<ul class="tight-form-list">
+					<li class="tight-form-item" style="width: 100px">
+						{{opt.text}}
+					</li>
+					<li class="tight-form-item last">
+						<editor-checkbox text="" model="agg.meta.{{opt.value}}" change="toggleBodmasOperations()"></editor-checkbox>
+					</li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+			<ul class="tight-form-list">
+				<li class="tight-form-item" style="width: 100px;">
+					Second Field
+				</li>
+				<li ng-if="aggDef.requiresField">
+					<metric-segment-model property="agg.field2" get-options="getFieldsInternal()" on-change="toggleBodmasOperations()" css-class="tight-form-item-xxlarge"></metric-segment-model>
+				</li>
+			</ul>
+			<div class="clearfix"></div>
+		</div>
+
+<div class="tight-form" ng-if="agg.type === 'derivative'">
 			<ul class="tight-form-list">
 				<li class="tight-form-item" style="width: 75px;">
 					Unit
@@ -108,6 +131,20 @@
 			</ul>
 			<div class="clearfix"></div>
 		</div>
+		<div class="tight-form" ng-if="agg.type === 'add'">
+			<ul class="tight-form-list">
+				<li class="tight-form-item" style="width: 100px">
+					Add
+				</li>
+				<li>
+					<input type="text" class="input-mini tight-form-input last" placeholder="column1" ng-model="agg.add.var1" ng-blur="onChange()" style="width: 50px"></input>
+				</li>
+				<li>
+					<input type="text" class="input-mini tight-form-input last" placeholder="column2" ng-model="agg.add.var2" ng-blur="onChange()" style="width: 50px"></input>
+				</li>
+			</ul>
+			<div class="clearfix"></div>
+		</div>
 
 		<div class="tight-form" ng-if="aggDef.supportsInlineScript">
 			<ul class="tight-form-list">
@@ -133,6 +170,59 @@
 			</ul>
 			<div class="clearfix"></div>
 		</div>
-
+		<div ng-if="agg.type === 'scripted_metric'">
+			<div class="tight-form" ng-repeat="option in scriptedMetricOptions" ng-class="{last: $last}">
+				<ul class="tight-form-list">
+					<li class="tight-form-item" style="width: 100px">
+						{{option.text}}
+					</li>
+					<li>
+						<input type="text" class="input-xlarge tight-form-input last" ng-model="agg.settings[option.value]" ng-blur="onChange()"></input>
+					</li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div ng-if="agg.type === 'grouped_average'">
+			<div>
+				<textinput readonly>Please select the two fields to get the grouped average. For example, to get cashback over gmv, select soi_selling_price(gmv) as field1 and pu_amount(cashback) as field2</textarea>
+			</div>
+			<div class="clearfix"></div>
+			<div class="tight-form" ng-repeat="option in groupedAverageMetricOptions" ng-class="{last: $last}">
+				<ul class="tight-form-list">
+					<li class="tight-form-item" style="width: 100px">
+						{{option.text}}
+					</li>
+					<li>
+						<metric-segment-model property="agg[option.value]" get-options="getFieldsInternal()" on-change="groupedAverageOperations()" css-class="tight-form-item-xxlarge"></metric-segment-model>
+					</li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"></div>
+			<div>
+                                <ul class="tight-form-list">
+                                        <li class="tight-form-item" style="width: 100px">
+                                                Show as Percentage
+                                        </li>
+                                        <li class="tight-form-item last">
+                                                <editor-checkbox text="" model="agg.isPercent" change="groupedAverageOperations()"></editor-checkbox>
+                                        </li>
+                                </ul>
+                        </div>
+                        <div class="clearfix"></div>
+		</div>
+		<div ng-if="agg.type === 'calc_metric'">
+			<ul class="tight-form-list">
+				<li class="tight-form-item" style="width: 100px">
+						Formula
+					</li>
+					<li class="tight-form-item last">
+						<input type="text" class="input-medium tight-form-input last" empty-to-null ng-model="agg.formula" ng-blur="onChangeInternal()" spellcheck='false' placeholder="_value * 1">
+					</li>
+			</ul>
+			<div class="clearfix"></div>
+		</div>
 	</div>
 </div>
+
