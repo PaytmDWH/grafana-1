@@ -1,3 +1,24 @@
+var deepCopy = function(obj) {
+  if (Object.prototype.toString.call(obj) === '[object Array]') {
+    var arrOut = [], j = 0, len = obj.length;
+    for ( ; j < len; j++ ) {
+      arrOut[j] = arguments.callee(obj[j]);
+    }
+    return arrOut;
+  }
+  if (typeof obj === 'object') {
+    var arrOut = {}, j;
+    for ( j in obj ) {
+      arrOut[j] = arguments.callee(obj[j]);
+    }
+    return arrOut;
+  }
+  return obj;
+}
+'use strict';
+var arrOfResults = [];
+
+
 define([
   'angular',
   'lodash',
@@ -163,7 +184,15 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
       var payload = "";
       var target;
       var sentTargets = [];
-
+      var isCalcMetric = false;
+      var formulas = [];
+      var calcQueries = [];
+      for (var i = 0; i < options.targets.length; i++) {
+        target = options.targets[i];
+        if(target.metrics){
+          if(target.metrics[0].type === 'calc_metric') {isCalcMetric = true;}
+        }
+      }
       for (var i = 0; i < options.targets.length; i++) {
         target = options.targets[i];
         if (target.hide) {continue;}
@@ -177,9 +206,28 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
 
         var searchType = queryObj.size === 0 ? 'count' : 'query_then_fetch';
         var header = this.getQueryHeader(searchType, options.range.from, options.range.to);
-        payload +=  header + '\n';
+        //payload +=  header + '\n';
 
-        payload += esQuery + '\n';
+        //payload += esQuery + '\n';
+	if(target.metrics){
+          if(target.metrics[0].type === 'calc_metric') {
+            payload += "";
+            if(!target.metrics[0].formula || target.metrics[0].formula === ""){
+              target.metrics[0].formula = "query1 + query2";
+            }
+            formulas.push(target.metrics[0].formula);
+            calcQueries.push(i);
+          }
+          else if(options.targets[0].editQueryMode === true){
+            payload += options.targets[0].rawQuery.replace(/(\r\n|\n|\r)/gm,"") + '\n';
+            payload +=  header + '\n';
+          }
+          else{
+            payload +=  header + '\n';
+            payload += esQuery + '\n';
+          }
+        }
+	console.log(payload)
         sentTargets.push(target);
       }
 
@@ -193,6 +241,80 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
       payload = templateSrv.replace(payload, options.scopedVars);
 
       return this._post('_msearch', payload).then(function(res) {
+	if(isCalcMetric){
+          isCalcMetric = false;
+          //arrOfResults=[];
+          //arrOfResults.push(res);
+          if(res.responses.length < 2){
+
+          }else{
+            var resArr = []
+            for (i=0;i<res.responses.length;i++){
+              if(calcQueries.indexOf(i)>=0){
+                continue;
+              }
+              var tmp = res.responses[i].aggregations[2].buckets;
+              var customMetric = {};
+              Object.keys(tmp).forEach(function(key){
+                var l = 1;
+                while(l<51){
+                  if(tmp[key].hasOwnProperty(l)){
+                    break;
+                  }
+                  l++;
+                }
+                if(l>50){
+                  alert("Calculated Metric does not work for count");
+                }
+                if(customMetric[tmp[key].key]){
+                  customMetric[tmp[key].key] += tmp[key][l].value
+                }
+                else{
+                  customMetric[tmp[key].key] = tmp[key][l].value
+                }
+              });
+            resArr.push(customMetric);
+            }
+            var resMap = {}
+            for (i=0;i<resArr.length;i++){
+              Object.keys(resArr[i]).forEach(function(key){
+                if(resMap[key]){
+                  resMap[key].push(resArr[i][key]);
+                }
+                else{
+                  var arr = new Array();
+                  arr[0]=resArr[i][key];
+                  resMap[key] = arr;
+                }
+              });
+            }
+            for(var k=0;k<formulas.length;k++){
+              var formula = formulas[k];
+              for(i=res.responses.length;i>0;i--){
+                var re = new RegExp("query"+(i), 'g');
+                formula = formula.replace(re,"resMap[n]["+(i-1)+"]")
+              };
+              var finalMap = {}
+              for (var n in resMap) {
+                if (resMap.hasOwnProperty(n) && resMap[n].length === resArr.length) {
+                  finalMap[n] = eval(formula);
+                }
+              }
+              console.log(finalMap);
+
+              var sortedKeys = Object.keys(finalMap).sort();
+              var tempBucket = [];
+              for (i = 0; i< sortedKeys.length;i++){
+                var tempObj = {"key": parseInt(sortedKeys[i]), "key_as_string": sortedKeys[i].toString(), "doc_count": 0, "1": {"value": finalMap[sortedKeys[i]]}};
+                tempBucket.push(tempObj);
+              }
+              var tempRes = deepCopy(res.responses[0]);
+              tempRes.aggregations[2].buckets = tempBucket;
+              tempRes.aggregations.isCustom = true;
+              res.responses.push(tempRes);
+            }
+          }
+        }
         return new ElasticResponse(sentTargets, res).getTimeSeries();
       });
     };

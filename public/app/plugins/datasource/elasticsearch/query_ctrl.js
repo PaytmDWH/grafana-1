@@ -24,6 +24,9 @@ function (angular) {
     };
 
     $scope.queryUpdated = function() {
+      if($scope.target.editQueryMode){
+        $scope.target.query = JSON.parse($scope.target.rawQuery).query.filtered.query.query_string.query;
+      }
       var newJson = angular.toJson($scope.datasource.queryBuilder.build($scope.target), true);
       if (newJson !== $scope.oldQueryRaw) {
         $scope.rawQueryOld = newJson;
@@ -37,7 +40,18 @@ function (angular) {
       $scope.parserError = err.message || 'Failed to issue metric query';
       return [];
     };
-
+    $scope.toggleQueryMode = function () {
+      if ($scope.target.rawQuery) {
+        $scope.target.editQueryMode = false;
+        delete $scope.target.rawQuery;
+      }
+      else {
+        $scope.target.editQueryMode = true;
+        $scope.target.rawQuery = angular.toJson($scope.datasource.queryBuilder.build($scope.target), true);
+        var query = $scope.target.query || "";
+        $scope.target.rawQuery = $scope.target.rawQuery.replace(/ /g,'').replace("$lucene_query",query);
+      }
+    };
     $scope.init();
 
   });
