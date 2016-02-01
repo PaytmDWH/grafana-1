@@ -104,14 +104,14 @@ function (_, queryDef) {
       bucket = esAgg.buckets[i];
       doc = _.defaults({}, props);
       doc[aggDef.field] = bucket.key;
-
+      var refId = target.refId;
       for (y = 0; y < target.metrics.length; y++) {
         metric = target.metrics[y];
 
         switch(metric.type) {
           case "count": {
-            metricName = this._getMetricName(metric.type);
-            doc[metricName] = bucket.doc_count;
+            metricName = metric.type;
+            doc[metricName + " " + refId] = bucket.doc_count;
             break;
           }
           case 'extended_stats': {
@@ -125,14 +125,19 @@ function (_, queryDef) {
               stats.std_deviation_bounds_upper = stats.std_deviation_bounds.upper;
               stats.std_deviation_bounds_lower = stats.std_deviation_bounds.lower;
 
-              metricName = this._getMetricName(statName);
-              doc[metricName] = stats[statName];
+              metricName = statName;
+              doc[metricName + " " + metric.field + " " + refId] = stats[statName];
             }
             break;
           }
+          case "calc_metric": {
+            metricName = metric.type;
+            doc[metricName + " " + metric.formula + " " + refId] = bucket[metric.id].value;
+            break;
+          }
           default:  {
-            metricName = this._getMetricName(metric.type);
-            doc[metricName] =bucket[metric.id].value;
+            metricName = metric.type;
+            doc[metricName + " " + metric.field + " " + refId] =bucket[metric.id].value;
             break;
           }
         }
@@ -286,7 +291,9 @@ function (_, queryDef) {
 
   ElasticResponse.prototype.getTimeSeries = function() {
     var seriesList = [];
-
+    var docs = [];
+    var isDoc = false;
+    var aliasDic = {}
     for (var i = 0; i < this.response.responses.length; i++) {
       var response = this.response.responses[i];
       if (response.error) {
@@ -301,22 +308,76 @@ function (_, queryDef) {
         var aggregations = response.aggregations;
         var target = this.targets[i];
         var tmpSeriesList = [];
-        var docs = [];
+        
 
         this.processBuckets(aggregations, target, tmpSeriesList, docs, {}, 0);
         this.trimDatapoints(tmpSeriesList, target);
         this.nameSeries(tmpSeriesList, target);
+
+        if(target.alias){
+          switch(target.metrics[0].type){
+            case "calc_metric": {
+              aliasDic[(target.metrics[0].type + " " + target.metrics[0].formula + " " + target.refId).toLowerCase()] = target.alias;
+              break;
+            }
+            case "count": {
+              aliasDic[(target.metrics[0].type + " " + target.refId).toLowerCase()] = target.alias;
+              break;
+            }
+            default: {
+              aliasDic[(target.metrics[0].type + " " + target.metrics[0].field + " " + target.refId).toLowerCase()] = target.alias;
+              break;
+            }
+          }
+        }
 
         for (var y = 0; y < tmpSeriesList.length; y++) {
           seriesList.push(tmpSeriesList[y]);
         }
 
         if (seriesList.length === 0 && docs.length > 0) {
+          isDoc = true;
           seriesList.push({target: 'docs', type: 'docs', datapoints: docs});
         }
       }
     }
-
+    if(isDoc){
+      var cols = {}
+      isDoc = false;
+      for(var j = 0;j< seriesList[0].datapoints.length;j++){
+        Object.keys(seriesList[0].datapoints[j]).forEach(function(key){
+          if (Object.prototype.hasOwnProperty.call(cols, key)){
+            cols[key] += 1;
+          }
+          else{
+            cols[key] = 1;
+          }
+        });
+      }
+      var groupedOn = Object.keys(cols).reduce(function(a, b){ return cols[a] > cols[b] ? a : b });
+      var dataFinal = {};
+      for(var j = 0;j< seriesList[0].datapoints.length;j++){
+        Object.keys(seriesList[0].datapoints[j]).forEach(function(key){
+         var k = key.toLowerCase();
+         if (Object.prototype.hasOwnProperty.call(aliasDic, k)){
+           k = aliasDic[k];
+         }
+         if (Object.prototype.hasOwnProperty.call(dataFinal, seriesList[0].datapoints[j][groupedOn])){
+            dataFinal[seriesList[0].datapoints[j][groupedOn]][k] = seriesList[0].datapoints[j][key];
+          }
+          else{
+            var tempObj = {}
+            tempObj[k] = seriesList[0].datapoints[j][key];
+            dataFinal[seriesList[0].datapoints[j][groupedOn]] = tempObj;
+          }
+        });
+      }
+      var datapointsArr = [];
+      Object.keys(dataFinal).forEach(function(key){
+        datapointsArr.push(dataFinal[key]);
+      });
+      seriesList[0].datapoints = datapointsArr;
+    }
     return { data: seriesList };
   };
 

@@ -264,13 +264,16 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
                   l++;
                 }
                 if(l>50){
-                  alert("Calculated Metric does not work for count");
-                }
-                if(customMetric[tmp[key].key]){
-                  customMetric[tmp[key].key] += tmp[key][l].value
+                  var metricValue = tmp[key].doc_count;
                 }
                 else{
-                  customMetric[tmp[key].key] = tmp[key][l].value
+                  var metricValue = tmp[key][l].value;
+                }
+                if(customMetric[tmp[key].key]){
+                  customMetric[tmp[key].key] += metricValue;
+                }
+                else{
+                  customMetric[tmp[key].key] = metricValue;
                 }
               });
             resArr.push(customMetric);
