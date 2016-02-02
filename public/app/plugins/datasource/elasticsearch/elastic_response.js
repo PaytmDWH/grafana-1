@@ -193,7 +193,6 @@ function (_, queryDef) {
 
   ElasticResponse.prototype._getSeriesName = function(series, target, metricTypeCount) {
     var metricName = this._getMetricName(series.metric);
-
     if (target.alias) {
       var regex = /\{\{([\s\S]+?)\}\}/g;
 

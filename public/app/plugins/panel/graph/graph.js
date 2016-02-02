@@ -228,7 +228,7 @@ function (angular, $, moment, _, kbn, GraphTooltip) {
             var series = data[i];
             series.applySeriesOverrides(panel.seriesOverrides);
             series.data = series.getFlotPairs(series.nullPointMode || panel.nullPointMode, panel.y_formats);
-
+	    series.marker = panel.targets[0].marker;
             // if hidden remove points and disable stack
             if (scope.hiddenSeries[series.alias]) {
               series.data = [];
@@ -249,7 +249,23 @@ function (angular, $, moment, _, kbn, GraphTooltip) {
 
           function callPlot(incrementRenderCounter) {
             try {
-              $.plot(elem, sortedSeries, options);
+
+               var p = $.plot(elem, sortedSeries, options);
+                
+                  for(var j=0;j<sortedSeries.length;j++) {
+                    if("Y"==sortedSeries[j].marker) {
+                      $.each(p.getData()[j].data, function(i, el){
+                        var o = p.pointOffset({x: el[0], y: el[1]});
+                        console.log('id',p.getData()[0].id);
+                        $('<div class="data-point-label'+p.getData()[j].id+'">' + sortedSeries[j].formatValue(el[1]) + '</div>').css( {
+                          position: 'absolute',
+                          left: o.left + 4,
+                          top: o.top - 23,
+                          display: 'none'
+                        }).appendTo(p.getPlaceholder()).fadeIn('slow');
+                      });
+                  }
+                }
             } catch (e) {
               console.log('flotcharts error', e);
             }

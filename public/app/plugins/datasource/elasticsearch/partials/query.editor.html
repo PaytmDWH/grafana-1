@@ -53,6 +53,13 @@
 		<li>
 			<input type="text" class="tight-form-input" style="width: 200px;" ng-model="target.alias" spellcheck='false' placeholder="alias patterns (empty = auto)" ng-blur="get_data()">
 		</li>
+
+		<li class="tight-form-item query-keyword">
+                        Show Markers
+                </li>
+                <li>
+                        <input type="text" class="tight-form-input" style="width: 80px;" ng-model="target.marker" spellcheck='false' placeholder="(Y=show)" ng-blur="get_data()">
+                </li>
 	</ul>
 	<div class="clearfix"></div>
 	<div style="padding: 10px" ng-if="target.rawQuery">
