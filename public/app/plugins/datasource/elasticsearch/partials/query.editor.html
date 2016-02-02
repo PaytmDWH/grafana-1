@@ -58,7 +58,7 @@
                         Show Markers
                 </li>
                 <li>
-                        <input type="text" class="tight-form-input" style="width: 80px;" ng-model="target.marker" spellcheck='false' placeholder="(Y=show)" ng-blur="get_data()">
+                        <input type="checkbox" class="tight-form-input" style="width: 80px;" ng-model="target.marker"  on-change="queryUpdated()" ng-blur="get_data()">
                 </li>
 	</ul>
 	<div class="clearfix"></div>

@@ -253,7 +253,7 @@ function (angular, $, moment, _, kbn, GraphTooltip) {
                var p = $.plot(elem, sortedSeries, options);
                 
                   for(var j=0;j<sortedSeries.length;j++) {
-                    if("Y"==sortedSeries[j].marker) {
+                    if(sortedSeries[j].marker) {
                       $.each(p.getData()[j].data, function(i, el){
                         var o = p.pointOffset({x: el[0], y: el[1]});
                         console.log('id',p.getData()[0].id);
