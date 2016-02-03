@@ -33,4 +33,4 @@ fig.yml
 profile.cov
 /grafana
 .notouch
-conf/default.ini
+conf/defaults.ini
