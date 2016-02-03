@@ -37,7 +37,11 @@ function (angular, _) {
     this.renderVariableValue = function(variable) {
       var value = variable.current.value;
       if (_.isString(value)) {
-        return value;
+	if("lucene" !== variable.multiFormat || "*" === value) {
+         return value;
+        } else {
+          return '(\\\"' + value + '\\\")';
+        }
       } else {
         switch(variable.multiFormat) {
           case "regex values": {
