@@ -224,11 +224,18 @@ function (angular, $, moment, _, kbn, GraphTooltip) {
             }
           };
 
+          var showSeriesMarkers = [];
+          for (var i=0;i< panel.targets.length;i++){
+            if(!panel.targets[i].metrics[0].hide){
+              showSeriesMarkers.push(i);
+            }
+          }
+          
           for (var i = 0; i < data.length; i++) {
             var series = data[i];
             series.applySeriesOverrides(panel.seriesOverrides);
             series.data = series.getFlotPairs(series.nullPointMode || panel.nullPointMode, panel.y_formats);
-	    series.marker = panel.targets[0].marker;
+	          series.marker = panel.targets[showSeriesMarkers[i]].marker;
             // if hidden remove points and disable stack
             if (scope.hiddenSeries[series.alias]) {
               series.data = [];
