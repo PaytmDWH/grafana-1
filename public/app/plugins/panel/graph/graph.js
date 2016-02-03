@@ -235,7 +235,12 @@ function (angular, $, moment, _, kbn, GraphTooltip) {
             var series = data[i];
             series.applySeriesOverrides(panel.seriesOverrides);
             series.data = series.getFlotPairs(series.nullPointMode || panel.nullPointMode, panel.y_formats);
-	          series.marker = panel.targets[showSeriesMarkers[i]].marker;
+	          if(panel.targets[showSeriesMarkers[i]] && panel.targets[showSeriesMarkers[i]].marker){
+              series.marker = panel.targets[showSeriesMarkers[i]].marker;
+            }
+            else{
+              series.marker = false;
+            }
             // if hidden remove points and disable stack
             if (scope.hiddenSeries[series.alias]) {
               series.data = [];
