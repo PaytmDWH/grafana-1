@@ -187,6 +187,7 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
       var isCalcMetric = false;
       var formulas = [];
       var calcQueries = [];
+      var typeDate = [];
       for (var i = 0; i < options.targets.length; i++) {
         target = options.targets[i];
         if(target.metrics){
@@ -217,6 +218,12 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
             }
             formulas.push(target.metrics[0].formula);
             calcQueries.push(i);
+            if(target.bucketAggs[0].type === "date_histogram"){
+              typeDate.push(true);
+            }
+            else{
+              typeDate.push(false);
+            }
           }
           else if(options.targets[0].editQueryMode === true){
             payload += options.targets[0].rawQuery.replace(/(\r\n|\n|\r)/gm,"") + '\n';
@@ -308,8 +315,14 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
               var sortedKeys = Object.keys(finalMap).sort();
               var tempBucket = [];
               for (i = 0; i< sortedKeys.length;i++){
-                var tempObj = {"key": parseInt(sortedKeys[i]), "key_as_string": sortedKeys[i].toString(), "doc_count": 0, "1": {"value": finalMap[sortedKeys[i]]}};
-                tempBucket.push(tempObj);
+                if(typeDate[k]){
+                  var tempObj = {"key": parseInt(sortedKeys[i]), "key_as_string": sortedKeys[i].toString(), "doc_count": 0, "1": {"value": finalMap[sortedKeys[i]]}};
+                  tempBucket.push(tempObj);
+                }
+                else{
+                  var tempObj = {"key": sortedKeys[i], "key_as_string": sortedKeys[i].toString(), "doc_count": 0, "1": {"value": finalMap[sortedKeys[i]]}};
+                  tempBucket.push(tempObj);
+                }
               }
               var tempRes = deepCopy(res.responses[0]);
               tempRes.aggregations[2].buckets = tempBucket;
