@@ -12,8 +12,9 @@ function (_, queryDef) {
 
   ElasticResponse.prototype.processMetrics = function(esAgg, target, seriesList, props) {
     var metric, y, i, newSeries, bucket, value;
-
-    for (y = 0; y < target.metrics.length; y++) {
+    // HACKALERT : Need to move this to config. Due to bugs in flot timezone shift.
+    var esTimeShift = -11*60*60*1000;
+     for (y = 0; y < target.metrics.length; y++) {
       metric = target.metrics[y];
       if (metric.hide) {
         continue;
@@ -25,7 +26,7 @@ function (_, queryDef) {
           for (i = 0; i < esAgg.buckets.length; i++) {
             bucket = esAgg.buckets[i];
             value = bucket.doc_count;
-            newSeries.datapoints.push([value, bucket.key]);
+            newSeries.datapoints.push([value, bucket.key + esTimeShift]);
           }
           seriesList.push(newSeries);
           break;
@@ -44,7 +45,7 @@ function (_, queryDef) {
             for (i = 0; i < esAgg.buckets.length; i++) {
               bucket = esAgg.buckets[i];
               var values = bucket[metric.id].values;
-              newSeries.datapoints.push([values[percentileName], bucket.key]);
+              newSeries.datapoints.push([values[percentileName], bucket.key + esTimeShift]);
             }
             seriesList.push(newSeries);
           }
@@ -67,7 +68,7 @@ function (_, queryDef) {
               stats.std_deviation_bounds_upper = stats.std_deviation_bounds.upper;
               stats.std_deviation_bounds_lower = stats.std_deviation_bounds.lower;
 
-              newSeries.datapoints.push([stats[statName], bucket.key]);
+              newSeries.datapoints.push([stats[statName], bucket.key + esTimeShift]);
             }
 
             seriesList.push(newSeries);
@@ -83,9 +84,9 @@ function (_, queryDef) {
             value = bucket[metric.id];
             if (value !== undefined) {
               if (value.normalized_value) {
-                newSeries.datapoints.push([value.normalized_value, bucket.key]);
+                newSeries.datapoints.push([value.normalized_value, bucket.key + esTimeShift]);
               } else {
-                newSeries.datapoints.push([value.value, bucket.key]);
+                newSeries.datapoints.push([value.value, bucket.key + esTimeShift]);
               }
             }
 
