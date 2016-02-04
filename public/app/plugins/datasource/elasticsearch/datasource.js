@@ -401,7 +401,8 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         return this.getFields(query);
       }
       if (query.find === 'terms') {
-        return this.getTerms(query);
+        query.query = query.query.replace(/"/g, '\\$&');
+	return this.getTerms(query);
       }
     };
 
