@@ -1,6 +1,7 @@
 define([
   "lodash",
-  "./query_def"
+  "./query_def",
+  "./time",
 ],
 function (_, queryDef) {
   'use strict';
@@ -18,14 +19,17 @@ function (_, queryDef) {
       if (metric.hide) {
         continue;
       }
-
+      var timeShift = timeZoneShift()*-1;
+      if(target.timeShiftComparison && target.timeShiftComparison !== ""){
+        timeShift +=  calcTimeShift(target.timeShiftComparison);
+      }
       switch(metric.type) {
         case 'count': {
           newSeries = { datapoints: [], metric: 'count', props: props};
           for (i = 0; i < esAgg.buckets.length; i++) {
             bucket = esAgg.buckets[i];
             value = bucket.doc_count;
-            newSeries.datapoints.push([value, bucket.key]);
+            newSeries.datapoints.push([value, bucket.key+timeShift]);
           }
           seriesList.push(newSeries);
           break;
@@ -44,7 +48,7 @@ function (_, queryDef) {
             for (i = 0; i < esAgg.buckets.length; i++) {
               bucket = esAgg.buckets[i];
               var values = bucket[metric.id].values;
-              newSeries.datapoints.push([values[percentileName], bucket.key]);
+              newSeries.datapoints.push([values[percentileName], bucket.key+timeShift]);
             }
             seriesList.push(newSeries);
           }
@@ -67,7 +71,7 @@ function (_, queryDef) {
               stats.std_deviation_bounds_upper = stats.std_deviation_bounds.upper;
               stats.std_deviation_bounds_lower = stats.std_deviation_bounds.lower;
 
-              newSeries.datapoints.push([stats[statName], bucket.key]);
+              newSeries.datapoints.push([stats[statName], bucket.key+timeShift]);
             }
 
             seriesList.push(newSeries);
@@ -83,9 +87,9 @@ function (_, queryDef) {
             value = bucket[metric.id];
             if (value !== undefined) {
               if (value.normalized_value) {
-                newSeries.datapoints.push([value.normalized_value, bucket.key]);
+                newSeries.datapoints.push([value.normalized_value, bucket.key+timeShift]);
               } else {
-                newSeries.datapoints.push([value.value, bucket.key]);
+                newSeries.datapoints.push([value.value, bucket.key+timeShift]);
               }
             }
 

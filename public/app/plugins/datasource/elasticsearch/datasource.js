@@ -15,9 +15,8 @@ var deepCopy = function(obj) {
   }
   return obj;
 }
-'use strict';
-var arrOfResults = [];
 
+'use strict';
 
 define([
   'angular',
@@ -28,6 +27,7 @@ define([
   './index_pattern',
   './elastic_response',
   './query_ctrl',
+  './time',
 ],
 function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticResponse) {
   'use strict';
@@ -210,9 +210,10 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         //payload +=  header + '\n';
 
         //payload += esQuery + '\n';
-	if(target.metrics){
+        var tempPayload=""
+        if(target.metrics){
           if(target.metrics[0].type === 'calc_metric') {
-            payload += "";
+            tempPayload += "";
             if(!target.metrics[0].formula || target.metrics[0].formula === ""){
               target.metrics[0].formula = "query1 + query2";
             }
@@ -226,15 +227,26 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
             }
           }
           else if(options.targets[0].editQueryMode === true){
-            payload += options.targets[0].rawQuery.replace(/(\r\n|\n|\r)/gm,"") + '\n';
-            payload +=  header + '\n';
+            tempPayload += options.targets[0].rawQuery.replace(/(\r\n|\n|\r)/gm,"") + '\n';
+            tempPayload +=  header + '\n';
           }
           else{
-            payload +=  header + '\n';
-            payload += esQuery + '\n';
+            tempPayload +=  header + '\n';
+            tempPayload += esQuery + '\n';
           }
         }
-	console.log(payload)
+        if(target.timeShiftComparison && target.timeShiftComparison !== ""){
+          tempPayload = tempPayload.replace(/\$interval/g, options.interval);
+          tempPayload = tempPayload.replace(/\$timeFrom/g, options.range.from.valueOf() - calcTimeShift(target.timeShiftComparison));
+          tempPayload = tempPayload.replace(/\$timeTo/g, options.range.to.valueOf() - calcTimeShift(target.timeShiftComparison));
+        }
+        else{
+          tempPayload = tempPayload.replace(/\$interval/g, options.interval);
+          tempPayload = tempPayload.replace(/\$timeFrom/g, options.range.from.valueOf());
+          tempPayload = tempPayload.replace(/\$timeTo/g, options.range.to.valueOf());   
+        }
+        
+        payload += tempPayload;
         sentTargets.push(target);
       }
 
@@ -242,16 +254,11 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         return $q.when([]);
       }
 
-      payload = payload.replace(/\$interval/g, options.interval);
-      payload = payload.replace(/\$timeFrom/g, options.range.from.valueOf());
-      payload = payload.replace(/\$timeTo/g, options.range.to.valueOf());
       payload = templateSrv.replace(payload, options.scopedVars);
 
       return this._post('_msearch', payload).then(function(res) {
 	if(isCalcMetric){
           isCalcMetric = false;
-          //arrOfResults=[];
-          //arrOfResults.push(res);
           if(res.responses.length < 2){
 
           }else{
@@ -401,6 +408,9 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         return this.getFields(query);
       }
       if (query.find === 'terms') {
+        if(query.query){
+          query.query = query.query.replace(/"/g, '\\$&');
+        }
         return this.getTerms(query);
       }
     };

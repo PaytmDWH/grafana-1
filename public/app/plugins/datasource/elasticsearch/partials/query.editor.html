@@ -45,21 +45,27 @@
 			Query
 		</li>
 		<li>
-			<input type="text" class="tight-form-input" style="width: 345px;" ng-model="target.query" spellcheck='false' placeholder="Lucene query" ng-blur="get_data()">
+			<input type="text" class="tight-form-input" style="width: 265px;" ng-model="target.query" spellcheck='false' placeholder="Lucene query" ng-blur="get_data()">
 		</li>
 		<li class="tight-form-item query-keyword">
 			Alias
 		</li>
 		<li>
-			<input type="text" class="tight-form-input" style="width: 200px;" ng-model="target.alias" spellcheck='false' placeholder="alias patterns (empty = auto)" ng-blur="get_data()">
+			<input type="text" class="tight-form-input" style="width: 100px;" ng-model="target.alias" spellcheck='false' placeholder="alias patterns (empty = auto)" ng-blur="get_data()">
 		</li>
 
 		<li class="tight-form-item query-keyword">
-                        Show Markers
-                </li>
-                <li>
-                        <input type="checkbox" class="tight-form-input" style="width: 80px;" ng-model="target.marker"  on-change="queryUpdated()" ng-blur="get_data()">
-                </li>
+			Show Markers
+		</li>
+		<li>
+			<input type="checkbox" class="tight-form-input" style="width: 20px;" ng-model="target.marker"  on-change="queryUpdated()" ng-blur="get_data()">
+		</li>
+		<li class="tight-form-item query-keyword">
+			Time Shift
+		</li>
+		<li>
+			<input type="text" class="tight-form-input" style="width: 80px;" ng-model="target.timeShiftComparison"  on-change="queryUpdated()" ng-blur="get_data()">
+		</li>
 	</ul>
 	<div class="clearfix"></div>
 	<div style="padding: 10px" ng-if="target.rawQuery">
