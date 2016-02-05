@@ -179,7 +179,7 @@ function (queryDef) {
           continue;
         }
       } else {
-        metricAgg = {field: metric.field};
+        metricAgg = {field: metric.field, precision_threshold: 10000};
       }
 
       for (var prop in metric.settings) {
@@ -188,9 +188,14 @@ function (queryDef) {
         }
       }
       if(metric.type === "grouped_average"){
+        delete metricAgg.precision_threshold;
         aggField["scripted_metric"] = metricAgg
       }
+      else if(metric.type === 'cardinality'){
+        aggField[metric.type] = metricAgg;
+      }
       else{
+        delete metricAgg.precision_threshold;
         aggField[metric.type] = metricAgg;
       }
      

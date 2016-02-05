@@ -188,6 +188,7 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
       var formulas = [];
       var calcQueries = [];
       var typeDate = [];
+      var timeShift = {};
       for (var i = 0; i < options.targets.length; i++) {
         target = options.targets[i];
         if(target.metrics){
@@ -239,6 +240,7 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
           tempPayload = tempPayload.replace(/\$interval/g, options.interval);
           tempPayload = tempPayload.replace(/\$timeFrom/g, options.range.from.valueOf() - calcTimeShift(target.timeShiftComparison));
           tempPayload = tempPayload.replace(/\$timeTo/g, options.range.to.valueOf() - calcTimeShift(target.timeShiftComparison));
+          timeShift[i] = calcTimeShift(target.timeShiftComparison);
         }
         else{
           tempPayload = tempPayload.replace(/\$interval/g, options.interval);
@@ -257,6 +259,15 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
       payload = templateSrv.replace(payload, options.scopedVars);
 
       return this._post('_msearch', payload).then(function(res) {
+        for (i=0;i<res.responses.length;i++){
+          if(timeShift.hasOwnProperty(i) && options.targets[i].bucketAggs[0].type === "date_histogram"){
+            var tmp = res.responses[i].aggregations[2].buckets;
+            Object.keys(tmp).forEach(function(key){
+              tmp[key]['key'] = tmp[key]['key']+ timeShift[i];
+              tmp[key]['key_as_string'] = tmp[key]['key'].toString();
+            });
+          }
+        }
 	if(isCalcMetric){
           isCalcMetric = false;
           if(res.responses.length < 2){

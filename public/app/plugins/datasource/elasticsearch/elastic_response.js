@@ -20,9 +20,6 @@ function (_, queryDef) {
         continue;
       }
       var timeShift = timeZoneShift()*-1;
-      if(target.timeShiftComparison && target.timeShiftComparison !== ""){
-        timeShift +=  calcTimeShift(target.timeShiftComparison);
-      }
       switch(metric.type) {
         case 'count': {
           newSeries = { datapoints: [], metric: 'count', props: props};
