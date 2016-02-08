@@ -90,7 +90,7 @@ function (queryDef) {
   };
 
   ElasticQueryBuilder.prototype.documentQuery = function(query) {
-    query.size = 500;
+    query.size = 10000;
     query.sort = {};
     query.sort[this.timeField] = {order: 'desc', unmapped_type: 'boolean'};
     query.fields = ["*", "_source"];
