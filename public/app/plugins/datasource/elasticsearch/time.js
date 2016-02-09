@@ -28,5 +28,5 @@ var calcTimeShift = function(shift){
 
 //This is a hack to fix bugs in flot timezone shift
 var timeZoneShift = function(){
-	return 11*60*60*1000;
+	return 10.5*60*60*1000;
 };
