@@ -17,7 +17,7 @@ function(angular, coreModule) {
         }
         var $user =  $rootScope.contextSrv.user.id;
         window.ga('set', 'dimension1', $user);
-        window.ga('send', 'pageview', { page: $location.url() ,user: userId});
+        window.ga('send', 'pageview', { page: $location.url()});
       });
     };
 
