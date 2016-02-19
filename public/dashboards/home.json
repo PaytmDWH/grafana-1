@@ -1,7 +1,7 @@
 {
-  "id": 14,
-  "title": "Home",
-  "originalTitle": "Home",
+  "id": 10,
+  "title": "Home dashboard",
+  "originalTitle": "Home dashboard",
   "tags": [],
   "style": "dark",
   "timezone": "browser",
@@ -46,44 +46,25 @@
           "links": [],
           "mode": "search",
           "query": "",
-          "span": 4,
+          "span": 6,
           "tags": [
-            "Marketplace"
+            "Production Dashboards"
           ],
-          "title": "Marketplace Dashboards",
+          "title": "Production Dashboards",
           "type": "dashlist"
         },
         {
+          "content": "<style>\na {\n    text-decoration: underline;\n}\n</style>\n\n<h3>Useful Links</h3>\n<ul>\n<li><a href=\"https://paytmlabswiki.atlassian.net/wiki/display/MAYAS/Dashboard+Projects\">All Dashboard Requests</a></li>\n<li><a href=\"https://paytmlabswiki.atlassian.net/wiki/display/MAYAS/New+Dashboard+Requirements\">Raise your own dashboard request</a></li>\n<li>Contact <a href=\"emailto:labs.mayassar@paytm.com\">labs.mayassar@paytm.com</a> for more</li>\n<li><a href=\"https://paytmlabswiki.atlassian.net/wiki/display/GANG/Grafana+Dashboards\">Access Control and Requests</a></li>\n</ul>\n\n",
           "editable": true,
           "error": false,
-          "id": 2,
+          "id": 5,
           "isNew": true,
-          "limit": 10,
           "links": [],
-          "mode": "search",
-          "query": "",
-          "span": 4,
-          "tags": [
-            "NPS"
-          ],
-          "title": "NPS Dashboards",
-          "type": "dashlist"
-        },
-        {
-          "editable": true,
-          "error": false,
-          "id": 3,
-          "isNew": true,
-          "limit": 10,
-          "links": [],
-          "mode": "search",
-          "query": "",
-          "span": 4,
-          "tags": [
-            "Test"
-          ],
-          "title": "Test Dashboards",
-          "type": "dashlist"
+          "mode": "html",
+          "span": 6,
+          "style": {},
+          "title": "Info",
+          "type": "text"
         }
       ],
       "title": "Row"
@@ -125,6 +106,6 @@
     "list": []
   },
   "schemaVersion": 8,
-  "version": 1,
+  "version": 5,
   "links": []
 }

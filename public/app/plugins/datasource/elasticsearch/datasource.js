@@ -328,7 +328,6 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
                   finalMap[n] = eval(formula);
                 }
               }
-              console.log(finalMap);
 
               var sortedKeys = Object.keys(finalMap).sort();
               var tempBucket = [];

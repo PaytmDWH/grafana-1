@@ -268,7 +268,6 @@ function (angular, $, moment, _, kbn, GraphTooltip) {
                     if(sortedSeries[j].marker) {
                       $.each(p.getData()[j].data, function(i, el){
                         var o = p.pointOffset({x: el[0], y: el[1]});
-                        console.log('id',p.getData()[0].id);
                         $('<div class="data-point-label'+p.getData()[j].id+'">' + sortedSeries[j].formatValue(el[1]) + '</div>').css( {
                           position: 'absolute',
                           left: o.left + 4,
