@@ -107,6 +107,7 @@ function (angular, _) {
 
         value = self._values[g1 || g2];
         if (!value) { return match; }
+        else if (value === "*") {return "a123a";}
 
         return self._grafanaVariables[value] || value;
       });

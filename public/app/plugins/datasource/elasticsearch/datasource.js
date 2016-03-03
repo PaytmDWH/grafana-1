@@ -204,6 +204,12 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         var luceneQuery = angular.toJson(target.query || '*');
         // remove inner quotes
         luceneQuery = luceneQuery.substr(1, luceneQuery.length - 2);
+        luceneQuery = templateSrv.replace(luceneQuery, options.scopedVars);
+        luceneQuery = luceneQuery.replace(new RegExp("[AND |OR |OR NOT |AND NOT ]*[A-Za-z_]*:a123a","gm"),"")
+        luceneQuery = luceneQuery.trim();
+        if(luceneQuery.startsWith('AND') || luceneQuery.startsWith("OR")){
+          luceneQuery = luceneQuery.substr(luceneQuery.indexOf(" ") + 1);
+        }
         esQuery = esQuery.replace("$lucene_query", luceneQuery);
 
         var searchType = queryObj.size === 0 ? 'count' : 'query_then_fetch';
