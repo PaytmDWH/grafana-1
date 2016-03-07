@@ -210,6 +210,9 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         if(luceneQuery.startsWith('AND') || luceneQuery.startsWith("OR")){
           luceneQuery = luceneQuery.substr(luceneQuery.indexOf(" ") + 1);
         }
+        if(luceneQuery === ""){
+          luceneQuery = "*"
+        }
         esQuery = esQuery.replace("$lucene_query", luceneQuery);
 
         var searchType = queryObj.size === 0 ? 'count' : 'query_then_fetch';
