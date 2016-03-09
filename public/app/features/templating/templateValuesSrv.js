@@ -64,7 +64,7 @@ function (angular, _, kbn) {
       templateSrv.setGrafanaVariable('$__auto_interval', interval);
     };
 
-    this.setVariableValue = function(variable, option) {
+    this.setVariableValue = function(variable, option, mapOfCompleted) {
       variable.current = angular.copy(option);
 
       if (_.isArray(variable.current.value)) {
@@ -72,9 +72,8 @@ function (angular, _, kbn) {
       }
 
       self.selectOptionsForCurrentValue(variable);
-
       templateSrv.updateTemplateData();
-      return self.updateOptionsInChildVariables(variable);
+      return self.updateOptionsInChildVariables(variable,mapOfCompleted);
     };
 
     this.variableUpdated = function(variable) {
@@ -82,13 +81,13 @@ function (angular, _, kbn) {
       return this.updateOptionsInChildVariables(variable);
     };
 
-    this.updateOptionsInChildVariables = function(updatedVariable) {
+    this.updateOptionsInChildVariables = function(updatedVariable,mapOfCompleted) {
       var promises = _.map(self.variables, function(otherVariable) {
         if (otherVariable === updatedVariable) {
           return;
         }
         if (templateSrv.containsVariable(otherVariable.query, updatedVariable.name)) {
-          return self.updateOptions(otherVariable);
+          return self.updateOptions(otherVariable,mapOfCompleted);
         }
       });
 
@@ -111,7 +110,7 @@ function (angular, _, kbn) {
 
     };
 
-    this.updateOptions = function(variable) {
+    this.updateOptions = function(variable,mapOfCompleted) {
       if (variable.type !== 'query') {
         self._updateNonQueryVariable(variable);
         self.setVariableValue(variable, variable.options[0]);
@@ -121,7 +120,7 @@ function (angular, _, kbn) {
       return datasourceSrv.get(variable.datasource)
         .then(_.partial(this.updateOptionsFromMetricFindQuery, variable))
         .then(_.partial(this.updateTags, variable))
-        .then(_.partial(this.validateVariableSelectionState, variable));
+        .then(_.partial(this.validateVariableSelectionState, variable,mapOfCompleted));
     };
 
     this.selectOptionsForCurrentValue = function(variable) {
@@ -143,10 +142,17 @@ function (angular, _, kbn) {
       }
     };
 
-    this.validateVariableSelectionState = function(variable) {
+    this.validateVariableSelectionState = function(variable,mapOfCompleted) {
+      if(mapOfCompleted && mapOfCompleted[variable.name] && mapOfCompleted[variable.name] === variable){
+        return;
+      }
+      if(!mapOfCompleted){
+        mapOfCompleted = {};
+      }
+      mapOfCompleted[variable.name] = variable;
       if (!variable.current) {
         if (!variable.options.length) { return; }
-        return self.setVariableValue(variable, variable.options[0]);
+        return self.setVariableValue(variable, variable.options[0],mapOfCompleted);
       }
 
       if (_.isArray(variable.current.value)) {
@@ -154,10 +160,10 @@ function (angular, _, kbn) {
       } else {
         var currentOption = _.findWhere(variable.options, { text: variable.current.text });
         if (currentOption) {
-          return self.setVariableValue(variable, currentOption);
+          return self.setVariableValue(variable, currentOption,mapOfCompleted);
         } else {
           if (!variable.options.length) { return; }
-          return self.setVariableValue(variable, variable.options[0]);
+          return self.setVariableValue(variable, variable.options[0],mapOfCompleted);
         }
       }
     };

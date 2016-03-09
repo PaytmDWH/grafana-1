@@ -419,6 +419,14 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
     this.metricFindQuery = function(query) {
       query = templateSrv.replace(query);
       query = angular.fromJson(query);
+      query.query = query.query.replace(new RegExp("[AND |OR |OR NOT |AND NOT ]*[A-Za-z_0-9]*:a123a","gm"),"")
+        query.query = query.query.trim();
+        if(query.query.startsWith('AND') || query.query.startsWith("OR")){
+          query.query = query.query.substr(query.query.indexOf(" ") + 1);
+        }
+        if(query.query === ""){
+          query.query = "*"
+        }
       if (!query) {
         return $q.when([]);
       }
