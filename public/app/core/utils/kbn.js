@@ -268,6 +268,36 @@ function($, _) {
     };
   };
 
+  // Formatter which scales the unit string geometrically according to the Indian
+  // number system. Repeatedly scales the value down by the factor until it is
+  // less than the factor in magnitude, or the end of the array is reached.
+  kbn.formatBuilders.scaledUnitsIndianNumbers = function(extArray) {
+    return function(size, decimals, scaledDecimals) {
+      if (size === null) {
+        return "";
+      }
+      var steps = 0;
+      var limit = extArray.length;
+      var factor = 100;
+      if(Math.abs(size) >= 1000){
+        steps ++;
+        size /= 1000;
+      }
+      while (Math.abs(size) >= factor) {
+        steps++;
+        if (steps >= limit) { steps--;break; }
+        size /= factor;
+      }
+      console.log(scaledDecimals);
+      if (steps > 0 && scaledDecimals !== null) {
+        decimals = scaledDecimals + (2 * (steps-1)) + 3;
+      }
+      console.log(size,decimals);
+
+      return kbn.toFixed(size, decimals) + extArray[steps];
+    };
+  };
+
   // Extension of the scaledUnits builder which uses SI decimal prefixes. If an
   // offset is given, it adjusts the starting units at the given prefix; a value
   // of 0 starts at no scale; -3 drops to nano, +2 starts at mega, etc.
@@ -292,6 +322,16 @@ function($, _) {
   kbn.formatBuilders.currency = function(symbol) {
     var units = ['', 'K', 'M', 'B', 'T'];
     var scaler = kbn.formatBuilders.scaledUnits(1000, units);
+    return function(size, decimals, scaledDecimals) {
+      if (size === null) { return ""; }
+      var scaled = scaler(size, decimals, scaledDecimals);
+      return symbol + scaled;
+    };
+  };
+
+  kbn.formatBuilders.currencyINR = function(symbol) {
+    var units = ['', 'K', 'L', 'Cr'];
+    var scaler = kbn.formatBuilders.scaledUnitsIndianNumbers(units);
     return function(size, decimals, scaledDecimals) {
       if (size === null) { return ""; }
       var scaled = scaler(size, decimals, scaledDecimals);
@@ -332,7 +372,7 @@ function($, _) {
   kbn.valueFormats.currencyGBP = kbn.formatBuilders.currency('£');
   kbn.valueFormats.currencyEUR = kbn.formatBuilders.currency('€');
   kbn.valueFormats.currencyJPY = kbn.formatBuilders.currency('¥');
-  kbn.valueFormats.currencyINR = kbn.formatBuilders.currency('₹');
+  kbn.valueFormats.currencyINR = kbn.formatBuilders.currencyINR('₹');
 
   // Data
   kbn.valueFormats.bits   = kbn.formatBuilders.binarySIPrefix('b');
