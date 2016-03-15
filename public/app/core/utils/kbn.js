@@ -288,11 +288,9 @@ function($, _) {
         if (steps >= limit) { steps--;break; }
         size /= factor;
       }
-      console.log(scaledDecimals);
       if (steps > 0 && scaledDecimals !== null) {
         decimals = scaledDecimals + (2 * (steps-1)) + 3;
       }
-      console.log(size,decimals);
 
       return kbn.toFixed(size, decimals) + extArray[steps];
     };
