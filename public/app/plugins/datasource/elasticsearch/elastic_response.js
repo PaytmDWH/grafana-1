@@ -354,7 +354,7 @@ function (_, queryDef) {
           }
         });
       }
-      var groupedOn = Object.keys(cols).reduce(function(a, b){ return cols[a] > cols[b] ? a : b });
+      var groupedOn = Object.keys(cols).reduce(function(a, b){ return cols[a] >= cols[b] ? a : b });
       var dataFinal = {};
       for(var j = 0;j< seriesList[0].datapoints.length;j++){
         Object.keys(seriesList[0].datapoints[j]).forEach(function(key){

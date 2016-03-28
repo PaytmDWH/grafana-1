@@ -205,6 +205,7 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         // remove inner quotes
         luceneQuery = luceneQuery.substr(1, luceneQuery.length - 2);
         luceneQuery = templateSrv.replace(luceneQuery, options.scopedVars);
+        luceneQuery = luceneQuery.replace(" and ", " AND ").replace(" or "," OR ").replace(" not "," NOT ");
         luceneQuery = luceneQuery.replace(new RegExp("[AND |OR |OR NOT |AND NOT ]*[A-Za-z_0-9]*:a123a","gm"),"")
         luceneQuery = luceneQuery.trim();
         if(luceneQuery.startsWith('AND') || luceneQuery.startsWith("OR")){
@@ -279,7 +280,7 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         }
 	if(isCalcMetric){
           isCalcMetric = false;
-          if(res.responses.length < 2){
+          if(res.responses.length < 1){
 
           }else{
             var resArr = []
