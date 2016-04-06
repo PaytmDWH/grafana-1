@@ -5,7 +5,7 @@ import moment from 'moment';
 import angular from 'angular';
 
 export class DashNavCtrl {
-
+  user: any; 
   /** @ngInject */
   constructor($scope, $rootScope, alertSrv, $location, playlistSrv, backendSrv, $timeout) {
 
@@ -25,6 +25,8 @@ export class DashNavCtrl {
       }
     };
 
+    this.user = $scope.contextSrv.user;
+    
     $scope.openEditView = function(editview) {
       var search = _.extend($location.search(), {editview: editview});
       $location.search(search);
@@ -192,6 +194,7 @@ export function dashNavDirective() {
     templateUrl: 'app/features/dashboard/dashnav/dashnav.html',
     controller: DashNavCtrl,
     transclude: true,
+    controllerAs: 'dashctrl',
   };
 }
 

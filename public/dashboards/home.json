@@ -3,9 +3,9 @@
   "title": "Home dashboard",
   "originalTitle": "Home dashboard",
   "tags": [],
-  "style": "dark",
+  "style": "light",
   "timezone": "browser",
-  "editable": true,
+  "editable": false,
   "hideControls": true,
   "sharedCrosshair": false,
   "rows": [
@@ -54,7 +54,7 @@
           "type": "dashlist"
         },
         {
-          "content": "<style>\na {\n    text-decoration: underline;\n}\n</style>\n\n<h3>Useful Links</h3>\n<ul>\n<li><a href=\"https://paytmlabswiki.atlassian.net/wiki/display/MAYAS/Dashboard+Projects\">All Dashboard Requests</a></li>\n<li><a href=\"https://paytmlabswiki.atlassian.net/wiki/display/MAYAS/New+Dashboard+Requirements\">Raise your own dashboard request</a></li>\n<li>Contact <a href=\"emailto:labs.mayassar@paytm.com\">labs.mayassar@paytm.com</a> for more</li>\n<li><a href=\"https://paytmlabswiki.atlassian.net/wiki/display/GANG/Grafana+Dashboards\">Access Control and Requests</a></li>\n</ul>\n\n",
+          "content": "\n<h3>Useful Links</h3>\n<ul>\n<li><a style=\"text-decoration: underline; color:darkblue\"  href=\"https://paytmlabswiki.atlassian.net/wiki/display/MAYAS/Dashboard+Projects\">All Dashboard Requests</a></li>\n<li><a style=\"text-decoration: underline; color:darkblue\"  href=\"https://paytmlabswiki.atlassian.net/wiki/display/MAYAS/New+Dashboard+Requirements\">Raise your own dashboard request</a></li>\n<li>Contact <a style=\"text-decoration: underline; color:darkblue\"  href=\"emailto:labs.mayassar@paytm.com\">labs.mayassar@paytm.com</a> for more</li>\n<li><a style=\"text-decoration: underline; color:darkblue\"  href=\"https://paytmlabswiki.atlassian.net/wiki/display/GANG/Grafana+Dashboards\">Access Control and Requests</a></li>\n</ul>\n\n",
           "editable": true,
           "error": false,
           "id": 5,
@@ -106,6 +106,6 @@
     "list": []
   },
   "schemaVersion": 8,
-  "version": 5,
+  "version": 6,
   "links": []
 }
