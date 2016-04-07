@@ -58,7 +58,7 @@ function (queryDef) {
     esAgg.field = this.timeField;
     esAgg.min_doc_count = settings.min_doc_count || 0;
     esAgg.extended_bounds = {min: "$timeFrom", max: "$timeTo"};
-    esAgg.offset = "+5h";
+    //esAgg.offset = "+5h";
 
     if (esAgg.interval === 'auto') {
       esAgg.interval = "$interval";
@@ -179,7 +179,7 @@ function (queryDef) {
           continue;
         }
       } else {
-        metricAgg = {field: metric.field, precision_threshold: 10000};
+        metricAgg = {field: metric.field, precision_threshold: 100000};
       }
 
       for (var prop in metric.settings) {

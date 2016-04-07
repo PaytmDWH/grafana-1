@@ -248,14 +248,14 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         }
         if(target.timeShiftComparison && target.timeShiftComparison !== ""){
           tempPayload = tempPayload.replace(/\$interval/g, options.interval);
-          tempPayload = tempPayload.replace(/\$timeFrom/g, options.range.from.valueOf() - calcTimeShift(target.timeShiftComparison) + 10.5*3600000);
-          tempPayload = tempPayload.replace(/\$timeTo/g, options.range.to.valueOf() - calcTimeShift(target.timeShiftComparison) + 10.5*3600000);
+          tempPayload = tempPayload.replace(/\$timeFrom/g, options.range.from.valueOf() - calcTimeShift(target.timeShiftComparison) + 5.5*3600000);
+          tempPayload = tempPayload.replace(/\$timeTo/g, options.range.to.valueOf() - calcTimeShift(target.timeShiftComparison) + 5.5*3600000);
           timeShift[i] = calcTimeShift(target.timeShiftComparison);
         }
         else{
           tempPayload = tempPayload.replace(/\$interval/g, options.interval);
-          tempPayload = tempPayload.replace(/\$timeFrom/g, options.range.from.valueOf() + 10.5*3600000);
-          tempPayload = tempPayload.replace(/\$timeTo/g, options.range.to.valueOf() + 10.5*3600000);
+          tempPayload = tempPayload.replace(/\$timeFrom/g, options.range.from.valueOf() + 5.5*3600000);
+          tempPayload = tempPayload.replace(/\$timeTo/g, options.range.to.valueOf() + 5.5*3600000);
         }
         
         payload += tempPayload;
