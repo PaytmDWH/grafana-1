@@ -25,7 +25,7 @@ function (angular, $, _, moment) {
       this.originalTitle = this.title;
       this.tags = data.tags || [];
       this.style = data.style || "dark";
-      this.timezone = data.timezone || 'browser';
+      this.timezone = data.timezone || 'UTC';
       this.editable = data.editable !== false;
       this.hideControls = data.hideControls || false;
       this.sharedCrosshair = data.sharedCrosshair || false;

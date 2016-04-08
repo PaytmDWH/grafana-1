@@ -59,8 +59,8 @@ export class TimePickerCtrl {
 
     this.rangeString = rangeUtil.describeTimeRange(timeRaw);
     this.absolute = {fromJs: time.from.toDate(), toJs: time.to.toDate()};
-    this.tooltip = this.dashboard.formatDate(time.from) + ' <br>to<br>';
-    this.tooltip += this.dashboard.formatDate(time.to);
+    this.tooltip = this.dashboard.formatDate(time.from + 19800000) + ' <br>to<br>';
+    this.tooltip += this.dashboard.formatDate(time.to + 19800000);
 
     // do not update time raw when dropdown is open
     // as auto refresh will reset the from/to input fields
