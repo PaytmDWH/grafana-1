@@ -37,7 +37,7 @@ func GetDashboard(c *middleware.Context) {
 	query := m.GetDashboardQuery{Slug: slug, OrgId: c.OrgId}
 	err := bus.Dispatch(&query)
 	if err != nil {
-		c.JsonApiErr(404, "Dashboard not found", nil)
+		c.JsonApiErr(404, "Dashboard not found,possible reason wrong Organisation", nil)
 		return
 	}
 
@@ -85,7 +85,7 @@ func DeleteDashboard(c *middleware.Context) {
 
 	query := m.GetDashboardQuery{Slug: slug, OrgId: c.OrgId}
 	if err := bus.Dispatch(&query); err != nil {
-		c.JsonApiErr(404, "Dashboard not found", nil)
+		c.JsonApiErr(404, "Dashboard not found,possible reason wrong Organisation	", nil)
 		return
 	}
 
@@ -174,7 +174,7 @@ func GetDashboardFromJsonFile(c *middleware.Context) {
 
 	dashboard := search.GetDashboardFromJsonIndex(file)
 	if dashboard == nil {
-		c.JsonApiErr(404, "Dashboard not found", nil)
+		c.JsonApiErr(404, "Dashboard not found,possible reason wrong Organisation", nil)
 		return
 	}
 
