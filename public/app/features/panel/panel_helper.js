@@ -117,7 +117,8 @@ function (angular, _, $, kbn, dateMath, rangeUtil) {
         format: scope.panel.renderer === 'png' ? 'png' : 'json',
         maxDataPoints: scope.resolution,
         scopedVars: scope.panel.scopedVars,
-        cacheTimeout: scope.panel.cacheTimeout
+        cacheTimeout: scope.panel.cacheTimeout,
+        orgId: scope.contextSrv.user.orgId
       };
 
       this.setTimeQueryStart(scope);

@@ -180,8 +180,13 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
       return angular.toJson(header);
     };
 
+    this.getIndex = function() {
+      var header = this.indexPattern.pattern;
+      return header;
+    };
+
     this.query = function(options) {
-      var payload = "";
+      var payload = {};
       var target;
       var sentTargets = [];
       var isCalcMetric = false;
@@ -202,15 +207,7 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         var queryObj = this.queryBuilder.build(target);
         var esQuery = angular.toJson(queryObj);
         var luceneQuery = angular.toJson(target.query || '*');
-        // remove inner quotes
         luceneQuery = luceneQuery.substr(1, luceneQuery.length - 2);
-        luceneQuery = templateSrv.replace(luceneQuery, options.scopedVars);
-        luceneQuery = luceneQuery.replace(" and ", " AND ").replace(" or "," OR ").replace(" not "," NOT ");
-        luceneQuery = luceneQuery.replace(new RegExp("[AND |OR |OR NOT |AND NOT ]*[A-Za-z_0-9]*:a123a","gm"),"")
-        luceneQuery = luceneQuery.trim();
-        if(luceneQuery.startsWith('AND') || luceneQuery.startsWith("OR")){
-          luceneQuery = luceneQuery.substr(luceneQuery.indexOf(" ") + 1);
-        }
         if(luceneQuery === ""){
           luceneQuery = "*"
         }
@@ -218,9 +215,9 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
 
         var searchType = queryObj.size === 0 ? 'count' : 'query_then_fetch';
         var header = this.getQueryHeader(searchType, options.range.from, options.range.to);
-        //payload +=  header + '\n';
+        console.log(header);
+        header = "";
 
-        //payload += esQuery + '\n';
         var tempPayload=""
         if(target.metrics){
           if(target.metrics[0].type === 'calc_metric') {
@@ -239,26 +236,37 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
           }
           else if(options.targets[0].editQueryMode === true){
             tempPayload += options.targets[0].rawQuery.replace(/(\r\n|\n|\r)/gm,"") + '\n';
-            tempPayload +=  header + '\n';
           }
           else{
-            tempPayload +=  header + '\n';
-            tempPayload += esQuery + '\n';
+            tempPayload += esQuery;
           }
         }
+        var startTime = 0;
+        var endTime = 0;
+        var interval = "";
         if(target.timeShiftComparison && target.timeShiftComparison !== ""){
-          tempPayload = tempPayload.replace(/\$interval/g, options.interval);
-          tempPayload = tempPayload.replace(/\$timeFrom/g, options.range.from.valueOf() - calcTimeShift(target.timeShiftComparison) + 5.5*3600000);
-          tempPayload = tempPayload.replace(/\$timeTo/g, options.range.to.valueOf() - calcTimeShift(target.timeShiftComparison) + 5.5*3600000);
+          interval = options.interval;
+          startTime = options.range.from.valueOf() - calcTimeShift(target.timeShiftComparison) + 5.5*3600000;
+          endTime = options.range.to.valueOf() - calcTimeShift(target.timeShiftComparison) + 5.5*3600000
           timeShift[i] = calcTimeShift(target.timeShiftComparison);
         }
         else{
-          tempPayload = tempPayload.replace(/\$interval/g, options.interval);
-          tempPayload = tempPayload.replace(/\$timeFrom/g, options.range.from.valueOf() + 5.5*3600000);
-          tempPayload = tempPayload.replace(/\$timeTo/g, options.range.to.valueOf() + 5.5*3600000);
+          interval = options.interval;
+          startTime = options.range.from.valueOf() + 5.5*3600000;
+          endTime = options.range.to.valueOf() + 5.5*3600000;
         }
-        
-        payload += tempPayload;
+        var x = {};
+        if(target.metrics[0].type !== 'calc_metric'){
+          x.datasource = this.indexPattern.pattern;
+          x.query = tempPayload;
+          x.interval = interval;
+          x.startTime = startTime;
+          x.endTime = endTime;
+          x.variables = templateSrv._values;
+          x.orgId = options.orgId;
+          payload[String.fromCharCode(97 + i)] = x
+          
+        }
         sentTargets.push(target);
       }
 
@@ -266,9 +274,10 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         return $q.when([]);
       }
 
-      payload = templateSrv.replace(payload, options.scopedVars);
+      payload = JSON.stringify(payload);
 
       return this._post('_msearch', payload).then(function(res) {
+        console.log(res);
         for (i=0;i<res.responses.length;i++){
           if(timeShift.hasOwnProperty(i) && options.targets[i].bucketAggs[0].type === "date_histogram"){
             var tmp = res.responses[i].aggregations[2].buckets;
@@ -278,7 +287,7 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
             });
           }
         }
-	if(isCalcMetric){
+  if(isCalcMetric){
           isCalcMetric = false;
           if(res.responses.length < 1){
 
@@ -403,13 +412,20 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
       var range = timeSrv.timeRange();
       var header = this.getQueryHeader('count', range.from, range.to);
       var esQuery = angular.toJson(this.queryBuilder.getTermsQuery(queryDef));
-
+      
       esQuery = esQuery.replace("$lucene_query", queryDef.query || '*');
-      esQuery = esQuery.replace(/\$timeFrom/g, range.from.valueOf());
-      esQuery = esQuery.replace(/\$timeTo/g, range.to.valueOf());
-      esQuery = header + '\n' + esQuery + '\n';
 
-      return this._post('/_msearch?search_type=count', esQuery).then(function(res) {
+      var x={};
+      x.datasource = this.indexPattern.pattern;
+      x.query = esQuery;
+      x.startTime = range.from.valueOf();
+      x.endTime = range.to.valueOf();
+      var payload = {'a':x};
+      //esQuery = esQuery.replace(/\$timeFrom/g, range.from.valueOf());
+      //esQuery = esQuery.replace(/\$timeTo/g, range.to.valueOf());
+      //esQuery = header + '\n' + esQuery + '\n';
+
+      return this._post('/_msearch?search_type=count', payload).then(function(res) {
         var buckets = res.responses[0].aggregations["1"].buckets;
         return _.map(buckets, function(bucket) {
           return {text: bucket.key, value: bucket.key};
