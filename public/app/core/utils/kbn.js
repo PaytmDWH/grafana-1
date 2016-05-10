@@ -282,12 +282,14 @@ function($, _) {
       if(Math.abs(size) >= 1000){
         steps ++;
         size /= 1000;
+
+        while (Math.abs(size) >= factor) {
+          steps++;
+          if (steps >= limit) { steps--;break; }
+          size /= factor;
+        }
       }
-      while (Math.abs(size) >= factor) {
-        steps++;
-        if (steps >= limit) { steps--;break; }
-        size /= factor;
-      }
+      
       if (steps > 0 && scaledDecimals !== null) {
         decimals = scaledDecimals + (2 * (steps-1)) + 3;
       }
