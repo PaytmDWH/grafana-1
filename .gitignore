@@ -34,3 +34,5 @@ profile.cov
 /grafana
 .notouch
 conf/defaults.ini
+
+conf/defaults.ini
