@@ -76,18 +76,6 @@ define([
         controller : 'OrgApiKeysCtrl',
         resolve: loadOrgBundle,
       })
-      .when('/profile', {
-        templateUrl: 'app/features/profile/partials/profile.html',
-        controller : 'ProfileCtrl',
-      })
-      .when('/profile/password', {
-        templateUrl: 'app/features/profile/partials/password.html',
-        controller : 'ChangePasswordCtrl',
-      })
-      .when('/profile/select-org', {
-        templateUrl: 'app/features/profile/partials/select_org.html',
-        controller : 'SelectOrgCtrl',
-      })
       .when('/admin/settings', {
         templateUrl: 'app/features/admin/partials/settings.html',
         controller : 'AdminSettingsCtrl',
@@ -115,34 +103,6 @@ define([
       .when('/login', {
         templateUrl: 'app/partials/login.html',
         controller : 'LoginCtrl',
-      })
-      .when('/invite/:code', {
-        templateUrl: 'app/partials/signup_invited.html',
-        controller : 'InvitedCtrl',
-      })
-      .when('/signup', {
-        templateUrl: 'app/partials/signup_step2.html',
-        controller : 'SignUpCtrl',
-      })
-      .when('/user/password/send-reset-email', {
-        templateUrl: 'app/partials/reset_password.html',
-        controller : 'ResetPasswordCtrl',
-      })
-      .when('/user/password/reset', {
-        templateUrl: 'app/partials/reset_password.html',
-        controller : 'ResetPasswordCtrl',
-      })
-      .when('/apps', {
-        templateUrl: 'app/features/apps/partials/list.html',
-        controller: 'AppListCtrl',
-        controllerAs: 'ctrl',
-        resolve: loadAppsBundle,
-      })
-      .when('/apps/edit/:appId', {
-        templateUrl: 'app/features/apps/partials/edit.html',
-        controller: 'AppEditCtrl',
-        controllerAs: 'ctrl',
-        resolve: loadAppsBundle,
       })
       .when('/global-alerts', {
         templateUrl: 'app/features/dashboard/partials/globalAlerts.html',

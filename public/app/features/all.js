@@ -6,8 +6,5 @@ define([
   './dashboard/all',
   './playlist/all',
   './panel/all',
-  './profile/profileCtrl',
-  './profile/changePasswordCtrl',
-  './profile/selectOrgCtrl',
   './admin/all',
 ], function () {});

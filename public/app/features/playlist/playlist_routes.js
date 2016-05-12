@@ -10,18 +10,6 @@ function (angular) {
 
   module.config(function($routeProvider) {
     $routeProvider
-      .when('/playlists', {
-        templateUrl: 'app/features/playlist/partials/playlists.html',
-        controller : 'PlaylistsCtrl'
-      })
-      .when('/playlists/create', {
-        templateUrl: 'app/features/playlist/partials/playlist.html',
-        controller : 'PlaylistEditCtrl'
-      })
-      .when('/playlists/edit/:id', {
-        templateUrl: 'app/features/playlist/partials/playlist.html',
-        controller : 'PlaylistEditCtrl'
-      })
       .when('/playlists/play/:id', {
         resolve: {
           init: function(playlistSrv, $route) {
