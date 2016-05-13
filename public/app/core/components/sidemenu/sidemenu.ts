@@ -48,7 +48,7 @@ export class SideMenuCtrl {
      this.orgMenu.push({text: "Sign out", url: this.getUrl("/logout"), target: "_self"});
    }
 
-   if (this.contextSrv.hasRole('Admin')) {
+  /* if (this.contextSrv.hasRole('Admin')) {
      this.orgMenu.push({section: this.user.orgName, cssClass: 'dropdown-menu-title'});
      this.orgMenu.push({
        text: "Preferences",
@@ -63,6 +63,7 @@ export class SideMenuCtrl {
        url: this.getUrl("/org/apikeys"),
      });
    }
+   */
 
    this.orgMenu.push({cssClass: "divider"});
 

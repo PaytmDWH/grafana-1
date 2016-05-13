@@ -56,49 +56,13 @@ define([
         controller : 'DataSourceEditCtrl',
         resolve: loadOrgBundle,
       })
-      .when('/org', {
-        templateUrl: 'app/features/org/partials/orgDetails.html',
-        controller : 'OrgDetailsCtrl',
-        resolve: loadOrgBundle,
-      })
-      .when('/org/new', {
-        templateUrl: 'app/features/org/partials/newOrg.html',
-        controller : 'NewOrgCtrl',
-        resolve: loadOrgBundle,
-      })
-      .when('/org/users', {
-        templateUrl: 'app/features/org/partials/orgUsers.html',
-        controller : 'OrgUsersCtrl',
-        resolve: loadOrgBundle,
-      })
-      .when('/org/apikeys', {
-        templateUrl: 'app/features/org/partials/orgApiKeys.html',
-        controller : 'OrgApiKeysCtrl',
-        resolve: loadOrgBundle,
-      })
       .when('/admin/settings', {
         templateUrl: 'app/features/admin/partials/settings.html',
         controller : 'AdminSettingsCtrl',
       })
-      .when('/admin/users', {
-        templateUrl: 'app/features/admin/partials/users.html',
-        controller : 'AdminListUsersCtrl',
-      })
-      .when('/admin/users/create', {
-        templateUrl: 'app/features/admin/partials/new_user.html',
-        controller : 'AdminEditUserCtrl',
-      })
-      .when('/admin/users/edit/:id', {
-        templateUrl: 'app/features/admin/partials/edit_user.html',
-        controller : 'AdminEditUserCtrl',
-      })
-      .when('/admin/orgs', {
+     .when('/admin/orgs', {
         templateUrl: 'app/features/admin/partials/orgs.html',
         controller : 'AdminListOrgsCtrl',
-      })
-      .when('/admin/orgs/edit/:id', {
-        templateUrl: 'app/features/admin/partials/edit_org.html',
-        controller : 'AdminEditOrgCtrl',
       })
       .when('/login', {
         templateUrl: 'app/partials/login.html',
