@@ -31,6 +31,7 @@ export class TablePanelEditorCtrl {
       {text: 'YYYY-MM-DD HH:mm:ss', value: 'YYYY-MM-DD HH:mm:ss'},
       {text: 'MM/DD/YY h:mm:ss a', value: 'MM/DD/YY h:mm:ss a'},
       {text: 'MMMM D, YYYY LT',  value: 'MMMM D, YYYY LT'},
+      {text: 'YYYY-MM-DD', value: 'YYYY-MM-DD'},
     ];
 
     $scope.addColumnSegment = uiSegmentSrv.newPlusButton();
