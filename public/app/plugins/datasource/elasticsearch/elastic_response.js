@@ -247,7 +247,7 @@ function (_, queryDef) {
     }
   };
 
-  ElasticResponse.prototype.processHits = function(hits, seriesList) {
+  ElasticResponse.prototype.processHits = function(hits, seriesList, aliasDictionary) {
     var series = {target: 'docs', type: 'docs', datapoints: [], total: hits.total};
     var propName, hit, doc, i;
 
@@ -261,7 +261,12 @@ function (_, queryDef) {
 
       if (hit._source) {
         for (propName in hit._source) {
-          doc[propName] = hit._source[propName];
+          if(propName in aliasDictionary){
+            doc[aliasDictionary[propName]] = hit._source[propName];
+          }
+          else{
+            doc[propName] = hit._source[propName];
+          }
         }
       }
 
@@ -301,7 +306,7 @@ function (_, queryDef) {
       }
 
       if (response.hits && response.hits.hits.length > 0) {
-        this.processHits(response.hits, seriesList);
+        this.processHits(response.hits, seriesList,this.targets[i].metrics[0].aliasDic);
       }
 
       if (response.aggregations) {

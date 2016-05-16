@@ -223,6 +223,17 @@
 			</ul>
 			<div class="clearfix"></div>
 		</div>
+		<div ng-if="agg.type === 'raw_document'">
+			<ul class="tight-form-list">
+				<li class="tight-form-item" style="width: 100px">
+						Aliases
+					</li>
+					<li class="tight-form-item last">
+						<input type="text" class="input-medium tight-form-input last" empty-to-null ng-model="agg.aliases" ng-blur="onChangeInternal()" spellcheck='false' placeholder="oldName:newName">
+					</li>
+			</ul>
+			<div class="clearfix"></div>
+		</div>
 	</div>
 </div>
 

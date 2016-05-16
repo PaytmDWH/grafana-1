@@ -111,6 +111,18 @@ function (angular, _, queryDef) {
         case 'raw_document': {
           $scope.target.metrics = [$scope.agg];
           $scope.target.bucketAggs = [];
+          $scope.settingsLinkText = "Options";
+          if($scope.agg.aliases && $scope.agg.aliases !== ""){
+            $scope.agg.aliasDic = {}
+            var temp1 = $scope.agg.aliases.split(',')
+            for (var i=0; i<temp1.length;i++){
+              var temp2 = temp1[i];
+              $scope.agg.aliasDic[temp2.split(':')[0]] = temp2.split(':')[1];
+            }
+          }
+          else{
+            $scope.agg.aliasDic = {};
+          }
           break;
         }
 	case 'calc_metric' : {
@@ -268,7 +280,7 @@ function (angular, _, queryDef) {
       
       $scope.validateModel();
       $scope.onChangeInternal();
-    }
+    };
 
     $scope.calculatedMetricOperations = function() {
       var calc_metric_formula = $scope.agg.formula;
@@ -280,7 +292,7 @@ function (angular, _, queryDef) {
       console.log(calc_metric_formula);
       $scope.validateModel();
       $scope.onChangeInternal();
-    }
+    };
 	
     $scope.init();
 
