@@ -247,7 +247,7 @@ function (_, queryDef) {
     }
   };
 
-  ElasticResponse.prototype.processHits = function(hits, seriesList, aliasDictionary) {
+  ElasticResponse.prototype.processHits = function(hits, seriesList, aliasDictionary={}) {
     var series = {target: 'docs', type: 'docs', datapoints: [], total: hits.total};
     var propName, hit, doc, i;
 
