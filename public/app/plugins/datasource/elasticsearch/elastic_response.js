@@ -3,7 +3,7 @@ define([
   "./query_def",
   "./time",
 ],
-function (_, queryDef) {
+function (_, queryDef,time) {
   'use strict';
 
   function ElasticResponse(targets, response) {
@@ -19,7 +19,7 @@ function (_, queryDef) {
       if (metric.hide) {
         continue;
       }
-      var timeShift = timeZoneShift()*-1;
+      var timeShift = time.timeZoneShift()*-1;
       switch(metric.type) {
         case 'count': {
           newSeries = { datapoints: [], metric: 'count', props: props};

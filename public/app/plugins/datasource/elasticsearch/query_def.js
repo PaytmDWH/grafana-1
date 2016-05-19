@@ -100,6 +100,13 @@ function (_) {
       ]
     },
 
+    comparisonOptions: [
+      {text: 'None', value: 'none'},
+      {text: 'WTD', value: 'wtd'},
+      {text: 'MTD', value: 'mtd'},
+      {text: 'YTD', value: 'ytd'}
+    ],
+
     getMetricAggTypes: function(esVersion) {
       return _.filter(this.metricAggTypes, function(f) {
         if (f.minVersion) {

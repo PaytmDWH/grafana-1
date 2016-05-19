@@ -8,13 +8,14 @@ var deepCopy = function(obj) {
   }
   if (typeof obj === 'object') {
     var arrOut = {}, j;
-    for ( j in obj ) {
+    for ( j
+     in obj ) {
       arrOut[j] = arguments.callee(obj[j]);
     }
     return arrOut;
   }
   return obj;
-}
+};
 
 'use strict';
 
@@ -31,7 +32,6 @@ define([
 ],
 function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticResponse) {
   'use strict';
-
   /** @ngInject */
   function ElasticDatasource(instanceSettings, $q, backendSrv, templateSrv, timeSrv) {
     this.basicAuth = instanceSettings.basicAuth;
@@ -189,6 +189,9 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
       var calcQueries = [];
       var typeDate = [];
       var timeShift = {};
+      var mtdQueryList = [];
+      var mtdTargetList = [];
+      var mtdOffset = 0;
       for (var i = 0; i < options.targets.length; i++) {
         target = options.targets[i];
         if(target.metrics){
@@ -206,14 +209,14 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         luceneQuery = luceneQuery.substr(1, luceneQuery.length - 2);
         luceneQuery = templateSrv.replace(luceneQuery, options.scopedVars);
         luceneQuery = luceneQuery.replace(" and ", " AND ").replace(" or "," OR ").replace(" not "," NOT ");
-        luceneQuery = luceneQuery.replace(new RegExp("[AND |OR |OR NOT |AND NOT ]*[A-Za-z_0-9]*:a123a","gm"),"")
+        luceneQuery = luceneQuery.replace(new RegExp("[AND |OR |OR NOT |AND NOT ]*[A-Za-z_0-9]*:a123a","gm"),"");
         luceneQuery = luceneQuery.trim();
         if(luceneQuery.startsWith('AND') || luceneQuery.startsWith("OR")){
           luceneQuery = luceneQuery.substr(luceneQuery.indexOf(" ") + 1);
         }
         if(luceneQuery === ""){
           luceneQuery = "*"
-        }
+        };
         esQuery = esQuery.replace("$lucene_query", luceneQuery);
 
         var searchType = queryObj.size === 0 ? 'count' : 'query_then_fetch';
@@ -221,21 +224,33 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         //payload +=  header + '\n';
 
         //payload += esQuery + '\n';
-        var tempPayload=""
+        var tempPayload="";
         if(target.metrics){
           if(target.metrics[0].type === 'calc_metric') {
+            for(var q=0;q<mtdTargetList.length;q++){
+
+              mtdQueryList[q] = mtdQueryList[q].replace(/\$interval/g, "10000d");
+              mtdQueryList[q] = mtdQueryList[q].replace(/\$timeFrom/g, getMonthStartTime(options.range.to.valueOf()/1000));
+              mtdQueryList[q] = mtdQueryList[q].replace(/\$timeTo/g, options.range.to.valueOf() + 5.5*3600000);
+              sentTargets.push(mtdTargetList[q]);
+              payload += mtdQueryList[q];
+            }
+            mtdOffset = mtdQueryList.length;
+            mtdQueryList = [];
+            mtdTargetList = [];
             tempPayload += "";
             if(!target.metrics[0].formula || target.metrics[0].formula === ""){
               target.metrics[0].formula = "query1 + query2";
             }
             formulas.push(target.metrics[0].formula);
-            calcQueries.push(i);
+            calcQueries.push(i+mtdOffset);
             if(target.bucketAggs[0].type === "date_histogram"){
               typeDate.push(true);
             }
             else{
               typeDate.push(false);
             }
+
           }
           else if(options.targets[0].editQueryMode === true){
             tempPayload += options.targets[0].rawQuery.replace(/(\r\n|\n|\r)/gm,"") + '\n';
@@ -245,6 +260,14 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
             tempPayload +=  header + '\n';
             tempPayload += esQuery + '\n';
           }
+        }
+        if(target.mtd === true){
+          var tempTarget = deepCopy(target);
+          tempTarget.alias = tempTarget.alias + ' MTD';
+          tempTarget.isMTD = true;
+          tempTarget.isMTDOf = i;
+          mtdQueryList.push(tempPayload);
+          mtdTargetList.push(tempTarget);
         }
         if(target.timeShiftComparison && target.timeShiftComparison !== ""){
           tempPayload = tempPayload.replace(/\$interval/g, options.interval);
@@ -262,6 +285,16 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         sentTargets.push(target);
       }
 
+
+      for(var l=0;l<mtdTargetList.length;l++){
+
+        mtdQueryList[l] = mtdQueryList[l].replace(/\$interval/g, "10000d");
+        mtdQueryList[l] = mtdQueryList[l].replace(/\$timeFrom/g, getMonthStartTime(options.range.to.valueOf()/1000));
+        mtdQueryList[l] = mtdQueryList[l].replace(/\$timeTo/g, options.range.to.valueOf() + 5.5*3600000);
+        sentTargets.push(mtdTargetList[l]);
+        payload += mtdQueryList[l];
+      }
+
       if (sentTargets.length === 0) {
         return $q.when([]);
       }
@@ -277,13 +310,18 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
               tmp[key]['key_as_string'] = tmp[key]['key'].toString();
             });
           }
+          if(sentTargets[i].isMTD){
+            var tempResponse = res.responses[sentTargets[i].isMTDOf].aggregations[2].buckets;
+            res.responses[i].aggregations[2].buckets[0].key = tempResponse[tempResponse.length-1].key;
+            res.responses[i].aggregations[2].buckets[0].key_as_string = tempResponse[tempResponse.length-1].key_as_string;
+          }
         }
 	if(isCalcMetric){
           isCalcMetric = false;
           if(res.responses.length < 1){
 
           }else{
-            var resArr = []
+            var resArr = [];
             for (i=0;i<res.responses.length;i++){
               if(calcQueries.indexOf(i)>=0){
                 continue;
@@ -313,7 +351,7 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
               });
             resArr.push(customMetric);
             }
-            var resMap = {}
+            var resMap = {};
             for (i=0;i<resArr.length;i++){
               Object.keys(resArr[i]).forEach(function(key){
                 if(resMap[key]){
@@ -330,9 +368,9 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
               var formula = formulas[k];
               for(i=res.responses.length;i>0;i--){
                 var re = new RegExp("query"+(i), 'g');
-                formula = formula.replace(re,"resMap[n]["+(i-1)+"]")
-              };
-              var finalMap = {}
+                formula = formula.replace(re,"resMap[n]["+(i-1)+"]");
+              }
+              var finalMap = {};
               for (var n in resMap) {
                 if (resMap.hasOwnProperty(n) && resMap[n].length === resArr.length) {
                   finalMap[n] = eval(formula);
@@ -421,13 +459,13 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
       query = templateSrv.replace(query);
       query = angular.fromJson(query);
       if(query.query){
-        query.query = query.query.replace(new RegExp("[AND |OR |OR NOT |AND NOT ]*[A-Za-z_0-9]*:a123a","gm"),"")
+        query.query = query.query.replace(new RegExp("[AND |OR |OR NOT |AND NOT ]*[A-Za-z_0-9]*:a123a","gm"),"");
         query.query = query.query.trim();
         if(query.query.startsWith('AND') || query.query.startsWith("OR")){
           query.query = query.query.substr(query.query.indexOf(" ") + 1);
         }
         if(query.query === ""){
-          query.query = "*"
+          query.query = "*";
         }
       }
       if (!query) {
