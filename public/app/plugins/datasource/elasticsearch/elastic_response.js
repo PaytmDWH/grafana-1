@@ -304,7 +304,9 @@ function (_, queryDef,time) {
       if (response.error) {
         throw { message: response.error };
       }
-
+      if(!this.targets[i].metrics[0].aliasDic){
+        this.targets[i].metrics[0].aliasDic = {};
+      }
       if (response.hits && response.hits.hits.length > 0) {
         this.processHits(response.hits, seriesList,this.targets[i].metrics[0].aliasDic);
       }
