@@ -10,12 +10,7 @@ class MixedDatasource {
   }
 
   query(options) {
-    var sets = {};
-    var tg = options.targets;
-    if (tg.length > 0){
-      sets[tg[0].datasource] = tg;
-    }
-
+    var sets = _.groupBy(options.targets, 'datasource');
     var promises = _.map(sets, targets => {
       var dsName = targets[0].datasource;
       if (dsName === '-- Mixed --') {
