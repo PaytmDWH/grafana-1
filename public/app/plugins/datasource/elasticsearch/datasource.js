@@ -180,6 +180,11 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
       return angular.toJson(header);
     };
 
+    var dsToIntervalMap = {};
+    this.setDsToIntervalMap = function(map){
+     dsToIntervalMap = map;
+    }
+
     this.query = function(options) {
       var payload = "";
       var target;
@@ -201,6 +206,9 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
       for (var i = 0; i < options.targets.length; i++) {
         target = options.targets[i];
         if (target.hide) {continue;}
+
+        if(Object.keys(dsToIntervalMap).length > 0)
+           options.interval = dsToIntervalMap[target.datasource];
 
         var queryObj = this.queryBuilder.build(target);
         var esQuery = angular.toJson(queryObj);

@@ -16,6 +16,13 @@ class MixedDatasource {
       sets[tg[0].datasource] = tg;
     }
 
+    var dstoIntervalMap = {};
+    var i = 0;
+    for (; i < tg.length; i++) {
+      var name = tg[i].datasource;
+      dstoIntervalMap[name] = this.datasourceSrv.datasources[name].interval;
+    }
+
     var promises = _.map(sets, targets => {
       var dsName = targets[0].datasource;
       if (dsName === '-- Mixed --') {
@@ -25,6 +32,7 @@ class MixedDatasource {
       return this.datasourceSrv.get(dsName).then(function(ds) {
         var opt = angular.copy(options);
         opt.targets = targets;
+        ds.setDsToIntervalMap(dstoIntervalMap);
         return ds.query(opt);
       });
     });
