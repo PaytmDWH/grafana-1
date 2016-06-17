@@ -174,6 +174,12 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
       });
     };
 
+    this.getMixedQueryHeader = function(searchType, index) {
+      var header = {search_type: searchType, "ignore_unavailable": true};
+      header.index = index;
+      return angular.toJson(header);
+    };
+
     this.getQueryHeader = function(searchType, timeFrom, timeTo) {
       var header = {search_type: searchType, "ignore_unavailable": true};
       header.index = this.indexPattern.getIndexList(timeFrom, timeTo);
@@ -181,8 +187,10 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
     };
 
     var dsToIntervalMap = {};
-    this.setDsToIntervalMap = function(map){
-     dsToIntervalMap = map;
+    var dsToIndexnameMap = {};
+    this.setMixedDatasorceMap = function(intervalmap, indexmap){
+     dsToIntervalMap = intervalmap;
+     dsToIndexnameMap = indexmap;
     }
 
     this.query = function(options) {
@@ -228,7 +236,13 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         esQuery = esQuery.replace("$lucene_query", luceneQuery);
 
         var searchType = queryObj.size === 0 ? 'count' : 'query_then_fetch';
-        var header = this.getQueryHeader(searchType, options.range.from, options.range.to);
+
+        var header = "";
+        if(Object.keys(dsToIndexnameMap).length > 0){
+          header = this.getMixedQueryHeader(searchType, dsToIndexnameMap[target.datasource]);
+        }else{
+          header = this.getQueryHeader(searchType, options.range.from, options.range.to);
+        }
         //payload +=  header + '\n';
 
         //payload += esQuery + '\n';
