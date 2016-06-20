@@ -174,11 +174,24 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
       });
     };
 
+    this.getMixedQueryHeader = function(searchType, index) {
+      var header = {search_type: searchType, "ignore_unavailable": true};
+      header.index = index;
+      return angular.toJson(header);
+    };
+
     this.getQueryHeader = function(searchType, timeFrom, timeTo) {
       var header = {search_type: searchType, "ignore_unavailable": true};
       header.index = this.indexPattern.getIndexList(timeFrom, timeTo);
       return angular.toJson(header);
     };
+
+    var dsToIntervalMap = {};
+    var dsToIndexnameMap = {};
+    this.setMixedDatasorceMap = function(intervalmap, indexmap){
+     dsToIntervalMap = intervalmap;
+     dsToIndexnameMap = indexmap;
+    }
 
     this.query = function(options) {
       var payload = "";
@@ -202,6 +215,9 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         target = options.targets[i];
         if (target.hide) {continue;}
 
+        if(Object.keys(dsToIntervalMap).length > 0)
+           options.interval = dsToIntervalMap[target.datasource];
+
         var queryObj = this.queryBuilder.build(target);
         var esQuery = angular.toJson(queryObj);
         var luceneQuery = angular.toJson(target.query || '*');
@@ -220,7 +236,13 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         esQuery = esQuery.replace("$lucene_query", luceneQuery);
 
         var searchType = queryObj.size === 0 ? 'count' : 'query_then_fetch';
-        var header = this.getQueryHeader(searchType, options.range.from, options.range.to);
+
+        var header = "";
+        if(Object.keys(dsToIndexnameMap).length > 0){
+          header = this.getMixedQueryHeader(searchType, dsToIndexnameMap[target.datasource]);
+        }else{
+          header = this.getQueryHeader(searchType, options.range.from, options.range.to);
+        }
         //payload +=  header + '\n';
 
         //payload += esQuery + '\n';
