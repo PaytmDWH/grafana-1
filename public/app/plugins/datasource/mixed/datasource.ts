@@ -18,11 +18,13 @@ class MixedDatasource {
 
     var dstoIntervalMap = {};
     var dsToIndexnameMap = {};
+    var dsToTimeFieldMap = {};
     var i = 0;
     for (; i < tg.length; i++) {
       var name = tg[i].datasource;
       dstoIntervalMap[name] = this.datasourceSrv.datasources[name].interval;
       dsToIndexnameMap[name] = this.datasourceSrv.datasources[name].index;
+      dsToTimeFieldMap[name] = this.datasourceSrv.datasources[name].timeField;
     }
 
     var promises = _.map(sets, targets => {
@@ -34,7 +36,7 @@ class MixedDatasource {
       return this.datasourceSrv.get(dsName).then(function(ds) {
         var opt = angular.copy(options);
         opt.targets = targets;
-        ds.setMixedDatasorceMap(dstoIntervalMap, dsToIndexnameMap);
+        ds.setMixedDatasorceMap(dstoIntervalMap, dsToIndexnameMap, dsToTimeFieldMap);
         return ds.query(opt);
       });
     });
