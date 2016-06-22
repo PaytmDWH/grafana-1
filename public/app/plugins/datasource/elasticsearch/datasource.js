@@ -8,8 +8,7 @@ var deepCopy = function(obj) {
   }
   if (typeof obj === 'object') {
     var arrOut = {}, j;
-    for ( j
-     in obj ) {
+    for ( j in obj ) {
       arrOut[j] = arguments.callee(obj[j]);
     }
     return arrOut;
@@ -356,6 +355,7 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
               var customMetric = {};
               Object.keys(tmp).forEach(function(key){
                 var l = 1;
+                var metricValue = 0;
                 while(l<51){
                   if(tmp[key].hasOwnProperty(l)){
                     break;
@@ -363,10 +363,10 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
                   l++;
                 }
                 if(l>50){
-                  var metricValue = tmp[key].doc_count;
+                  metricValue = tmp[key].doc_count;
                 }
                 else{
-                  var metricValue = tmp[key][l].value;
+                  metricValue = tmp[key][l].value;
                 }
                 if(customMetric[tmp[key].key]){
                   customMetric[tmp[key].key] += metricValue;
@@ -378,8 +378,17 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
             resArr.push(customMetric);
             }
             var resMap = {};
+            var set = new Set();
             for (i=0;i<resArr.length;i++){
               Object.keys(resArr[i]).forEach(function(key){
+                set.add(key);
+              });
+            }
+            for (i=0;i<resArr.length;i++){
+              for(var key of set) {
+                if(!resArr[i].hasOwnProperty(key)){
+                  resArr[i][key]=0;
+                }
                 if(resMap[key]){
                   resMap[key].push(resArr[i][key]);
                 }
@@ -388,7 +397,7 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
                   arr[0]=resArr[i][key];
                   resMap[key] = arr;
                 }
-              });
+              };
             }
             for(var k=0;k<formulas.length;k++){
               var formula = formulas[k];
