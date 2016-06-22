@@ -188,9 +188,11 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
 
     var dsToIntervalMap = {};
     var dsToIndexnameMap = {};
-    this.setMixedDatasorceMap = function(intervalmap, indexmap){
+    var dsToTimeFieldMap = {};
+    this.setMixedDatasorceMap = function(intervalmap, indexmap, timefieldmap){
      dsToIntervalMap = intervalmap;
      dsToIndexnameMap = indexmap;
+     dsToTimeFieldMap = timefieldmap;
     }
 
     this.query = function(options) {
@@ -215,8 +217,10 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         target = options.targets[i];
         if (target.hide) {continue;}
 
-        if(Object.keys(dsToIntervalMap).length > 0)
+        if(Object.keys(dsToIntervalMap).length > 0){
            options.interval = dsToIntervalMap[target.datasource];
+           this.queryBuilder.timeField = dsToTimeFieldMap[target.datasource];
+        }
 
         var queryObj = this.queryBuilder.build(target);
         var esQuery = angular.toJson(queryObj);
