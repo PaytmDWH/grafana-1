@@ -22,9 +22,23 @@ class MixedDatasource {
     var i = 0;
     for (; i < tg.length; i++) {
       var name = tg[i].datasource;
-      dstoIntervalMap[name] = this.datasourceSrv.datasources[name].interval;
-      dsToIndexnameMap[name] = this.datasourceSrv.datasources[name].index;
-      dsToTimeFieldMap[name] = this.datasourceSrv.datasources[name].timeField;
+      if (this.datasourceSrv.datasources[name] === undefined) {
+        var ansource;
+        var ansources = this.datasourceSrv.getAnnotationSources();
+        var len = ansources.length;
+        for (var i = 0; i < len; i++) {
+          if (ansources[i].name === name){
+            dstoIntervalMap[name] = ansources[i].jsonData.timeInterval;
+            dsToIndexnameMap[name] = ansources[i].index;
+            dsToTimeFieldMap[name] = ansources[i].jsonData.timeField;
+            break;
+          }
+        }
+      }else{
+        dstoIntervalMap[name] = this.datasourceSrv.datasources[name].interval;
+        dsToIndexnameMap[name] = this.datasourceSrv.datasources[name].index;
+        dsToTimeFieldMap[name] = this.datasourceSrv.datasources[name].timeField;
+      }
     }
 
     var promises = _.map(sets, targets => {
