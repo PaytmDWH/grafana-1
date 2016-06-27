@@ -46,9 +46,7 @@ export class TableRenderer {
       return v => {
         if (_.isArray(v)) { v = v[0]; }
         var date = moment(v);
-        if (this.timezone === 'utc') {
-          date = date.utc();
-        }
+        date = date.utc();
         return date.format(style.dateFormat);
       };
     }
