@@ -19,18 +19,17 @@ class MixedDatasource {
     var dstoIntervalMap = {};
     var dsToIndexnameMap = {};
     var dsToTimeFieldMap = {};
-    var i = 0;
-    for (; i < tg.length; i++) {
+    for (var i = 0 ; i < tg.length; i++) {
       var name = tg[i].datasource;
       if (this.datasourceSrv.datasources[name] === undefined) {
         var ansource;
         var ansources = this.datasourceSrv.getAnnotationSources();
         var len = ansources.length;
-        for (var i = 0; i < len; i++) {
-          if (ansources[i].name === name){
-            dstoIntervalMap[name] = ansources[i].jsonData.timeInterval;
-            dsToIndexnameMap[name] = ansources[i].index;
-            dsToTimeFieldMap[name] = ansources[i].jsonData.timeField;
+        for (var j = 0; j < len; j++) {
+          if (ansources[j].name === name){
+            dstoIntervalMap[name] = ansources[j].jsonData.timeInterval;
+            dsToIndexnameMap[name] = ansources[j].index;
+            dsToTimeFieldMap[name] = ansources[j].jsonData.timeField;
             break;
           }
         }
