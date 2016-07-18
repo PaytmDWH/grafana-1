@@ -363,20 +363,33 @@ function (_, queryDef,time) {
       }
       var groupedOn = Object.keys(cols).reduce(function(a, b){ return cols[a] >= cols[b] ? a : b });
       var dataFinal = {};
+      var initTarget = this.targets[0]
       for(var j = 0;j< seriesList[0].datapoints.length;j++){
         Object.keys(seriesList[0].datapoints[j]).forEach(function(key){
          var k = key.toLowerCase();
          if (Object.prototype.hasOwnProperty.call(aliasDic, k)){
            k = aliasDic[k];
          }
-         if (Object.prototype.hasOwnProperty.call(dataFinal, seriesList[0].datapoints[j][groupedOn])){
-            dataFinal[seriesList[0].datapoints[j][groupedOn]][k] = seriesList[0].datapoints[j][key];
+         if(initTarget.bucketAggs.length>1){
+           if (Object.prototype.hasOwnProperty.call(dataFinal, j)){
+              dataFinal[j][k] = seriesList[0].datapoints[j][key]
+            }
+            else{
+              var tempObj = {}
+              tempObj[k] = seriesList[0].datapoints[j][key];
+              dataFinal[j] = tempObj;
+            }
           }
-          else{
-            var tempObj = {}
-            tempObj[k] = seriesList[0].datapoints[j][key];
-            dataFinal[seriesList[0].datapoints[j][groupedOn]] = tempObj;
+          else {
+            if (Object.prototype.hasOwnProperty.call(dataFinal, seriesList[0].datapoints[j][groupedOn])){
+              dataFinal[seriesList[0].datapoints[j][groupedOn]][k] = seriesList[0].datapoints[j][key]
           }
+            else{
+              var tempObj = {}
+              dataFinal[seriesList[0].datapoints[j][groupedOn]] = tempObj;
+            }
+          }
+
         });
       }
       var datapointsArr = [];
