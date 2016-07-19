@@ -386,6 +386,7 @@ function (_, queryDef,time) {
           }
             else{
               var tempObj = {}
+              tempObj[k] = seriesList[0].datapoints[j][key];
               dataFinal[seriesList[0].datapoints[j][groupedOn]] = tempObj;
             }
           }
