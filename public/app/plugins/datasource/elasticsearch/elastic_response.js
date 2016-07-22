@@ -367,22 +367,22 @@ function (_, queryDef,time) {
       var initTarget = this.targets
       var initResponse = this.response
       var multipleGroupedDimension= ''
+      var multipleGroupedDimensionArray= []
       var queryPointer = 0
       var queryResponseCount = 0
       for(var j = 0;j< seriesList[0].datapoints.length;j++){
-
+          multipleGroupedDimensionArray = []
           queryResponseCount = docsCountCummulative[queryPointer]
           if(j==queryResponseCount){
-            multipleGroupedDimension = ''
             queryPointer++
           }
-          if(multipleGroupedDimension==''){
+          if(multipleGroupedDimensionArray.length===0){
             initTarget[queryPointer].bucketAggs.forEach(function(arrElement){
-                multipleGroupedDimension+=seriesList[0].datapoints[j][arrElement.field]+'-'
+                multipleGroupedDimensionArray.push(seriesList[0].datapoints[j][arrElement.field])
               });
           }
 
-        multipleGroupedDimension = multipleGroupedDimension.substr(0,multipleGroupedDimension.length-1)
+        multipleGroupedDimension = multipleGroupedDimensionArray.join('')
         Object.keys(seriesList[0].datapoints[j]).forEach(function(key){
          var k = key.toLowerCase();
          if (Object.prototype.hasOwnProperty.call(aliasDic, k)){
