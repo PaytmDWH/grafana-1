@@ -382,7 +382,7 @@ function (_, queryDef,time) {
               });
           }
 
-        multipleGroupedDimension = multipleGroupedDimensionArray.join('')
+        multipleGroupedDimension = multipleGroupedDimensionArray.join('-')
         Object.keys(seriesList[0].datapoints[j]).forEach(function(key){
          var k = key.toLowerCase();
          if (Object.prototype.hasOwnProperty.call(aliasDic, k)){
