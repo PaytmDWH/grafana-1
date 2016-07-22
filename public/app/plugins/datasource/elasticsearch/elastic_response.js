@@ -370,11 +370,10 @@ function (_, queryDef,time) {
       var queryPointer = 0
       var queryResponseCount = 0
       for(var j = 0;j< seriesList[0].datapoints.length;j++){
-        multipleGroupedDimension = ''
 
-        for(queryPointer=0;queryPointer<initTarget.length;queryPointer++){
           queryResponseCount = docsCountCummulative[queryPointer]
           if(j==queryResponseCount){
+            multipleGroupedDimension = ''
             queryPointer++
           }
           if(multipleGroupedDimension==''){
@@ -382,7 +381,6 @@ function (_, queryDef,time) {
                 multipleGroupedDimension+=seriesList[0].datapoints[j][arrElement.field]+'-'
               });
           }
-        }
 
         multipleGroupedDimension = multipleGroupedDimension.substr(0,multipleGroupedDimension.length-1)
         Object.keys(seriesList[0].datapoints[j]).forEach(function(key){
