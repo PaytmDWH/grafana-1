@@ -297,6 +297,7 @@ function (_, queryDef,time) {
   ElasticResponse.prototype.getTimeSeries = function() {
     var seriesList = [];
     var docs = [];
+    var docsCountCummulative = [];
     var isDoc = false;
     var aliasDic = {}
     for (var i = 0; i < this.response.responses.length; i++) {
@@ -320,7 +321,7 @@ function (_, queryDef,time) {
         this.processBuckets(aggregations, target, tmpSeriesList, docs, {}, 0);
         this.trimDatapoints(tmpSeriesList, target);
         this.nameSeries(tmpSeriesList, target);
-
+        docsCountCummulative[i] = docs.length
         if(target.alias){
           switch(target.metrics[0].type){
             case "calc_metric": {
@@ -363,20 +364,39 @@ function (_, queryDef,time) {
       }
       var groupedOn = Object.keys(cols).reduce(function(a, b){ return cols[a] >= cols[b] ? a : b });
       var dataFinal = {};
+      var initTarget = this.targets
+      var initResponse = this.response
+      var multipleGroupedDimension= ''
+      var multipleGroupedDimensionArray= []
+      var queryPointer = 0
+      var queryResponseCount = 0
       for(var j = 0;j< seriesList[0].datapoints.length;j++){
+          multipleGroupedDimensionArray = []
+          queryResponseCount = docsCountCummulative[queryPointer]
+          if(j==queryResponseCount){
+            queryPointer++
+          }
+          if(multipleGroupedDimensionArray.length===0){
+            initTarget[queryPointer].bucketAggs.forEach(function(arrElement){
+                multipleGroupedDimensionArray.push(seriesList[0].datapoints[j][arrElement.field])
+              });
+          }
+
+        multipleGroupedDimension = multipleGroupedDimensionArray.join('-')
         Object.keys(seriesList[0].datapoints[j]).forEach(function(key){
          var k = key.toLowerCase();
          if (Object.prototype.hasOwnProperty.call(aliasDic, k)){
            k = aliasDic[k];
          }
-         if (Object.prototype.hasOwnProperty.call(dataFinal, seriesList[0].datapoints[j][groupedOn])){
-            dataFinal[seriesList[0].datapoints[j][groupedOn]][k] = seriesList[0].datapoints[j][key];
-          }
-          else{
-            var tempObj = {}
-            tempObj[k] = seriesList[0].datapoints[j][key];
-            dataFinal[seriesList[0].datapoints[j][groupedOn]] = tempObj;
-          }
+        if (Object.prototype.hasOwnProperty.call(dataFinal, multipleGroupedDimension)){
+              dataFinal[multipleGroupedDimension][k] = seriesList[0].datapoints[j][key]
+            }
+            else{
+              var tempObj = {}
+              tempObj[k] = seriesList[0].datapoints[j][key];
+
+              dataFinal[multipleGroupedDimension] = tempObj;
+            }
         });
       }
       var datapointsArr = [];
