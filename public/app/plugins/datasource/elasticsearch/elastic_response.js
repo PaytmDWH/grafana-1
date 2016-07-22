@@ -410,5 +410,3 @@ function (_, queryDef,time) {
 
   return ElasticResponse;
 });
-
-
