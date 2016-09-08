@@ -1863,7 +1863,7 @@
       "height": "100px",
       "panels": [
         {
-          "content": "<head>\n   <style>\n      td:hover, a:hover {\n      background-color: lightblue;\n      text-decoration: underline;\n      }\n   </style>\n</head>\n<table border=1 cellpadding=6 align=center width=100% height=100%>\n   <tr>\n      <td align=center rowspan=3 width=20%>\n         <a href=\"https://mayassar.paytmlabs.com/dashboard/db/bus-todays-performance-real-time\" >\n            <img src=\"http://files.softicons.com/download/web-icons/awt-travel-blue-icons-by-awt-media/png/200x200/AWT-Bus.png\" width=100px height=100px></img>\n      </td>\n      \n   </tr>\n   <tr>\n      <td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/bus-todays-performance-real-time\" >Realtime Dashboard</a></td>\n   </tr>\n</table>",
+          "content": "<head>\n   <style>\n      td:hover, a:hover {\n      background-color: lightblue;\n      text-decoration: underline;\n      }\n   </style>\n</head>\n<table border=1 cellpadding=6 align=center width=100% height=100%>\n   <tr>\n      <td align=center rowspan=3 width=20%>\n         <a href=\"https://mayassar.paytmlabs.com/dashboard/db/bus-todays-performance-real-time\" >\n            <img src=\"http://www.iconsdb.com/icons/preview/tropical-blue/bus-xxl.png\" width=100px height=100px></img>\n      </td>\n      \n   </tr>\n   <tr>\n      <td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/bus-todays-performance-real-time\" >Realtime Dashboard</a></td>\n   </tr>\n</table>",
           "editable": true,
           "error": false,
           "id": 22,
