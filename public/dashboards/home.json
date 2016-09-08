@@ -12,7 +12,7 @@
     {
       "collapse": false,
       "editable": true,
-      "height": "25px",
+      "height": "100px",
       "panels": [
         {
           "content": "<center><img src=\"https://s3-ap-southeast-1.amazonaws.com/dwhlocaldatabackup/Paytm_logo.png\" height=\"100\" width=\"200\"></img><font color=darkblue style=\"vertical-align:top;\" size=\"5\">Mayassar</font></center>",
@@ -23,14 +23,2530 @@
           "isNew": true,
           "links": [],
           "mode": "html",
-          "span": 12,
+          "span": 4,
+          "style": {},
+          "title": "",
+          "transparent": true,
+          "type": "text"
+        },
+        {
+          "content": "<b><center></br></br><font color=grey style=\"vertical-align:bottom;\" size=\"5\">Metrics : Today So Far</font></center></b>",
+          "editable": true,
+          "error": false,
+          "height": "",
+          "id": 45,
+          "isNew": true,
+          "links": [],
+          "mode": "html",
+          "span": 8,
           "style": {},
           "title": "",
           "transparent": true,
           "type": "text"
         }
       ],
-      "title": "New row"
+      "title": "Logo"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "100px",
+      "panels": [
+        {
+          "content": "<head>\n<style>\ntd:hover, a:hover {\n    background-color: lightblue;\n    text-decoration: underline;\n}\n</style>\n</head>\n<table border=1 cellpadding=6 align=center width=100% height=100%>\n<tr><td align=center rowspan=3 width=20%><a href=\"https://mayassar.paytmlabs.com/dashboard/db/marketplace-physical-goods-dashboards\" ><img src=\"http://www.clipartlord.com/wp-content/uploads/2012/12/shopping-cart.png\" width=100px height=100px></img></td><td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/marketplace-physical-goods-dashboards\" >All Marketplace Dashboards</a></td></tr>\n<tr><td onclick=\"window.location='https://mayassar.paytmlabs.com/dashboard/db/marketplace-physical-goods-dashboards'\"><a href=\"https://mayassar.paytmlabs.com/dashboard/db/marketplace-physical-goods-dashboards\" >Main Dashboard</a></td></tr>\n<tr><td><a  href=\"https://mayassar.paytmlabs.com/dashboard/db/marketplace-sales-real-time\" >Realtime Dashboard</a></td></tr>\n</table>",
+          "editable": true,
+          "error": false,
+          "id": 6,
+          "isNew": true,
+          "links": [],
+          "mode": "html",
+          "span": 4,
+          "style": {},
+          "title": "Marketplace",
+          "transparent": true,
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(147, 224, 144, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": 2,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 7,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "order_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "so_payment_status:2 AND business_vertical:4",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Orders",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": 2,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 15,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "order_item_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "so_payment_status:2 AND business_vertical:4",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Order Items",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": 2,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 9,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "so_customer_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "so_payment_status:2 AND business_vertical:4",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Users",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": 2,
+          "editable": true,
+          "error": false,
+          "format": "currencyINR",
+          "hideTimeOverride": true,
+          "id": 8,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "soi_selling_price",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "sum"
+                }
+              ],
+              "query": "so_payment_status:2 AND business_vertical:4",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "GMV",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        }
+      ],
+      "showTitle": false,
+      "title": "Marketplace Dashboards"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "100px",
+      "panels": [
+        {
+          "content": "<head>\n<style>\ntd:hover, a:hover {\n    background-color: lightblue;\n    text-decoration: underline;\n}\n</style>\n</head>\n<table border=1 cellpadding=6 align=center width=100% height=100%>\n<tr><td align=center rowspan=3 width=20%><a href=\"https://mayassar.paytmlabs.com/dashboard/db/recharge-business\" ><img src=\"https://cdn3.iconfinder.com/data/icons/line/36/battery_charge-512.png\" width=100px height=100px></img></td><td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/recharge-business\" >Recharge Dashboards</a></td></tr>\n<tr><td><a  href=\"https://mayassar.paytmlabs.com/dashboard/db/recharge-business-real-time\" >Realtime Dashboard</a></td></tr>\n</table>",
+          "editable": true,
+          "error": false,
+          "id": 17,
+          "isNew": true,
+          "links": [],
+          "mode": "html",
+          "span": 4,
+          "style": {},
+          "title": "Recharge",
+          "transparent": true,
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 16,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "order_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "soi_status:7 AND so_payment_status:2 AND soi_vertical_id:(4 OR 27 OR 48) AND NOT service :( \"electricity\" OR \"water\" OR \"gas\" OR \"metro\")  AND soi_vertical_id:(4 OR 27 OR 48)",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Orders",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 18,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "order_item_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "soi_status:7 AND so_payment_status:2 AND soi_vertical_id:(4 OR 27 OR 48) AND NOT service :( \"electricity\" OR \"water\" OR \"gas\" OR \"metro\")  AND soi_vertical_id:(4 OR 27 OR 48)",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Order Items",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 19,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "so_customer_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "soi_status:7 AND so_payment_status:2 AND soi_vertical_id:(4 OR 27 OR 48) AND NOT service :( \"electricity\" OR \"water\" OR \"gas\" OR \"metro\")  AND soi_vertical_id:(4 OR 27 OR 48)",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Users",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "currencyINR",
+          "hideTimeOverride": true,
+          "id": 20,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "soi_selling_price",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "sum"
+                }
+              ],
+              "query": "soi_status:7 AND so_payment_status:2 AND soi_vertical_id:(4 OR 27 OR 48) AND NOT service :( \"electricity\" OR \"water\" OR \"gas\" OR \"metro\")  AND soi_vertical_id:(4 OR 27 OR 48)",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "GMV",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        }
+      ],
+      "title": "Recharge"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "100px",
+      "panels": [
+        {
+          "content": "<head>\n   <style>\n      td:hover, a:hover {\n      background-color: lightblue;\n      text-decoration: underline;\n      }\n   </style>\n</head>\n<table border=1 cellpadding=6 align=center width=100% height=100%>\n   <tr>\n      <td align=center rowspan=3 width=20%>\n         <a href=\"https://mayassar.paytmlabs.com/dashboard/db/utilities-business-real-time\" >\n            <img src=\"http://icons.iconseeker.com/png/fullsize/adobe-cs3-folders-updated/utilities-blue.png\" width=100px height=100px></img>\n      </td>\n      \n   </tr>\n   <tr>\n      <td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/utilities-business-real-time\" >Realtime Dashboard</a></td>\n   </tr>\n</table>",
+          "editable": true,
+          "error": false,
+          "id": 39,
+          "isNew": true,
+          "links": [],
+          "mode": "html",
+          "span": 4,
+          "style": {},
+          "title": "Utilities",
+          "transparent": true,
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 35,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "order_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "service :( \"electricity\" OR \"water\" OR \"gas\" OR \"metro\")  AND soi_status:7 AND so_payment_status:2 AND soi_vertical_id:(4 OR 27 OR 48 OR 76 OR 71)",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Orders",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 36,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "order_item_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "service :( \"electricity\" OR \"water\" OR \"gas\" OR \"metro\")  AND soi_status:7 AND so_payment_status:2 AND soi_vertical_id:(4 OR 27 OR 48 OR 76 OR 71) AND s:1",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Orders",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "30%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "Data Not Available",
+              "value": "0"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 37,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "so_customer_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "service :( \"electricity\" OR \"water\" OR \"gas\" OR \"metro\")  AND soi_status:7 AND so_payment_status:2 AND soi_vertical_id:(4 OR 27 OR 48 OR 76 OR 71)",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Users",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "currencyINR",
+          "hideTimeOverride": true,
+          "id": 38,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "soi_selling_price",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "sum"
+                }
+              ],
+              "query": "service :( \"electricity\" OR \"water\" OR \"gas\" OR \"metro\")  AND soi_status:7 AND so_payment_status:2 AND soi_vertical_id:(4 OR 27 OR 48 OR 76 OR 71)",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "GMV",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        }
+      ],
+      "title": "Utilities"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "200px",
+      "panels": [
+        {
+          "content": "<head>\n   <style>\n      td:hover, a:hover {\n      background-color: lightblue;\n      text-decoration: underline;\n      }\n   </style>\n</head>\n<table border=1 cellpadding=6 align=center width=100% height=100%>\n   <tr>\n      <td align=center rowspan=5 width=20%>\n         <a href=\"https://mayassar.paytmlabs.com/dashboard/db/nps-dashboards\" >\n            <img src=\"http://image.shutterstock.com/z/stock-photo-rubber-stamp-with-text-customer-service-icon-isolated-on-white-background-139500776.jpg\" width=100px height=100px></img>\n      </td>\n      <td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/nps-dashboards\" >Overall NPS Dashboards</a></td>\n   </tr>\n   <tr>\n      <td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/nps-logistics-dashboard-by-order-date\" >Logistics ( By Order Date)</a></td>\n   </tr>\n   <tr>\n      <td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/nps-logistics-dashboard-by-response-date\" >Logistics ( By Response Date)</a></td>\n   </tr>\n   <tr>\n      <td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/nps-marketplace-by-order-date\" >Marketplace (By Order date)</a></td>\n   </tr>\n      <tr>\n      <td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/nps-marketplace-by-response-date\" >Marketplace (By Response date)</a></td>\n   </tr>\n</table>\n",
+          "editable": true,
+          "error": false,
+          "id": 32,
+          "isNew": true,
+          "links": [],
+          "mode": "html",
+          "span": 4,
+          "style": {},
+          "title": "NPS",
+          "transparent": true,
+          "type": "text"
+        },
+        {
+          "aliasColors": {
+            "Detractors": "#BF1B00",
+            "Passives": "#EAB839",
+            "Promoters": "#3F6833",
+            "Unique Count order_item_id": "#58140C"
+          },
+          "bars": true,
+          "datasource": "nps_marketplace_flat_order_time",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 34,
+          "isNew": true,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "Unique Count order_item_id",
+              "lines": true,
+              "yaxis": 2
+            }
+          ],
+          "span": 8,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "fake": true,
+                  "field": "nps_label",
+                  "id": "3",
+                  "settings": {
+                    "order": "desc",
+                    "orderBy": "_term",
+                    "size": "0"
+                  },
+                  "type": "terms"
+                },
+                {
+                  "field": "order_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "1d",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "marker": false,
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "order_item_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "count"
+                }
+              ],
+              "refId": "A",
+              "timeField": "order_created_at"
+            }
+          ],
+          "timeFrom": "2w/w",
+          "timeShift": "3d",
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        }
+      ],
+      "title": "NPS"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "100px",
+      "panels": [
+        {
+          "content": "<head>\n<style>\ntd:hover, a:hover {\n    background-color: lightblue;\n    text-decoration: underline;\n}\n</style>\n</head>\n<table border=1 cellpadding=6 align=center width=100% height=100%>\n<tr><td align=center rowspan=3 width=20%><a href=\"https://mayassar.paytmlabs.com/dashboard/db/flights-dashboard\" ><img src=\"https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2/128/airplane-circle-blue-512.png\" width=100px height=100px></img></td><td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/flights-dashboard\" >Overall Flight Dashboard</a></td></tr>\n<tr><td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/flights-dashboard-real-time\" >Realtime Dashboard</a></td></tr>\n</table>",
+          "editable": true,
+          "error": false,
+          "id": 10,
+          "isNew": true,
+          "links": [],
+          "mode": "html",
+          "span": 4,
+          "style": {},
+          "title": "Flights",
+          "transparent": true,
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 11,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "order_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "so_payment_status:2 AND soi_status:7 AND soi_vertical_id:64",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Orders",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 14,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "order_item_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "so_payment_status:2 AND soi_status:7 AND soi_vertical_id:64",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Tickets",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 13,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "so_customer_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "so_payment_status:2 AND soi_status:7 AND soi_vertical_id:64",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Users",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": 2,
+          "editable": true,
+          "error": false,
+          "format": "currencyINR",
+          "hideTimeOverride": true,
+          "id": 12,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "soi_selling_price",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "sum"
+                }
+              ],
+              "query": "so_payment_status:2 AND soi_status:7 AND soi_vertical_id:64",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "GMV",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        }
+      ],
+      "title": "Flights"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "100px",
+      "panels": [
+        {
+          "content": "<head>\n   <style>\n      td:hover, a:hover {\n      background-color: lightblue;\n      text-decoration: underline;\n      }\n   </style>\n</head>\n<table border=1 cellpadding=6 align=center width=100% height=100%>\n   <tr>\n      <td align=center rowspan=3 width=20%>\n         <a href=\"https://mayassar.paytmlabs.com/dashboard/db/movies-dashboard\" >\n            <img src=\"http://www.iconarchive.com/download/i58678/dakirby309/windows-8-metro/Folders-OS-My-Video-apps-Metro.ico\" width=100px height=100px></img>\n      </td>\n      <td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/movies-dashboard\" >Overall Flight Dashboard</a></td>\n   </tr>\n   <tr>\n      <td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/movies-dashboard-real-time\" >Realtime Dashboard</a></td>\n   </tr>\n</table>\n",
+          "editable": true,
+          "error": false,
+          "id": 21,
+          "isNew": true,
+          "links": [],
+          "mode": "html",
+          "span": 4,
+          "style": {},
+          "title": "Movies",
+          "transparent": true,
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 23,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "order_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "so_payment_status:2 AND soi_status:7 AND soi_vertical_id:70",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Orders",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 25,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "soi_fulfillment_req_ticketcount",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "sum"
+                }
+              ],
+              "query": "so_payment_status:2 AND soi_status:7 AND soi_vertical_id:70",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Tickets",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 26,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "so_customer_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "so_payment_status:2 AND soi_status:7 AND soi_vertical_id:70",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Users",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "currencyINR",
+          "hideTimeOverride": true,
+          "id": 27,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "soi_selling_price",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "sum"
+                }
+              ],
+              "query": "so_payment_status:2 AND soi_status:7 AND soi_vertical_id:70",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "GMV",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        }
+      ],
+      "title": "Movies"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "100px",
+      "panels": [
+        {
+          "content": "<head>\n   <style>\n      td:hover, a:hover {\n      background-color: lightblue;\n      text-decoration: underline;\n      }\n   </style>\n</head>\n<table border=1 cellpadding=6 align=center width=100% height=100%>\n   <tr>\n      <td align=center rowspan=3 width=20%>\n         <a href=\"https://mayassar.paytmlabs.com/dashboard/db/bus-todays-performance-real-time\" >\n            <img src=\"http://files.softicons.com/download/web-icons/awt-travel-blue-icons-by-awt-media/png/200x200/AWT-Bus.png\" width=100px height=100px></img>\n      </td>\n      \n   </tr>\n   <tr>\n      <td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/bus-todays-performance-real-time\" >Realtime Dashboard</a></td>\n   </tr>\n</table>",
+          "editable": true,
+          "error": false,
+          "id": 22,
+          "isNew": true,
+          "links": [],
+          "mode": "html",
+          "span": 4,
+          "style": {},
+          "title": "Bus",
+          "transparent": true,
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 24,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "order_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "so_payment_status:2  AND soi_vertical_id:26",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Orders",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 28,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "20%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "som_meta_data_ticketcount",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "so_payment_status:2  AND soi_vertical_id:26",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Tickets",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "30%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "Data not available",
+              "value": "0"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "short",
+          "hideTimeOverride": true,
+          "id": 29,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "so_customer_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "so_payment_status:2  AND soi_vertical_id:26",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "Users",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "currencyINR",
+          "hideTimeOverride": true,
+          "id": 30,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "soi_selling_price",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "sum"
+                }
+              ],
+              "query": "so_payment_status:2  AND soi_vertical_id:26",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "now/d",
+          "title": "GMV",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        }
+      ],
+      "title": "Bus"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "150px",
+      "panels": [
+        {
+          "content": "<head>\n   <style>\n      td:hover, a:hover {\n      background-color: lightblue;\n      text-decoration: underline;\n      }\n   </style>\n</head>\n<table border=1 cellpadding=6 align=center width=100% height=100%>\n   <tr>\n      <td align=center rowspan=3 width=20%>\n         <a href=\"https://mayassar.paytmlabs.com/dashboard/db/hotels-todays-performance-real-time\" >\n            <img src=\"http://ortambo-airport.com/images/hotels.svg\" width=100px height=100px></img>\n      </td>\n      <td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/hotels-todays-performance-real-time\" >Realtime Dashboard</a></td>\n   </tr>\n</table>\n",
+          "editable": true,
+          "error": false,
+          "id": 41,
+          "isNew": true,
+          "links": [],
+          "mode": "html",
+          "span": 4,
+          "style": {},
+          "title": "Hotel",
+          "transparent": true,
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "hideTimeOverride": true,
+          "id": 40,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "order_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "soi_vertical_id:60 AND so_payment_status:2",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "0d/d",
+          "title": "Orders",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "hideTimeOverride": true,
+          "id": 42,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "som_meta_data_roomnights",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "sum"
+                }
+              ],
+              "query": "soi_vertical_id:60 AND so_payment_status:2",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "0d/d",
+          "title": "Room Nights",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "hideTimeOverride": true,
+          "id": 43,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "so_customer_id",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "cardinality"
+                }
+              ],
+              "query": "soi_vertical_id:60 AND so_payment_status:2",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "0d/d",
+          "title": "Users",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "mktplace_flat_es",
+          "editable": true,
+          "error": false,
+          "format": "currencyINR",
+          "hideTimeOverride": true,
+          "id": 44,
+          "interval": "2d",
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "so_created_at",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "aliasDic": {},
+                  "field": "soi_selling_price",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "sum"
+                }
+              ],
+              "query": "soi_vertical_id:60 AND so_payment_status:2",
+              "refId": "A",
+              "timeField": "so_created_at"
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "0d/d",
+          "title": "Orders",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        }
+      ],
+      "title": "Hotel"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "100px",
+      "panels": [
+        {
+          "content": "<head>\n   <style>\n      td:hover, a:hover {\n      background-color: lightblue;\n      text-decoration: underline;\n      }\n   </style>\n</head>\n<table border=1 cellpadding=6 align=center width=100% height=100%>\n   <tr>\n      <td align=center rowspan=3 width=20%>\n         <a href=\"https://mayassar.paytmlabs.com/dashboard/db/payments-dashboards\" >\n            <img src=\"https://startonlinebusinessweb.files.wordpress.com/2016/07/4-icon-payment-l2.png\" width=100px height=100px></img>\n      </td>\n      <td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/payments-dashboards\" >Overall PG Dashboards</a></td>\n   </tr>\n   <tr>\n      <td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/payments-payment-gateway-main-dashboard-gmv\" >PG GatewayMain Dashboard (GMV) </a></td>\n   </tr>\n   <tr>\n      <td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/payments-add-money-main-dashboard-txn-count\" >PG GatewayMain Dashboard (TXN)</a></td>\n   </tr>\n</table>\n",
+          "editable": true,
+          "error": false,
+          "id": 31,
+          "isNew": true,
+          "links": [],
+          "mode": "html",
+          "span": 4,
+          "style": {},
+          "title": "Payment Gateway",
+          "transparent": true,
+          "type": "text"
+        }
+      ],
+      "title": "Payment Gateway"
     },
     {
       "collapse": false,
@@ -54,7 +2570,7 @@
           "type": "dashlist"
         },
         {
-          "content": "\n<h3>Useful Links</h3>\n<ul>\n<li><a style=\"text-decoration: underline; color:darkblue\"  href=\"https://paytmlabswiki.atlassian.net/wiki/display/MAYAS/Dashboard+Projects\">All Dashboard Requests</a></li>\n<li><a style=\"text-decoration: underline; color:darkblue\"  href=\"https://paytmlabswiki.atlassian.net/wiki/display/MAYAS/New+Dashboard+Requirements\">Raise your own dashboard request</a></li>\n<li>Contact <a style=\"text-decoration: underline; color:darkblue\"  href=\"emailto:labs.mayassar@paytm.com\">labs.mayassar@paytm.com</a> for more</li>\n<li><a style=\"text-decoration: underline; color:darkblue\"  href=\"https://paytmlabswiki.atlassian.net/wiki/display/GANG/Grafana+Dashboards\">Access Control and Requests</a></li>\n</ul>\n\n",
+          "content": "<a id=\"all\"><a>\n<h3>Useful Links</h3>\n<ul>\n<li><a style=\"text-decoration: underline; color:darkblue\"  href=\"https://paytmlabswiki.atlassian.net/wiki/display/MAYAS/Dashboard+Projects\">All Dashboard Requests</a></li>\n<li><a style=\"text-decoration: underline; color:darkblue\"  href=\"https://paytmlabswiki.atlassian.net/wiki/display/MAYAS/New+Dashboard+Requirements\">Raise your own dashboard request</a></li>\n<li>Contact <a style=\"text-decoration: underline; color:darkblue\"  href=\"emailto:labs.mayassar@paytm.com\">labs.mayassar@paytm.com</a> for more</li>\n<li><a style=\"text-decoration: underline; color:darkblue\"  href=\"https://paytmlabswiki.atlassian.net/wiki/display/GANG/Grafana+Dashboards\">Access Control and Requests</a></li>\n</ul>\n\n",
           "editable": true,
           "error": false,
           "id": 5,
@@ -67,14 +2583,15 @@
           "type": "text"
         }
       ],
-      "title": "Row"
+      "title": "Dashboards"
     }
   ],
   "time": {
-    "from": "now-6h",
+    "from": "now/d",
     "to": "now"
   },
   "timepicker": {
+    "now": true,
     "refresh_intervals": [
       "5s",
       "10s",
@@ -106,6 +2623,6 @@
     "list": []
   },
   "schemaVersion": 8,
-  "version": 6,
+  "version": 23,
   "links": []
 }
