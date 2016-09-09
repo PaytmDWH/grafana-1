@@ -354,6 +354,7 @@ function($, _) {
   // Dimensionless Units
   kbn.valueFormats.none  = kbn.toFixed;
   kbn.valueFormats.short = kbn.formatBuilders.scaledUnits(1000, ['', ' K', ' Mil', ' Bil', ' Tri', ' Quadr', ' Quint', ' Sext', ' Sept']);
+  kbn.valueFormats.shortINR = kbn.formatBuilders.scaledUnitsIndianNumbers(['', 'K', 'L', 'Cr']);
   kbn.valueFormats.dB    = kbn.formatBuilders.fixedUnit('dB');
   kbn.valueFormats.ppm   = kbn.formatBuilders.fixedUnit('ppm');
 
@@ -591,6 +592,7 @@ function($, _) {
           {text: 'Humidity (%H)',     value: 'humidity'   },
           {text: 'ppm',               value: 'ppm'        },
           {text: 'decibel',           value: 'dB'         },
+          {text: 'short (Indian Numbering)',   value: 'shortINR'   },
         ]
       },
       {
