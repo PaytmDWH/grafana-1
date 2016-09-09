@@ -592,7 +592,7 @@ function($, _) {
           {text: 'Humidity (%H)',     value: 'humidity'   },
           {text: 'ppm',               value: 'ppm'        },
           {text: 'decibel',           value: 'dB'         },
-          {text: 'short (Indian Numbering)',   value: 'shortINR'   },
+          {text: 'short (India)',   value: 'shortINR'   },
         ]
       },
       {
