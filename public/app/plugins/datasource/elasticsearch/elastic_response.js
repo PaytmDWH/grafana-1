@@ -175,7 +175,7 @@ function (_, queryDef,time) {
           if (bucket.key) {
             props[aggDef.field] = bucket.key;
           } else {
-            props["filter"] = nameIndex;
+            props[aggDef.field] = "-";
           }
           this.processBuckets(bucket, target, seriesList, docs, props, depth+1);
         }
