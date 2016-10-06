@@ -1195,7 +1195,7 @@
       "height": "100px",
       "panels": [
         {
-          "content": "<head>\n<style>\ntd:hover, a:hover {\n    background-color: lightblue;\n    text-decoration: underline;\n}\n</style>\n</head>\n<table border=1 cellpadding=6 align=center width=100% height=100%>\n<tr><td align=center rowspan=3 width=20%><a href=\"https://mayassar.paytmlabs.com/dashboard/db/flights-dashboard\" ><img src=\"https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2/128/airplane-circle-blue-512.png\" width=100px height=100px></img></td><td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/flights-dashboard\" >Overall Flight Dashboard</a></td></tr>\n<tr><td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/flights-dashboard-real-time\" >Realtime Dashboard</a></td></tr>\n</table>",
+          "content": "<head>\n<style>\ntd:hover, a:hover {\n    background-color: lightblue;\n    text-decoration: underline;\n}\n</style>\n</head>\n<table border=1 cellpadding=6 align=center width=100% height=100%>\n<tr><td align=center rowspan=3 width=20%><a href=\"https://mayassar.paytmlabs.com/dashboard/db/flights-dashboard\" ><img src=\"https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2/128/airplane-circle-blue-512.png\" width=100px height=100px></img></td><td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/flights-dashboard\" >Overall Flights Dashboard</a></td></tr>\n<tr><td><a href=\"https://mayassar.paytmlabs.com/dashboard/db/flights-dashboard-real-time\" >Realtime Dashboard</a></td></tr>\n</table>",
           "editable": true,
           "error": false,
           "id": 10,
