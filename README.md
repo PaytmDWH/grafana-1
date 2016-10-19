@@ -81,7 +81,7 @@ the latest master builds [here](http://grafana.org/download/builds)
 ### Get Code
 
 ```
-go get github.com/grafana/grafana
+go get github.com/PaytmDWH/grafana-1
 mkdir $GOPATH/src/github.com/grafana
 ln -s  $GOPATH/src/github.com/PaytmDWH/grafana-1 $GOPATH/src/github.com/grafana/grafana
 ```
