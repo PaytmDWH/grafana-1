@@ -352,8 +352,17 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
             resArr.push(customMetric);
             }
             var resMap = {};
+            var set = new Set();
             for (i=0;i<resArr.length;i++){
               Object.keys(resArr[i]).forEach(function(key){
+                set.add(key);
+              });
+            }
+            for (i=0;i<resArr.length;i++){
+              for(var key of set) {
+                if(!resArr[i].hasOwnProperty(key)){
+                  resArr[i][key]=0;
+                }
                 if(resMap[key]){
                   resMap[key].push(resArr[i][key]);
                 }
@@ -362,7 +371,7 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
                   arr[0]=resArr[i][key];
                   resMap[key] = arr;
                 }
-              });
+              };
             }
             for(var k=0;k<formulas.length;k++){
               var formula = formulas[k];
