@@ -207,8 +207,8 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         var luceneQuery = angular.toJson(target.query || '*');
         // remove inner quotes
         luceneQuery = luceneQuery.substr(1, luceneQuery.length - 2);
-        luceneQuery = templateSrv.replace(luceneQuery, options.scopedVars);
         luceneQuery = luceneQuery.replace(" and ", " AND ").replace(" or "," OR ").replace(" not "," NOT ");
+        luceneQuery = templateSrv.replace(luceneQuery, options.scopedVars);
         luceneQuery = luceneQuery.replace(new RegExp("[AND |OR |OR NOT |AND NOT ]*[A-Za-z_0-9]*:a123a","gm"),"");
         luceneQuery = luceneQuery.trim();
         if(luceneQuery.startsWith('AND') || luceneQuery.startsWith("OR")){
@@ -352,8 +352,17 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
             resArr.push(customMetric);
             }
             var resMap = {};
+            var set = new Set();
             for (i=0;i<resArr.length;i++){
               Object.keys(resArr[i]).forEach(function(key){
+                set.add(key);
+              });
+            }
+            for (i=0;i<resArr.length;i++){
+              for(var key of set) {
+                if(!resArr[i].hasOwnProperty(key)){
+                  resArr[i][key]=0;
+                }
                 if(resMap[key]){
                   resMap[key].push(resArr[i][key]);
                 }
@@ -362,7 +371,7 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
                   arr[0]=resArr[i][key];
                   resMap[key] = arr;
                 }
-              });
+              };
             }
             for(var k=0;k<formulas.length;k++){
               var formula = formulas[k];
