@@ -46,10 +46,14 @@ export class TableRenderer {
       return v => {
         if (_.isArray(v)) { v = v[0]; }
         var date = moment(v);
-        if (this.timezone === 'utc') {
+        /*if (this.timezone === 'utc') {
           date = date.utc();
-        }
-        return date.format(style.dateFormat);
+        }*/
+        date = date.utc();
+        var stringDate = date.toString();
+        stringDate = stringDate.substring(-1,stringDate.length-5) + "+0530";
+        var nd = moment.parseZone(stringDate);
+        return nd.format(style.dateFormat);
       };
     }
 

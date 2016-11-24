@@ -37,6 +37,13 @@ define([
       }
     };
 
+    this._convertTime = function(d) {
+      var stringDate = d.toString();
+      stringDate = stringDate.substring(-1,stringDate.length-5)+"+0530";
+      var nd = moment.parseZone(stringDate);
+      return nd;
+  }
+
     this._parseUrlParam = function(value) {
       if (value.indexOf('now') !== -1) {
         return value;
@@ -122,12 +129,13 @@ define([
 
     this.timeRange = function(parse) {
       // make copies if they are moment  (do not want to return out internal moment, because they are mutable!)
-      var from = moment.isMoment(this.time.from) ? moment(this.time.from) : this.time.from ;
-      var to = moment.isMoment(this.time.to) ? moment(this.time.to) : this.time.to ;
+      var from = moment.isMoment(this.time.from) ? this._convertTime(moment(this.time.from)) : this.time.from ;
+      var to = moment.isMoment(this.time.to) ? this._convertTime(moment(this.time.to)) : this.time.to ;
+
 
       if (parse !== false) {
-        from = dateMath.parse(from, false);
-        to = dateMath.parse(to, true);
+        from = this._convertTime(dateMath.parse(from, false));
+        to = this._convertTime(dateMath.parse(to, true));
       }
 
       return {from: from, to: to};

@@ -56,6 +56,8 @@ export class TimePickerCtrl {
     } else {
       this.isUtc = true;
     }
+    time.from = this.convertTime(time.from);
+    time.to = this.convertTime(time.to);
 
     this.rangeString = rangeUtil.describeTimeRange(timeRaw);
     this.absolute = {fromJs: time.from.toDate(), toJs: time.to.toDate()};
@@ -85,6 +87,13 @@ export class TimePickerCtrl {
     }
 
     this.timeSrv.setTime({from: moment.utc(from), to: moment.utc(to) });
+  }
+
+  convertTime(d) {
+    var stringDate = d.toString();
+    stringDate = stringDate.substring(-1,stringDate.length-5)+"+0530";
+    var nd = moment.parseZone(stringDate);
+    return nd;
   }
 
   openDropdown() {
