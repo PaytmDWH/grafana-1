@@ -39,6 +39,10 @@ function (angular, app, _, kbn, TimeSeries, PanelMeta) {
       valueMaps: [
         { value: 'null', op: '=', text: 'N/A' }
       ],
+      deviation:{
+        fontSize: '50%',
+        show: false
+      },
       nullPointMode: 'connected',
       valueName: 'avg',
       prefixFontSize: '50%',
@@ -158,6 +162,45 @@ function (angular, app, _, kbn, TimeSeries, PanelMeta) {
       return result;
     };
 
+    $scope.getDecimalsForDeviation = function(value) {
+      if (_.isNumber($scope.panel.deviation.decimals)) {
+        return { decimals: $scope.panel.deviation.decimals, scaledDecimals: null };
+      }
+
+      var delta = value / 2;
+      var dec = -Math.floor(Math.log(delta) / Math.LN10);
+
+      var magn = Math.pow(10, -dec),
+          norm = delta / magn, // norm is between 1.0 and 10.0
+          size;
+
+      if (norm < 1.5) {
+        size = 1;
+      } else if (norm < 3) {
+        size = 2;
+        // special case for 2.5, requires an extra decimal
+        if (norm > 2.25) {
+          size = 2.5;
+          ++dec;
+        }
+      } else if (norm < 7.5) {
+        size = 5;
+      } else {
+        size = 10;
+      }
+
+      size *= magn;
+
+      // reduce starting decimals if not needed
+      if (Math.floor(value) === value) { dec = 0; }
+
+      var result = {};
+      result.decimals = Math.max(0, dec);
+      result.scaledDecimals = result.decimals - Math.floor(Math.log(size) / Math.LN10) + 2;
+
+      return result;
+    };
+
     $scope.render = function() {
       var data = {};
 
@@ -175,15 +218,22 @@ function (angular, app, _, kbn, TimeSeries, PanelMeta) {
 
     $scope.setValues = function(data) {
       data.flotpairs = [];
-
-      if($scope.series.length > 1) {
+/*
+      if($scope.series.length > 1 && ! ($scope.panel.deviation && $scope.panel.deviation.show)) {
         $scope.inspector.error = new Error();
         $scope.inspector.error.message = 'Multiple Series Error';
         $scope.inspector.error.data = 'Metric query returns ' + $scope.series.length +
         ' series. Single Stat Panel expects a single series.\n\nResponse:\n'+JSON.stringify($scope.series);
         throw $scope.inspector.error;
       }
-
+*/
+      if($scope.series.length !== 2 && ($scope.panel.deviation && $scope.panel.deviation.show)){
+           $scope.inspector.error = new Error();
+           $scope.inspector.error.message = 'Deviation SingleStat should have exactly two series.';
+           $scope.inspector.error.data = 'Metric query returns ' + $scope.series.length +
+                              ' series. Single Stat Panel Deviation expects a two series.\n\nResponse:\n'+JSON.stringify($scope.series);
+           throw $scope.inspector.error;
+      }
       if ($scope.series && $scope.series.length > 0) {
         var lastPoint = _.last($scope.series[0].datapoints);
         var lastValue = _.isArray(lastPoint) ? lastPoint[0] : null;
@@ -195,9 +245,17 @@ function (angular, app, _, kbn, TimeSeries, PanelMeta) {
         } else {
           data.value = $scope.series[0].stats[$scope.panel.valueName];
           data.flotpairs = $scope.series[0].flotpairs;
-
           var decimalInfo = $scope.getDecimalsForValue(data.value);
           var formatFunc = kbn.valueFormats[$scope.panel.format];
+          var devFormatFunc = kbn.valueFormats['percent'];
+          if($scope.series.length > 1 && $scope.panel.deviation && $scope.panel.deviation.show){
+             var value = $scope.series[1].stats[$scope.panel.valueName];
+             var flotpairs = $scope.series[1].flotpairs;
+             var deviation = ((data.value - value)/value)*100;
+             var decimalInfoDeviation = $scope.getDecimalsForDeviation(deviation);
+             data.deviationFormated = devFormatFunc(deviation, decimalInfoDeviation.decimals, decimalInfoDeviation.scaledDecimals);
+             data.deviationRounded = kbn.roundValue(deviation, decimalInfoDeviation.decimals);
+          }
           data.valueFormated = formatFunc(data.value, decimalInfo.decimals, decimalInfo.scaledDecimals);
           data.valueRounded = kbn.roundValue(data.value, decimalInfo.decimals);
         }
@@ -243,3 +301,5 @@ function (angular, app, _, kbn, TimeSeries, PanelMeta) {
 
   return SingleStatCtrl;
 });
+
+

@@ -1,4 +1,3 @@
-<div class="editor-row">
 	<div class="section tight-form-container" style="margin-bottom: 20px">
 		<div class="tight-form">
 			<ul class="tight-form-list">
@@ -187,3 +186,44 @@
 		</div>
 	</div>
 </div>
+
+
+<div class="editor-row">
+        <div class="section" style="margin-bottom: 20px">
+                <div class="tight-form last">
+                        <ul class="tight-form-list">
+                                <li class="tight-form-item">
+                                        <strong>Deviation</strong>
+                                </li>
+				<li class="tight-form-item">
+                                        Show&nbsp;
+                                        <input class="cr1" id="panel.deviation.show" type="checkbox"
+                                        ng-model="panel.deviation.show" ng-checked="panel.deviation.show" ng-change="render()">
+                                        <label for="panel.deviation.show" class="cr1"></label>
+                                </li>
+                                <!-- <li class="tight-form-item">
+                                        Formula<tip>Default: ((query1 - query2)/query2) * 100</tip>
+                                </li>
+                                <li>
+                                        <input type="text" class="input-large tight-form-input" ng-model="panel.deviation.formula" ng-blur="render()" placeholder="((query1 - query2)/query2) * 100"></input>
+                                </li>-->
+                                <li class="tight-form-item">
+                                        Decimals
+                                </li>
+                                <li>
+                                        <input type="number" class="input-small tight-form-input last" placeholder="auto" bs-tooltip="'Override automatic decimal precision for legend and tooltips'" data-placement="right"
+                                        ng-model="panel.deviation.decimals" ng-change="render()" ng-model-onblur>
+                                </li> 
+                                <li class="tight-form-item">
+                                        Font Size
+                                </li>
+                                <li>
+                                        <select class="input-small tight-form-input last" ng-model="panel.deviation.fontSize" ng-options="f for f in fontSizes" ng-change="render()"></select>
+                                </li>
+
+                        </ul>
+                        <div class="clearfix"></div>
+                </div>
+        </div>
+</div>
+
