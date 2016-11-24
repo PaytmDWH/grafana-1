@@ -15,7 +15,7 @@
       "height": "25px",
       "panels": [
         {
-          "content": "<center><img src=\"http://paytmlabs.com/paytmlabsfiles/Paytm_logo.png\" height=\"100\" width=\"200\"></img><font color=darkblue style=\"vertical-align:top;\" size=\"5\">Mayassar</font></center>",
+          "content": "<center><img src=\"https://s3-ap-southeast-1.amazonaws.com/dwhlocaldatabackup/Paytm_logo.png\" height=\"100\" width=\"200\"></img><font color=darkblue style=\"vertical-align:top;\" size=\"5\">Mayassar</font></center>",
           "editable": true,
           "error": false,
           "height": "",
