@@ -71,6 +71,33 @@ function (SingleStatCtrl, _, $) {
           return null;
         }
 
+        function applyColoringThresholdsDeviation(value, valueString) {
+          var color = getColorForDeviation(value);
+          if (color) {
+            return '<span style="color:' + color + '">  ['+ valueString + getDeviationArrow(value) +']</span>';
+          }
+
+          return valueString;
+        }
+        
+        function getDeviationArrow(value){
+           if(value > 0.00){
+             return '▲';
+           }else if(value < 0.00){
+             return '▼';
+           }
+           return "";
+        }
+
+        function getColorForDeviation(value) {
+          if(value > 0.00){
+             return 'green';
+          }else if(value < 0.00){
+             return 'red';
+          }
+          return null;
+        }
+        
         function getSpan(className, fontSize, value)  {
           value = templateSrv.replace(value);
           return '<span class="' + className + '" style="font-size:' + fontSize + '">' +
@@ -86,12 +113,15 @@ function (SingleStatCtrl, _, $) {
           body += getSpan('singlestat-panel-value', panel.valueFontSize, value);
 
           if (panel.postfix) { body += getSpan('singlestat-panel-postfix', panel.postfixFontSize, panel.postfix); }
+          if (panel.deviation && panel.deviation.show){
+            var deviation = applyColoringThresholdsDeviation(data.deviationRounded, data.deviationFormated);
+            body += getSpan('singlestat-panel-postfix', panel.deviation.fontSize, deviation);
+          }
 
           body += '</div>';
 
           return body;
         }
-
         function addSparkline() {
           var panel = scope.panel;
           var width = elem.width() + 20;
@@ -233,3 +263,4 @@ function (SingleStatCtrl, _, $) {
     panel: singleStatPanel
   };
 });
+
