@@ -77,6 +77,10 @@ function (angular, _, $, kbn, dateMath, rangeUtil) {
 
         if (_.isString(scope.rangeRaw.from)) {
           var timeFromDate = dateMath.parse(timeFromInfo.from);
+          var stringDate = timeFromDate.toString();
+          stringDate = stringDate.substring(-1,stringDate.length-5) + "+0530";
+          var nd = moment.parseZone(stringDate);
+          timeFromDate = nd;
           scope.panelMeta.timeInfo = timeFromInfo.display;
           scope.rangeRaw.from = timeFromInfo.from;
           scope.rangeRaw.to = timeFromInfo.to;
