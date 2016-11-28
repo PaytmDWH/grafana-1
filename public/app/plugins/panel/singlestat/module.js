@@ -95,7 +95,7 @@ function (SingleStatCtrl, _, $) {
           }else if(value < 0.00){
              return 'red';
           }
-          return null;
+          return 'green';
         }
         
         function getSpan(className, fontSize, value)  {

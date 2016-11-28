@@ -40,7 +40,7 @@ function (angular, app, _, kbn, TimeSeries, PanelMeta) {
         { value: 'null', op: '=', text: 'N/A' }
       ],
       deviation:{
-        fontSize: '50%',
+        fontSize: '40%',
         show: false
       },
       nullPointMode: 'connected',
