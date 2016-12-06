@@ -1,5 +1,5 @@
 {
-  "id": 10,
+  "id": 730,
   "title": "Home dashboard",
   "originalTitle": "Home dashboard",
   "tags": [],
@@ -77,6 +77,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": 2,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -155,6 +160,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": 2,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -233,6 +243,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": 2,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -311,6 +326,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": 2,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "currencyINR",
@@ -412,6 +432,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -490,6 +515,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -568,6 +598,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -646,6 +681,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "currencyINR",
@@ -746,6 +786,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -824,6 +869,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -907,6 +957,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -985,6 +1040,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "currencyINR",
@@ -1219,6 +1279,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -1297,6 +1362,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -1375,6 +1445,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -1453,6 +1528,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": 2,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "currencyINR",
@@ -1553,6 +1633,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -1631,6 +1716,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -1709,6 +1799,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -1787,6 +1882,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "currencyINR",
@@ -1887,6 +1987,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -1965,6 +2070,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -2048,6 +2158,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "short",
@@ -2126,6 +2241,11 @@
           ],
           "datasource": "mktplace_flat_es",
           "decimals": null,
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "currencyINR",
@@ -2225,6 +2345,11 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": "mktplace_flat_es",
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "none",
@@ -2302,6 +2427,11 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": "mktplace_flat_es",
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "none",
@@ -2379,6 +2509,11 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": "mktplace_flat_es",
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "none",
@@ -2456,6 +2591,11 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": "mktplace_flat_es",
+          "deviation": {
+            "decimals": 2,
+            "fontSize": "40%",
+            "show": false
+          },
           "editable": true,
           "error": false,
           "format": "currencyINR",
@@ -2588,7 +2728,7 @@
   ],
   "time": {
     "from": "now/d",
-    "to": "now"
+    "to": "now/d"
   },
   "timepicker": {
     "now": true,
@@ -2623,6 +2763,6 @@
     "list": []
   },
   "schemaVersion": 8,
-  "version": 23,
+  "version":24,
   "links": []
 }
