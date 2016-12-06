@@ -312,8 +312,8 @@ function (angular, $, moment, _, kbn, GraphTooltip) {
 
         function addTimeAxis(options) {
           var ticks = elem.width() / 100;
-          var min = _.isUndefined(scope.range.from) ? null : scope.range.from.valueOf();
-          var max = _.isUndefined(scope.range.to) ? null : scope.range.to.valueOf();
+          var min = _.isUndefined(scope.range.from) ? null : scope.range.from.valueOf() + 5.5*3600000;
+          var max = _.isUndefined(scope.range.to) ? null : scope.range.to.valueOf() + 5.5*3600000;
 
           options.xaxis = {
             timezone: dashboard.timezone,
