@@ -161,8 +161,8 @@ function (SingleStatCtrl, _, $) {
             xaxis: {
               show: false,
               mode: "time",
-              min: scope.range.from.valueOf(),
-              max: scope.range.to.valueOf(),
+              min: scope.range.from.valueOf() + 19800000,
+              max: scope.range.to.valueOf() + 19800000,
             },
             grid: { hoverable: false, show: false },
           };
