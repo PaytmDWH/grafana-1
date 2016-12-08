@@ -1,4 +1,4 @@
-package search
+package segment_search
 
 import (
 	"sort"
