@@ -1,0 +1,39 @@
+<navbar icon="fa fa-fw fa-list" title="Segments"></navbar>
+
+<div class="page-container">
+  <div class="page-wide">
+
+    <a class="btn btn-inverse pull-right" href="segments/create">
+      <i class="fa fa-plus"></i>
+      New Segment
+    </a>
+
+    <h2>Segments</h2>
+
+    <table class="filter-table" style="margin-top: 20px">
+      <thead>
+      <th><strong>Name</strong></th>
+      <th><strong>Start url</strong></th>
+      <th style="width: 25px"></th>
+
+      </thead>
+      <tr ng-repeat="segment in segments">
+        <td>
+          <a href="segmentboards/edit/{{segment.id}}">{{segment.name}}</a>
+        </td>
+        <td  class="text-right">
+          <a href="segmentboards/edit/{{segment.id}}" class="btn btn-inverse btn-mini">
+            <i class="fa fa-edit"></i>
+            Edit
+          </a>
+        </td>
+        <td  class="text-right">
+          <a ng-click="removeSegment(segment)" class="btn btn-danger btn-mini">
+            <i class="fa fa-remove"></i>
+          </a>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</div>

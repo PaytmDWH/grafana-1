@@ -7,6 +7,10 @@ const (
 	DashHitHome     HitType = "dash-home"
 	DashHitJson     HitType = "dash-json"
 	DashHitScripted HitType = "dash-scripted"
+  SegmentHitDB       HitType = "segment-db"
+  SegmentHitHome     HitType = "segment-home"
+  SegmentHitJson     HitType = "segment-json"
+  SegmentHitScripted HitType = "segment-scripted"
 )
 
 type Hit struct {
@@ -42,4 +46,13 @@ type FindPersistedDashboardsQuery struct {
 	IsStarred bool
 
 	Result HitList
+}
+
+type FindPersistedSegmentsQuery struct {
+  Title     string
+  OrgId     int64
+  UserId    int64
+  IsStarred bool
+
+  Result HitList
 }

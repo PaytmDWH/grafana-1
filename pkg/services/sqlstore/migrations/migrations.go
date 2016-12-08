@@ -12,8 +12,10 @@ func AddMigrations(mg *Migrator) {
 	addUserMigrations(mg)
 	addTempUserMigrations(mg)
 	addStarMigrations(mg)
+  addStarForSegmentMigrations(mg)
 	addOrgMigrations(mg)
 	addDashboardMigration(mg)
+  addSegmentMigration(mg)
 	addDataSourceMigration(mg)
 	addApiKeyMigrations(mg)
 	addDashboardSnapshotMigrations(mg)
@@ -55,3 +57,5 @@ func addStarMigrations(mg *Migrator) {
 	mg.AddMigration("create star table", NewAddTableMigration(starV1))
 	mg.AddMigration("add unique index star.user_id_dashboard_id", NewAddIndexMigration(starV1, starV1.Indices[0]))
 }
+
+

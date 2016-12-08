@@ -60,6 +60,13 @@ func setIndexViewData(c *middleware.Context) (*dtos.IndexViewData, error) {
 		Url:  "/playlists",
 	})
 
+   /*Adding as a part of segmentation feature*/
+  data.MainNavLinks = append(data.MainNavLinks, &dtos.NavLink{
+    Text: "Segments",
+    Icon: "fa fa-fw fa-list",
+    Url:  "/segments",
+  })
+
 	if c.OrgRole == m.ROLE_ADMIN {
 		data.MainNavLinks = append(data.MainNavLinks, &dtos.NavLink{
 			Text: "Data Sources",

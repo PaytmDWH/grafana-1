@@ -130,5 +130,5 @@ func GetDashboardFromJsonIndex(filename string) *m.Dashboard {
 	if jsonDashIndex == nil {
 		return nil
 	}
-	return jsonDashIndex.GetDashboard(filename)
+	return .GetDashboard(filename)
 }

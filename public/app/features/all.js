@@ -9,5 +9,6 @@ define([
   './profile/profileCtrl',
   './profile/changePasswordCtrl',
   './profile/selectOrgCtrl',
+  './segmentation/all',
   './admin/all',
 ], function () {});

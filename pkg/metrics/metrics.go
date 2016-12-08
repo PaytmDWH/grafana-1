@@ -18,6 +18,8 @@ var (
 	M_Api_User_SignUpInvite    = NewComboCounterRef("api.user.signup_invite")
 	M_Api_Dashboard_Get        = NewComboCounterRef("api.dashboard.get")
 	M_Api_Dashboard_Post       = NewComboCounterRef("api.dashboard.post")
+  M_Api_Segment_Get        = NewComboCounterRef("api.segment.get")
+  M_Api_Segment_Post       = NewComboCounterRef("api.segment.post")
 	M_Api_Admin_User_Create    = NewComboCounterRef("api.admin.user_create")
 	M_Api_Login_Post           = NewComboCounterRef("api.login.post")
 	M_Api_Login_OAuth          = NewComboCounterRef("api.login.oauth")
@@ -28,4 +30,6 @@ var (
 	M_Api_Dashboard_Snapshot_Get      = NewComboCounterRef("api.dashboard_snapshot.get")
 
 	M_Models_Dashboard_Insert = NewComboCounterRef("models.dashboard.insert")
+
+  M_Models_Segment_Insert = NewComboCounterRef("models.segment.insert")
 )

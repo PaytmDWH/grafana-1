@@ -49,6 +49,22 @@ type DashboardFullWithMeta struct {
 	Dashboard map[string]interface{} `json:"dashboard"`
 }
 
+type SegmentMeta struct {
+  IsSegmentStarred  bool      `json:"isSegmentStarred,omitempty"`
+  CanSave    bool      `json:"canSave"`
+  CanEdit    bool      `json:"canEdit"`
+  CanStar    bool      `json:"canStar"`
+  Slug       string    `json:"slug"`
+  Created    time.Time `json:"created"`
+  Updated    time.Time `json:"updated"`
+  UpdatedBy  string    `json:"updatedBy"`
+}
+
+type SegmentFullWithMeta struct {
+  Meta      SegmentMeta          `json:"meta"`
+  Segment map[string]interface{} `json:"segment"`
+}
+
 type DataSource struct {
 	Id                int64                  `json:"id"`
 	OrgId             int64                  `json:"orgId"`
