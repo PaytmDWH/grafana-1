@@ -1,9 +1,6 @@
 package api
 
 import (
-	"encoding/json"
-	"os"
-	"path"
 	"strings"
 
 	"github.com/grafana/grafana/pkg/api/dtos"
@@ -11,8 +8,6 @@ import (
 	"github.com/grafana/grafana/pkg/metrics"
 	"github.com/grafana/grafana/pkg/middleware"
 	m "github.com/grafana/grafana/pkg/models"
-	"github.com/grafana/grafana/pkg/services/search"
-	"github.com/grafana/grafana/pkg/setting"
 	"github.com/grafana/grafana/pkg/util"
 )
 
@@ -165,12 +160,12 @@ func canEditSegment(role m.RoleType) bool {
 }*/
 
 func GetSegmentTags(c *middleware.Context) {
-	query := m.GetSegmentTagsQuery{OrgId: c.OrgId}
-	err := bus.Dispatch(&query)
-	if err != nil {
-		c.JsonApiErr(500, "Failed to get tags from segment", err)
-		return
-	}
+  query := m.GetSegmentTagsQuery{OrgId: c.OrgId}
+  err := bus.Dispatch(&query)
+  if err != nil {
+    c.JsonApiErr(500, "Failed to get tags from segment", err)
+    return
+  }
 
-	c.JSON(200, query.Result)
+  c.JSON(200, query.Result)
 }

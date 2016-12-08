@@ -1,8 +1,5 @@
 package models
 
-import "errors"
-
-var ErrCommandValidationFailed = errors.New("Command missing required fields")
 
 type SegmentStar struct {
 	Id          int64
@@ -20,7 +17,7 @@ type StarSegmentCommand struct {
 
 type UnstarSegmentCommand struct {
 	UserId      int64
-	DashboardId int64
+	SegmentId int64
 }
 
 // ---------------------

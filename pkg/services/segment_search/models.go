@@ -3,10 +3,10 @@ package search
 type HitType string
 
 const (
-	DashHitDB       HitType = "dash-db"
-	DashHitHome     HitType = "dash-home"
-	DashHitJson     HitType = "dash-json"
-	DashHitScripted HitType = "dash-scripted"
+  SegmentHitDB       HitType = "segment-db"
+  SegmentHitHome     HitType = "segment-home"
+  SegmentHitJson     HitType = "segment-json"
+  SegmentHitScripted HitType = "segment-scripted"
 )
 
 type Hit struct {
@@ -24,22 +24,22 @@ func (s HitList) Len() int           { return len(s) }
 func (s HitList) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
 func (s HitList) Less(i, j int) bool { return s[i].Title < s[j].Title }
 
-type Query struct {
-	Title     string
-	Tags      []string
-	OrgId     int64
-	UserId    int64
-	Limit     int
-	IsStarred bool
+type SegmentQuery struct {
+  Title     string
+  Tags      []string
+  OrgId     int64
+  UserId    int64
+  Limit     int
+  IsStarred bool
 
-	Result HitList
+  Result HitList
 }
 
-type FindPersistedDashboardsQuery struct {
-	Title     string
-	OrgId     int64
-	UserId    int64
-	IsStarred bool
+type FindPersistedSegmentsQuery struct {
+  Title     string
+  OrgId     int64
+  UserId    int64
+  IsStarred bool
 
-	Result HitList
+  Result HitList
 }

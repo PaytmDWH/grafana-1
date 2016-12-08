@@ -8,7 +8,7 @@ import (
   "github.com/grafana/grafana/pkg/bus"
   "github.com/grafana/grafana/pkg/metrics"
   m "github.com/grafana/grafana/pkg/models"
-  "github.com/grafana/grafana/pkg/services/search"
+  "github.com/grafana/grafana/pkg/services/segment_search"
 )
 
 func init() {
@@ -119,7 +119,7 @@ type SegmentSearchProjection struct {
   Term  string
 }
 
-func SearchSegments(query *search.FindPersistedSegmentsQuery) error {
+func SearchSegments(query *segment_search.FindPersistedSegmentsQuery) error {
   var sql bytes.Buffer
   params := make([]interface{}, 0)
 
@@ -157,17 +157,17 @@ func SearchSegments(query *search.FindPersistedSegmentsQuery) error {
     return err
   }
 
-  query.Result = make([]*search.Hit, 0)
-  hits := make(map[int64]*search.Hit)
+  query.Result = make([]*segment_search.Hit, 0)
+  hits := make(map[int64]*segment_search.Hit)
 
   for _, item := range res {
     hit, exists := hits[item.Id]
     if !exists {
-      hit = &search.Hit{
+      hit = &segment_search.Hit{
         Id:    item.Id,
         Title: item.Title,
-        Uri:   "db/" + item.Slug,
-        Type:  search.SegmentHitDB,
+        Uri:   "segment/" + item.Slug,
+        Type:  segment_search.SegmentHitDB,
         Tags:  []string{},
       }
       query.Result = append(query.Result, hit)

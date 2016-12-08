@@ -6,6 +6,9 @@ import (
 	"github.com/grafana/grafana/pkg/middleware"
 	m "github.com/grafana/grafana/pkg/models"
 	"gopkg.in/macaron.v1"
+  "github.com/grafana/grafana/Godeps/_workspace/src/gopkg.in/macaron.v1"
+  "github.com/grafana/grafana/pkg/services/sqlstore"
+  "github.com/grafana/grafana/pkg/services/search"
 )
 
 // Register adds http routes
@@ -46,6 +49,8 @@ func Register(r *macaron.Macaron) {
 
 	r.Get("/dashboard/*", reqSignedIn, Index)
 	r.Get("/dashboard-solo/*", reqSignedIn, Index)
+
+  r.Get("/segment/*", reqSignedIn, Index)
 
 	r.Get("/playlists/", reqSignedIn, Index)
 	r.Get("/playlists/*", reqSignedIn, Index)
@@ -89,6 +94,8 @@ func Register(r *macaron.Macaron) {
 			r.Get("/orgs", wrap(GetSignedInUserOrgList))
 			r.Post("/stars/dashboard/:id", wrap(StarDashboard))
 			r.Delete("/stars/dashboard/:id", wrap(UnstarDashboard))
+			r.Post("/stars/segment/:id", wrap(StarSegment))
+			r.Delete("/stars/segment/:id", wrap(UnstarSegment))
 			r.Put("/password", bind(m.ChangeUserPasswordCommand{}), wrap(ChangeUserPassword))
 			r.Get("/quotas", wrap(GetUserQuotas))
 		})
@@ -182,6 +189,13 @@ func Register(r *macaron.Macaron) {
 			r.Get("/tags", GetDashboardTags)
 		})
 
+    r.Group("/segments", func() {
+      r.Get("/", SearchSegment)
+      r.Combo("/segment/:slug").Get(GetSegment).Delete(DeleteSegment)
+      r.Post("/segment", reqEditorRole, bind(m.SaveSegmentCommand{}), PostSegment)
+      r.Get("/tags", GetDashboardTags)
+    })
+
 		// Playlist
 		r.Group("/playlists", func() {
 			r.Get("/", wrap(SearchPlaylists))
@@ -195,6 +209,7 @@ func Register(r *macaron.Macaron) {
 
 		// Search
 		r.Get("/search/", Search)
+		r.Get("/search_segments/", SearchSegment)
 
 		// metrics
 		r.Get("/metrics/test", GetTestMetrics)

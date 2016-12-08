@@ -1,35 +1,64 @@
 package api
 
 import (
-	"github.com/grafana/grafana/pkg/bus"
-	"github.com/grafana/grafana/pkg/middleware"
-	"github.com/grafana/grafana/pkg/services/search"
+  "github.com/grafana/grafana/pkg/bus"
+  "github.com/grafana/grafana/pkg/middleware"
+  "github.com/grafana/grafana/pkg/services/search"
+  "github.com/grafana/grafana/pkg/services/segment_search"
 )
 
 func Search(c *middleware.Context) {
-	query := c.Query("query")
-	tags := c.QueryStrings("tag")
-	starred := c.Query("starred")
-	limit := c.QueryInt("limit")
+  query := c.Query("query")
+  tags := c.QueryStrings("tag")
+  starred := c.Query("starred")
+  limit := c.QueryInt("limit")
 
-	if limit == 0 {
-		limit = 1000
-	}
+  if limit == 0 {
+    limit = 1000
+  }
 
-	searchQuery := search.Query{
-		Title:     query,
-		Tags:      tags,
-		UserId:    c.UserId,
-		Limit:     limit,
-		IsStarred: starred == "true",
-		OrgId:     c.OrgId,
-	}
+  searchQuery := search.Query{
+    Title:     query,
+    Tags:      tags,
+    UserId:    c.UserId,
+    Limit:     limit,
+    IsStarred: starred == "true",
+    OrgId:     c.OrgId,
+  }
 
-	err := bus.Dispatch(&searchQuery)
-	if err != nil {
-		c.JsonApiErr(500, "Search failed", err)
-		return
-	}
+  err := bus.Dispatch(&searchQuery)
+  if err != nil {
+    c.JsonApiErr(500, "Search failed", err)
+    return
+  }
 
-	c.JSON(200, searchQuery.Result)
+  c.JSON(200, searchQuery.Result)
+}
+
+func SearchSegment(c *middleware.Context) {
+  query := c.Query("query")
+  tags := c.QueryStrings("tag")
+  starred := c.Query("starred")
+  limit := c.QueryInt("limit")
+
+  if limit == 0 {
+    limit = 1000
+  }
+
+  searchQuery := segment_search.SegmentQuery{
+    Title:     query,
+    Tags:      tags,
+    UserId:    c.UserId,
+    Limit:     limit,
+    IsStarred: starred == "true",
+    OrgId:     c.OrgId,
+  }
+
+  err := bus.Dispatch(&searchQuery)
+  if err != nil {
+    c.JsonApiErr(500, "Search failed", err)
+    return
+  }
+
+  c.JSON(200, searchQuery.Result)
 }

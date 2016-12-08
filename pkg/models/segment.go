@@ -136,6 +136,8 @@ type GetSegmentQuery struct {
   Result *Segment
 }
 
+type Segments []*Segment
+
 type SegmentTagCloudItem struct {
   Term  string `json:"term"`
   Count int    `json:"count"`
@@ -146,3 +148,10 @@ type GetSegmentTagsQuery struct {
   Result []*SegmentTagCloudItem
 }
 
+type GetSegmentsQuery struct{
+  Name  string
+  Limit int
+  OrgId int64
+
+  Result Segments
+}

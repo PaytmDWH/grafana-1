@@ -37,7 +37,9 @@ func New() Bus {
 func (b *InProcBus) Dispatch(msg Msg) error {
 	var msgName = reflect.TypeOf(msg).Elem().Name()
 
+
 	var handler = b.handlers[msgName]
+  fmt.Println("Calling %s for %s", handler, msgName)
 	if handler == nil {
 		return fmt.Errorf("handler not found for %s", msgName)
 	}

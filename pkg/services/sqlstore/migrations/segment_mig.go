@@ -56,6 +56,6 @@ func addStarForSegmentMigrations(mg *Migrator) {
     },
   }
 
-  mg.AddMigration("create star table", NewAddTableMigration(starSegmentsV1))
-  mg.AddMigration("add unique index star.user_id_segment_id", NewAddIndexMigration(starSegmentsV1, starSegmentsV1.Indices[0]))
+  mg.AddMigration("create segment star table", NewAddTableMigration(starSegmentsV1))
+  mg.AddMigration("add unique index segment_star.user_id_segment_id", NewAddIndexMigration(starSegmentsV1, starSegmentsV1.Indices[0]))
 }
