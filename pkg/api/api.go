@@ -1,14 +1,11 @@
 package api
 
 import (
-	"github.com/go-macaron/binding"
-	"github.com/grafana/grafana/pkg/api/dtos"
-	"github.com/grafana/grafana/pkg/middleware"
-	m "github.com/grafana/grafana/pkg/models"
-	"gopkg.in/macaron.v1"
-  "github.com/grafana/grafana/Godeps/_workspace/src/gopkg.in/macaron.v1"
-  "github.com/grafana/grafana/pkg/services/sqlstore"
-  "github.com/grafana/grafana/pkg/services/search"
+  "github.com/go-macaron/binding"
+  "github.com/grafana/grafana/pkg/api/dtos"
+  "github.com/grafana/grafana/pkg/middleware"
+  m "github.com/grafana/grafana/pkg/models"
+  "gopkg.in/macaron.v1"
 )
 
 // Register adds http routes
