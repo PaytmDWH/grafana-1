@@ -6,6 +6,7 @@ import (
   "github.com/grafana/grafana/pkg/middleware"
   m "github.com/grafana/grafana/pkg/models"
   "gopkg.in/macaron.v1"
+
 )
 
 // Register adds http routes
@@ -190,7 +191,7 @@ func Register(r *macaron.Macaron) {
       r.Get("/", SearchSegment)
       r.Combo("/segment/:slug").Get(GetSegment).Delete(DeleteSegment)
       r.Post("/segment", reqEditorRole, bind(m.SaveSegmentCommand{}), PostSegment)
-      r.Get("/tags", GetDashboardTags)
+      r.Get("/tags", GetSegmentTags)
     })
 
 		// Playlist
