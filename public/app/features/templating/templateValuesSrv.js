@@ -8,7 +8,7 @@ function (angular, _, kbn) {
 
   var module = angular.module('grafana.services');
 
-  module.service('templateValuesSrv', function($q, $rootScope, datasourceSrv, $location, templateSrv, timeSrv) {
+  module.service('templateValuesSrv', function($q, $rootScope, datasourceSrv, $location, templateSrv, timeSrv, $http) {
     var self = this;
 
     function getNoneOption() { return { text: 'None', value: '', isNone: true }; }
@@ -111,6 +111,12 @@ function (angular, _, kbn) {
     };
 
     this.updateOptions = function(variable,mapOfCompleted) {
+      if (variable.type === 'http') {
+        return self._getHttpVariableOptions(variable).then(function(options) {
+          variable.options = options;
+          return self.validateVariableSelectionState(variable);
+        });
+      }
       if (variable.type !== 'query') {
         self._updateNonQueryVariable(variable);
         self.setVariableValue(variable, variable.options[0]);
@@ -205,6 +211,19 @@ function (angular, _, kbn) {
             return value.text;
           });
         });
+      });
+    };
+
+    this._getHttpVariableOptions = function(variable) {
+      variable.options = [];
+      return $http({
+        method: 'GET',
+        url: variable.query,
+        params: {'variable': variable.name}
+      }).then(function successCallback(response) {
+        return _.sortBy(response.data, 'text');
+      }, function errorCallback() {
+        return [{text: 'Failed to load http variable values', value: ''}];
       });
     };
 
