@@ -126,6 +126,10 @@ function ($) {
         relativeTime = dashboard.getRelativeTime(seriesHoverInfo.time);
         absoluteTime = dashboard.formatDate(seriesHoverInfo.time);
 
+        for (var j = 0; j < seriesHoverInfo.length; j++) {
+          seriesHoverInfo[j].initialPosition = j;
+        }
+        
         seriesHoverInfo.sort(byToolTipValue);
 
         for (i = 0; i < seriesHoverInfo.length; i++) {
@@ -135,7 +139,7 @@ function ($) {
             continue;
           }
 
-          series = seriesList[i];
+          series = seriesList[hoverInfo.initialPosition];
 
           value = series.formatValue(hoverInfo.value);
 
