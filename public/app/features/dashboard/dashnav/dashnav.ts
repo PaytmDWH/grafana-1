@@ -3,6 +3,9 @@
 import _ from 'lodash';
 import moment from 'moment';
 import angular from 'angular';
+import pdfMake from "pdfmake";
+import html2canvas from "html2canvas";
+
 
 export class DashNavCtrl {
   user: any; 
@@ -154,6 +157,22 @@ export class DashNavCtrl {
         src: './app/features/dashboard/partials/saveDashboardAs.html',
         scope: newScope,
       });
+    };
+
+    $scope.exportDashboardToPDF = function(){
+       html2canvas(document.getElementById("dashboardContainer"), {
+            onrendered: function (canvas) {
+                var data = canvas.toDataURL();
+                var docDefinition = {
+                    content: [{
+                        image: data,
+                        width: 500,
+                    }]
+                };
+                pdfMake.createPdf(docDefinition).download($scope.dashboard.title+".pdf");
+            }
+        });
+      
     };
 
     $scope.exportDashboard = function() {
