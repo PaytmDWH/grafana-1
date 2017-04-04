@@ -10,7 +10,7 @@ import html2canvas from "html2canvas";
 export class DashNavCtrl {
   user: any; 
   /** @ngInject */
-  constructor($scope, $rootScope, alertSrv, $location, playlistSrv, backendSrv, $timeout) {
+  constructor($scope, $rootScope, alertSrv, $location, playlistSrv, backendSrv, timeSrv, $timeout) {
 
     $scope.init = function() {
       $scope.onAppEvent('save-dashboard', $scope.saveDashboard);
@@ -169,7 +169,9 @@ export class DashNavCtrl {
                         width: 500,
                     }]
                 };
-                pdfMake.createPdf(docDefinition).download($scope.dashboard.title+".pdf");
+                var range = timeSrv.timeRangeForFIleName();
+                var fileName = $scope.dashboard.title+"_"+ range.from+"_"+range.to+".pdf"
+                pdfMake.createPdf(docDefinition).download(fileName);
             }
         });
       
