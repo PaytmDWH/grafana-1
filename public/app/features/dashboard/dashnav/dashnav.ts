@@ -3,11 +3,14 @@
 import _ from 'lodash';
 import moment from 'moment';
 import angular from 'angular';
+import pdfMake from "pdfmake";
+import html2canvas from "html2canvas";
+
 
 export class DashNavCtrl {
   user: any; 
   /** @ngInject */
-  constructor($scope, $rootScope, alertSrv, $location, playlistSrv, backendSrv, $timeout) {
+  constructor($scope, $rootScope, alertSrv, $location, playlistSrv, backendSrv, timeSrv, $timeout) {
 
     $scope.init = function() {
       $scope.onAppEvent('save-dashboard', $scope.saveDashboard);
@@ -154,6 +157,24 @@ export class DashNavCtrl {
         src: './app/features/dashboard/partials/saveDashboardAs.html',
         scope: newScope,
       });
+    };
+
+    $scope.exportDashboardToPDF = function(){
+       html2canvas(document.getElementById("dashboardContainer"), {
+            onrendered: function (canvas) {
+                var data = canvas.toDataURL();
+                var docDefinition = {
+                    content: [{
+                        image: data,
+                        width: 500,
+                    }]
+                };
+                var range = timeSrv.timeRangeForFileName();
+                var fileName = $scope.dashboard.title+"_"+ range.from+"_"+range.to+".pdf"
+                pdfMake.createPdf(docDefinition).download(fileName);
+            }
+        });
+      
     };
 
     $scope.exportDashboard = function() {
