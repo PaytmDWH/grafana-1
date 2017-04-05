@@ -169,7 +169,7 @@ export class DashNavCtrl {
                         width: 500,
                     }]
                 };
-                var range = timeSrv.timeRangeForFIleName();
+                var range = timeSrv.timeRangeForFileName();
                 var fileName = $scope.dashboard.title+"_"+ range.from+"_"+range.to+".pdf"
                 pdfMake.createPdf(docDefinition).download(fileName);
             }
