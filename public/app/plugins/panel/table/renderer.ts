@@ -100,26 +100,25 @@ export class TableRenderer {
   }
 
   renderCell(columnIndex, value, addWidthHack = false) {
-
-  if (typeof value !="undefined")
-  {
-     if  ( (value.toString().split("|").length >1) && (this.table.columns[0].text!= "JSON") )  
-     {
-        var temp_val_1= this.formatColumnValue(columnIndex, Number(value.toString().split("|")[0]))
-        let valueFormater = kbn.valueFormats["deviationpercent"]
-        var temp_val_2=valueFormater(Number(value.toString().split("|")[1]), 0, null);
-        value= '<span style="float:left;color:black">' + temp_val_1+'</span>' 
-       + '<span style="float:right">' + temp_val_2+'</span>'
-      }
-     else
-      {
-        value = this.formatColumnValue(columnIndex, value);
-      }
-  }
-  else 
-  {
-  value = this.formatColumnValue(columnIndex, value);
-  }
+    if (typeof value !="undefined")
+    {
+       if  ( (value.toString().split("|").length >1) && (this.table.columns[0].text!= "JSON") )  
+       {
+          var temp_val_1= this.formatColumnValue(columnIndex, Number(value.toString().split("|")[0]))
+          let valueFormater = kbn.valueFormats["deviationpercent"]
+          var temp_val_2=valueFormater(Number(value.toString().split("|")[1]), 0, null);
+          value= '<span style="float:left;color:black">' + temp_val_1+'</span>' 
+         + '<span style="float:right">' + temp_val_2+'</span>'
+        }
+       else
+        {
+          value = this.formatColumnValue(columnIndex, value);
+        }
+    }
+    else 
+    {
+    value = this.formatColumnValue(columnIndex, value);
+    }
     var style = '';
     if (this.colorState.cell) {
       style = ' style="background-color:' + this.colorState.cell + ';color: white"';
