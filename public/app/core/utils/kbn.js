@@ -364,12 +364,18 @@ function($, _) {
   };
 
   kbn.valueFormats.percentunit = function(size, decimals) {
-    if (size === null) { return ""; }
+    if (size === null) 
+    { 
+        return ""; 
+    }
     return kbn.toFixed(100*size, decimals) + '%';
   };
 
 kbn.valueFormats.deviationpercent = function(size, decimals) {
-    if (size === null || isNaN(size)) { return ""; }
+    if (size === null || isNaN(size)) 
+    { 
+      return ""; 
+    }
     var color=kbn.getColorForDeviation(size);
     var value=kbn.toFixed(Math.abs(size), decimals);
     return '<span style="color:' + color + '">  ['+ value +
