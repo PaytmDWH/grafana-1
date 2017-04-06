@@ -83,7 +83,7 @@ export class TablePanelCtrl {
       });
     };
 
-    $scope.toggleColumnSort = function(col, colIndex) {
+    $scope.toggleColumnSort = function(col, colIndex,dev=0) {
       if ($scope.panel.sort.col === colIndex) {
         if ($scope.panel.sort.desc) {
           $scope.panel.sort.desc = false;
@@ -93,6 +93,14 @@ export class TablePanelCtrl {
       } else {
         $scope.panel.sort.col = colIndex;
         $scope.panel.sort.desc = true;
+      }
+      if (dev===1){
+       $scope.panel.sort.dev = true;
+
+      }
+      else{
+      $scope.panel.sort.dev = false;
+
       }
 
       $scope.render();
@@ -122,6 +130,7 @@ export class TablePanelCtrl {
       }
 
       $scope.table = transformDataToTable($scope.dataRaw, $scope.panel);
+      $scope.table.deviationMapping=$scope.dataRaw[0].deviationMapping
       $scope.table.sort($scope.panel.sort);
       panelHelper.broadcastRender($scope, $scope.table, $scope.dataRaw);
     };

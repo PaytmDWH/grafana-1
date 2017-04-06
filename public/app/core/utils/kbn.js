@@ -367,6 +367,37 @@ function($, _) {
     if (size === null) { return ""; }
     return kbn.toFixed(100*size, decimals) + '%';
   };
+   kbn.valueFormats.percentunit = function(size, decimals) {
+    if (size === null) { return ""; }
+    return kbn.toFixed(100*size, decimals) + '%';
+  };
+
+
+kbn.valueFormats.deviationpercent = function(size, decimals) {
+    if (size === null || isNaN(size)) { return ""; }
+    var color=kbn.getColorForDeviation(size);
+    var value=kbn.toFixed(Math.abs(size), decimals);
+    return '<span style="color:' + color + '">  ['+ value +'%'+ kbn.getDeviationArrow(size) +']</span>';
+  };
+
+kbn.getDeviationArrow=function (value){
+           if(value > 0.00){
+             return '▲';
+           }else if(value < 0.00){
+             return '▼';
+           }
+           return "";
+        };
+
+kbn.getColorForDeviation=  function (value) {
+          if(value > 0.00){
+             return 'green';
+          }else if(value < 0.00){
+             return 'red';
+          }
+          return 'green';
+        };
+
 
   // Currencies
   kbn.valueFormats.currencyUSD = kbn.formatBuilders.currency('$');
@@ -588,6 +619,7 @@ function($, _) {
           {text: 'none' ,             value: 'none'       },
           {text: 'short',             value: 'short'      },
           {text: 'percent (0-100)',   value: 'percent'    },
+          {text: 'deviationpercent',         value: 'deviationpercent'    },
           {text: 'percent (0.0-1.0)', value: 'percentunit'},
           {text: 'Humidity (%H)',     value: 'humidity'   },
           {text: 'ppm',               value: 'ppm'        },
