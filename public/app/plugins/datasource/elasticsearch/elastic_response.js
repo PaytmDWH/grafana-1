@@ -100,31 +100,36 @@ function (_, queryDef,time) {
 
 ElasticResponse.prototype.getMappings=function(target) {
   var mappings={};
-   for (var i =0; i<target.length;i++)
+  for (var i =0; i<target.length;i++)
    {
-    if (target[i].alias){
-      mappings['query'+(i+1)]= target[i].alias
-
-    }
-    else
-    {
-      var metric=target[i].metrics[(target[i].metrics.length-1)]
-switch(metric.type )  
-{
-          case "count": {
+      if (target[i].alias)
+      {
+        mappings['query'+(i+1)]= target[i].alias
+      }
+      else
+      {
+        var metric=target[i].metrics[(target[i].metrics.length-1)]
+        switch(metric.type )  
+        {
+          case "count": 
+          {
              mappings['query'+(i+1)]= metric.type  +" " + target[i].refId
             break;
-                          }
-          case 'extended_stats': {
-            for (var statName in metric.meta) {
-              if (!metric.meta[statName]) {
+          }
+          case 'extended_stats': 
+          {
+            for (var statName in metric.meta) 
+            {
+              if (!metric.meta[statName]) 
+              {
                 continue;
               }
               mappings['query'+(i+1)]=statName+ " " + metric.field + " " + target[i].refId
             }
             break;
           }
-          case "calc_metric": {
+          case "calc_metric": 
+          {
             mappings['query'+(i+1)]= metric.type + " " + metric.formula + " " + target[i].refId
            
             break;
@@ -134,14 +139,10 @@ switch(metric.type )
             break;
           }
         }
-
     }
-
-
    }
-
    return mappings;
-};
+  };
 
 
   ElasticResponse.prototype.processAggregationDocs = function(esAgg, aggDef, target, docs, props) {
@@ -153,7 +154,6 @@ switch(metric.type )
       var refId = target.refId;
       for (y = 0; y < target.metrics.length; y++) {
         metric = target.metrics[y];
-
         switch(metric.type) {
           case "count": {
             metricName = metric.type;
@@ -339,8 +339,7 @@ switch(metric.type )
     }
   };
 
-  ElasticResponse.prototype.getTimeSeries = function() 
-  {
+  ElasticResponse.prototype.getTimeSeries = function() {
     var seriesList = [];
     var docs = [];
     var docsCountCummulative = [];
@@ -351,7 +350,8 @@ switch(metric.type )
     for (var i = 0; i < this.targets.length; i++) {
       deviationOf['query'+(i+1)]=this.targets[i]["deviationOf"]
       };
-    deviationOf = _(deviationOf).omit(_.isUndefined).omit(_.isNull).omit(_.isEmpty).value();
+    deviationOf = _(deviationOf).omit(_.isUndefined).omit(_.isNull)
+    deviationOf=_(deviationOf).omit(_.isEmpty).value();
     for (var i = 0; i < this.response.responses.length; i++) {
       var response = this.response.responses[i];
       if (response.error) {
@@ -368,7 +368,6 @@ switch(metric.type )
         var aggregations = response.aggregations;
         var target = this.targets[i];
         var tmpSeriesList = [];
-      
         this.processBuckets(aggregations, target, tmpSeriesList, docs, {}, 0);
         this.trimDatapoints(tmpSeriesList, target);
         this.nameSeries(tmpSeriesList, target);
@@ -397,7 +396,8 @@ switch(metric.type )
 
         if (seriesList.length === 0 && docs.length > 0) {
           isDoc = true;
-          seriesList.push({target: 'docs', type: 'docs',deviationOf:deviationOf, datapoints: docs});
+          seriesList.push({target: 'docs', type: 'docs',
+            deviationOf:deviationOf, datapoints: docs});
         }
       }
     }
@@ -461,15 +461,20 @@ switch(metric.type )
       });
       seriesList[0].datapoints = datapointsArr;
     }
-if(typeof deviationkeys !="undefined"){
-for(var i=0;i<deviationkeys.length;i++){  
-for(var k=0;k<seriesList[0].datapoints.length;k++){  
-seriesList[0].datapoints[k][ mappings[deviationkeys[i]]]= seriesList[0].datapoints[k][mappings[deviationOf[deviationkeys[i]]]] +'|'+seriesList[0].datapoints[k][mappings[deviationkeys[i]]] ;
-      }
-deviationMapping[mappings[deviationkeys[i]]] = mappings[deviationOf[deviationkeys[i]]];
-seriesList[0].deviationMapping=deviationMapping;
-} 
-  }
+    if(typeof deviationkeys !="undefined")
+    {
+      for(var i=0;i<deviationkeys.length;i++)
+      {  
+        for(var k=0;k<seriesList[0].datapoints.length;k++)
+        {  
+          seriesList[0].datapoints[k][ mappings[deviationkeys[i]]]= 
+          seriesList[0].datapoints[k][mappings[deviationOf[deviationkeys[i]]]] +'|'+
+          seriesList[0].datapoints[k][mappings[deviationkeys[i]]] ;
+        }
+        deviationMapping[mappings[deviationkeys[i]]] = mappings[deviationOf[deviationkeys[i]]];
+        seriesList[0].deviationMapping=deviationMapping;
+      } 
+    }
     return { data: seriesList };
   };
 

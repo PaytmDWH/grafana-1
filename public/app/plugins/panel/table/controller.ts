@@ -94,13 +94,13 @@ export class TablePanelCtrl {
         $scope.panel.sort.col = colIndex;
         $scope.panel.sort.desc = true;
       }
-      if (dev===1){
+      if (dev===1)
+      {
        $scope.panel.sort.dev = true;
-
       }
-      else{
+      else
+      {
       $scope.panel.sort.dev = false;
-
       }
 
       $scope.render();
