@@ -78,6 +78,13 @@
 		<li>-->
 			<input type="checkbox" class="tight-form-input" style="width: 20px;margin:auto" ng-model="target.mtd"  on-change="queryUpdated()" ng-blur="get_data()">
 		</li>
+		<li class="tight-form-item query-keyword">
+			Deviation
+		</li>
+		<li>
+			<input type="text" class="tight-form-input" style="width: 80px;" ng-model="target.deviationOf"  on-change="queryUpdated()" ng-blur="get_data()">
+		</li>
+
 	</ul>
 	<div class="clearfix"></div>
 	<div style="padding: 10px" ng-if="target.rawQuery">
