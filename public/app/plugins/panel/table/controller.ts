@@ -125,7 +125,9 @@ export class TablePanelCtrl {
       }
 
       $scope.table = transformDataToTable($scope.dataRaw, $scope.panel);
-      $scope.table.deviationMapping=$scope.dataRaw[0].deviationMapping
+      if($scope.dataRaw[0]){
+        $scope.table.deviationMapping=$scope.dataRaw[0].deviationMapping;
+      }
       $scope.table.sort($scope.panel.sort);
       panelHelper.broadcastRender($scope, $scope.table, $scope.dataRaw);
     };
