@@ -196,6 +196,9 @@ func Register(r *macaron.Macaron) {
 		// Search
 		r.Get("/search/", Search)
 
+		// Templates
+		r.Get("/templates/", TemplateSearch)
+
 		// metrics
 		r.Get("/metrics/test", GetTestMetrics)
 

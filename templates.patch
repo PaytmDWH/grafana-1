@@ -1,0 +1,43 @@
+diff --git a/pkg/api/api.go b/pkg/api/api.go
+index 8bbb64e..030119a 100644
+--- a/pkg/api/api.go
++++ b/pkg/api/api.go
+@@ -196,6 +196,9 @@ func Register(r *macaron.Macaron) {
+ 		// Search
+ 		r.Get("/search/", Search)
+ 
++		// Templates
++		r.Get("/templates/", Search)
++
+ 		// metrics
+ 		r.Get("/metrics/test", GetTestMetrics)
+ 
+diff --git a/pkg/api/dashboard.go b/pkg/api/dashboard.go
+index 79485fa..fb5ae6c 100644
+--- a/pkg/api/dashboard.go
++++ b/pkg/api/dashboard.go
+@@ -12,6 +12,7 @@ import (
+ 	"github.com/grafana/grafana/pkg/middleware"
+ 	m "github.com/grafana/grafana/pkg/models"
+ 	"github.com/grafana/grafana/pkg/services/search"
++	"github.com/grafana/grafana/pkg/services/templates"
+ 	"github.com/grafana/grafana/pkg/setting"
+ 	"github.com/grafana/grafana/pkg/util"
+ )
+diff --git a/pkg/api/index.go b/pkg/api/index.go
+index d3bdff1..82441fa 100644
+--- a/pkg/api/index.go
++++ b/pkg/api/index.go
+@@ -60,6 +60,12 @@ func setIndexViewData(c *middleware.Context) (*dtos.IndexViewData, error) {
+ 		Url:  "/playlists",
+ 	})
+ 
++	data.MainNavLinks = append(data.MainNavLinks, &dtos.NavLink{
++		Text: "Templates",
++		Icon: "fa fa-fw fa-list",
++		Url:  "/templates",
++	})
++
+ 	if c.OrgRole == m.ROLE_ADMIN {
+ 		data.MainNavLinks = append(data.MainNavLinks, &dtos.NavLink{
+ 			Text: "Data Sources",

@@ -1,0 +1,19 @@
+diff --git a/public/app/plugins/panel/table/renderer.ts b/public/app/plugins/panel/table/renderer.ts
+index be73af0..6fe7317 100644
+--- a/public/app/plugins/panel/table/renderer.ts
++++ b/public/app/plugins/panel/table/renderer.ts
+@@ -45,10 +45,12 @@ export class TableRenderer {
+     if (style.type === 'date') {
+       return v => {
+         if (_.isArray(v)) { v = v[0]; }
++        console.log(v);
+         var date = moment(v);
+-        if (this.timezone === 'utc') {
++        console.log(date);
++        // if (this.timezone === 'utc') {
+           date = date.utc();
+-        }
++        // }
+         return date.format(style.dateFormat);
+       };
+     }
