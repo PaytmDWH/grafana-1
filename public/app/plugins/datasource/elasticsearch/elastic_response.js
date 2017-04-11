@@ -108,7 +108,7 @@ ElasticResponse.prototype.getMappings=function(target) {
         var metric=target[i].metrics[(target[i].metrics.length-1)]
         switch(metric.type) {
           case "count": {
-             mappings['query'+(i+1)]= metric.type  +" " + target[i].refId
+             mappings['query'+(i+1)]= (metric.type  +" " + target[i].refId).toLowerCase()
             break;
           }
           case 'extended_stats':{
@@ -116,16 +116,16 @@ ElasticResponse.prototype.getMappings=function(target) {
               if (!metric.meta[statName]) {
                 continue;
               }
-              mappings['query'+(i+1)]=statName+ " " + metric.field + " " + target[i].refId
+              mappings['query'+(i+1)]=(statName+ " " + metric.field + " " + target[i].refId).toLowerCase()
             }
             break;
           }
           case "calc_metric": {
-            mappings['query'+(i+1)]= metric.type + " " + metric.formula + " " + target[i].refId
+            mappings['query'+(i+1)]= (metric.type + " " + metric.formula + " " + target[i].refId).toLowerCase()
             break;
           }
           default:  {
-             mappings['query'+(i+1)] =  metric.type + " " + metric.field + " " + target[i].refId
+             mappings['query'+(i+1)] = (metric.type + " " + metric.field + " " + target[i].refId).toLowerCase()
             break;
           }
         }
@@ -258,7 +258,7 @@ ElasticResponse.prototype.getMappings=function(target) {
     }
 
     var propKeys = _.keys(series.props);
-    if (propKeys.length === 0) {
+    if (propKeys.length === 0) {
       return metricName;
     }
 

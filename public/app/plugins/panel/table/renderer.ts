@@ -104,7 +104,17 @@ export class TableRenderer {
        if  ((value.toString().split("|").length >1) && (this.table.columns[0].text!= "JSON")) {
           var temp_val_1= this.formatColumnValue(columnIndex, Number(value.toString().split("|")[0]))
           let valueFormater = kbn.valueFormats["deviationpercent"]
-          var temp_val_2=valueFormater(Number(value.toString().split("|")[1]), 0, null);
+          var deviationdecimals=0
+          for (let i = 0; i < this.panel.styles.length; i++) {
+            let style = this.panel.styles[i];
+            let column = this.table.columns[columnIndex];
+            var regex = kbn.stringToJsRegex(style.pattern);
+            if (column.text.match(regex)) {
+                deviationdecimals=style.deviationdecimals
+                break
+            }          
+          }
+          var temp_val_2=valueFormater(Number(value.toString().split("|")[1]), deviationdecimals, null);
           value= '<span style="float:left;color:black">' + temp_val_1+'</span>' 
          + '<span style="float:right">' + temp_val_2+'</span>'
         }
