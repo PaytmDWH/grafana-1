@@ -40,6 +40,7 @@ export class TablePanelCtrl {
           unit: 'short',
           type: 'number',
           decimals: 2,
+          deviationdecimals: 0,
           colors: ["rgba(245, 54, 54, 0.9)", "rgba(237, 129, 40, 0.89)", "rgba(50, 172, 45, 0.97)"],
           colorMode: null,
           pattern: '/.*/',
@@ -83,7 +84,7 @@ export class TablePanelCtrl {
       });
     };
 
-    $scope.toggleColumnSort = function(col, colIndex) {
+    $scope.toggleColumnSort = function (col, colIndex,dev = 0) {
       if ($scope.panel.sort.col === colIndex) {
         if ($scope.panel.sort.desc) {
           $scope.panel.sort.desc = false;
@@ -94,7 +95,10 @@ export class TablePanelCtrl {
         $scope.panel.sort.col = colIndex;
         $scope.panel.sort.desc = true;
       }
-
+       $scope.panel.sort.dev = false;
+      if (dev===1) {
+       $scope.panel.sort.dev = true;
+      }
       $scope.render();
     };
 
@@ -122,6 +126,9 @@ export class TablePanelCtrl {
       }
 
       $scope.table = transformDataToTable($scope.dataRaw, $scope.panel);
+      if ($scope.dataRaw[0]){
+        $scope.table.deviationMapping = $scope.dataRaw[0].deviationMapping;
+      }
       $scope.table.sort($scope.panel.sort);
       panelHelper.broadcastRender($scope, $scope.table, $scope.dataRaw);
     };
