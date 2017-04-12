@@ -140,15 +140,6 @@ define([
 
       return {from: from, to: to};
     };
-    this.timeRangeForFileName = function(){
-            // make copies if they are moment  (do not want to return out internal moment, because they are mutable!)
-      var from = moment.isMoment(this.time.from) ? this._convertTime(moment(this.time.from)) : this._convertTime(dateMath.parse(this.time.from, false)) ;
-      var to = moment.isMoment(this.time.to) ? this._convertTime(moment(this.time.to)) : this._convertTime(dateMath.parse(this.time.to, true)) ;
-
-      from= from.format("DDMMMYYYYHH:mm");
-      to= to.format("DDMMMYYYYHH:mm");
-      return {from:from, to:to};
-    };
 
   });
 
