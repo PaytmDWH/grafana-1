@@ -19,16 +19,6 @@ declare module 'moment' {
   export default moment;
 }
 
-
-declare module 'pdfmake'{
-  var pdfmake: any;
-  export default pdfmake;
-}
-
-declare module 'html2canvas'{
-  var html2canvas: any;
-  export default html2canvas;
-}
 declare module 'angular' {
   var angular: any;
   export default angular;
