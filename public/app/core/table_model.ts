@@ -22,10 +22,11 @@ export default class TableModel {
       if (options.dev===undefined || options.dev===false) {
         var devindex = 0;
       }
-      if (a === undefined ) {
+      
+      if (a === undefined || isNaN(a)) {
         return -1;
       }
-      if (b === undefined ) {
+      if (b === undefined || isNaN(b)) {
         return 1;
       }
 
