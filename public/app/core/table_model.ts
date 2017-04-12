@@ -27,7 +27,7 @@ export default class TableModel {
         return -1;
       }
       if (b === undefined) {
-        return 1;
+        return -1;
       }
 
       if (a.toString().indexOf('|') >-1 && options.deviation === true) {
