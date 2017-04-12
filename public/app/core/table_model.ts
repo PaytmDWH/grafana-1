@@ -18,24 +18,24 @@ export default class TableModel {
     this.rows.sort(function(a, b) {
       a = a[options.col];
       b = b[options.col];
-      var devindex=1
+      var devindex = 1;
       if (options.dev===undefined || options.dev===false) {
-        var devindex=0;
+        var devindex = 0;
       }
-      if (a === undefined) {
+      if (a === undefined || isNaN(a)) {
         return -1;
       }
-      if (b === undefined) {
+      if (b === undefined || isNaN(b)) {
         return 1;
       }
 
       if (a.toString().indexOf('|') >-1) {
-        a = Number(a.split('|')[devindex])
-        b= Number(b.split('|')[devindex])
-        if(isNaN(a) || a === undefined) {
+        a = Number(a.split('|')[devindex]);
+        b= Number(b.split('|')[devindex]);
+        if (isNaN(a) || a === undefined) {
           return -1;
         }
-        if(isNaN(b) || b === undefined) {
+        if (isNaN(b) || b === undefined) {
           return -1;
         }
       }
