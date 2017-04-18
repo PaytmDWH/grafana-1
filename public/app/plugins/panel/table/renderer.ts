@@ -98,9 +98,9 @@ export class TableRenderer {
     return this.formaters[colIndex](value);
   }
 
-  renderCell(columnIndex, value, addWidthHack = false) {
+  renderCell(columnIndex, value , addWidthHack = false) {
     if (typeof value !== "undefined") {
-       if  ((value.toString().split("|").length >1) && (this.table.columns[0].text !== "JSON")) {
+       if  ((value.toString().split("|").length >1) && (this.table.columns[0].text !== "JSON") && this.table.deviationcolumnindex.includes(columnIndex)) {
           var temp_val_1 = this.formatColumnValue(columnIndex, Number(value.toString().split("|")[0]));
           let valueFormater = kbn.valueFormats["deviationpercent"];
           var deviationdecimals = 0;
@@ -147,13 +147,18 @@ export class TableRenderer {
     let startPos = page * pageSize;
     let endPos = Math.min(startPos + pageSize, this.table.rows.length);
     var html = "";
-
+    this.table.deviationcolumnindex =[];
+    for (var i = 0;i < this.table.columns.length;i++) {
+        if (this.table.columns[i].text.toString().split("|").length >1 ) { 
+        this.table.deviationcolumnindex.push(i);
+        } 
+      }
     for (var y = startPos; y < endPos; y++) {
       let row = this.table.rows[y];
       let cellHtml = '';
       let rowStyle = '';
       for (var i = 0; i < this.table.columns.length; i++) {
-        cellHtml += this.renderCell(i, row[i], y === startPos);
+        cellHtml += this.renderCell(i,row[i], y === startPos);
       }
 
       if (this.colorState.row) {
