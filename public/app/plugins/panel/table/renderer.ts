@@ -149,10 +149,12 @@ export class TableRenderer {
     var html = "";
     this.table.deviationcolumnindex =[];
     for (var i = 0;i < this.table.columns.length;i++) {
-        if (this.table.columns[i].text.toString().split("|").length >1 ) { 
-        this.table.deviationcolumnindex.push(i);
-        } 
+      if (this.table.columns[i].text.toString().split("|").length >1) {
+        if(this.table.columns[i].text.toString().split("|")[1]  in this.table.deviationMapping) {
+          this.table.deviationcolumnindex.push(i);
+        }
       }
+    }
     for (var y = startPos; y < endPos; y++) {
       let row = this.table.rows[y];
       let cellHtml = '';
