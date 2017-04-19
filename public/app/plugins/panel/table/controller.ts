@@ -96,8 +96,14 @@ export class TablePanelCtrl {
         $scope.panel.sort.desc = true;
       }
        $scope.panel.sort.dev = false;
+       $scope.panel.sort.deviation = false;
       if (dev===1) {
        $scope.panel.sort.dev = true;
+      }
+      if($scope.table.deviationcolumnindex !== undefined) {
+      if ($scope.table.deviationcolumnindex.includes(colIndex)) {
+       $scope.panel.sort.deviation = true;
+        }
       }
       $scope.render();
     };
