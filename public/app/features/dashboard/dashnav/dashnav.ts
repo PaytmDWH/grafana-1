@@ -160,10 +160,16 @@ export class DashNavCtrl {
     };
 
     $scope.exportDashboardToPDF = function(){
+
+
+
+
+      //take snip row wise
        html2canvas(document.getElementById("dashboardContainer"), {
             onrendered: function (canvas) {
                 var data = canvas.toDataURL();
                 var docDefinition = {
+                    pageSize: {height:'auto',width:600},
                     content: [{
                         image: data,
                         width: 500,
