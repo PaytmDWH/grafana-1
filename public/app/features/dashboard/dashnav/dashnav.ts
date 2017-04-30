@@ -5,12 +5,12 @@ import moment from 'moment';
 import angular from 'angular';
 import pdfMake from "pdfmake";
 import html2canvas from "html2canvas";
-
+import $ from 'jquery';
 
 export class DashNavCtrl {
   user: any;
   /** @ngInject */
-  constructor($scope, $rootScope, alertSrv, $location, playlistSrv, backendSrv, timeSrv, $timeout) {
+  constructor($scope, $rootScope, alertSrv, $location, playlistSrv, backendSrv, timeSrv, $timeout,googleAnalyticsSrv) {
 
     $scope.init = function() {
       $scope.onAppEvent('save-dashboard', $scope.saveDashboard);
@@ -163,7 +163,7 @@ export class DashNavCtrl {
 
 
 
-
+      $('#loader-window').show();
       //take snip row wise
        html2canvas(document.getElementById("dashboardContainer"), {
             onrendered: function (canvas) {
@@ -177,7 +177,10 @@ export class DashNavCtrl {
                 };
                 var range = timeSrv.timeRangeForFileName();
                 var fileName = $scope.dashboard.title+"_"+ range.from+"_"+range.to+".pdf"
-                pdfMake.createPdf(docDefinition).download(fileName);
+                pdfMake.createPdf(docDefinition).download(fileName,()=>{
+                  $('#loader-window').hide();
+                  googleAnalyticsSrv.sendEvent({category:'dashboard',action:'export',label:$scope.dashboard.title})   
+                });
             }
         });
       

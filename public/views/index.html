@@ -27,7 +27,9 @@
 
 	<body ng-cloak>
 		<grafana-app>
-
+		<div class="loader-background-overlay" id="loader-window"> 
+			<center class="loader-text"> Exporting To PDF. Please Wait ... </center>
+		</div>
 			<aside class="sidemenu-wrapper">
 				<sidemenu ng-if="contextSrv.sidemenu"></sidemenu>
 			</aside>
