@@ -7,21 +7,21 @@
 					<thead>
 						<tr>
 							<th ng-repeat="col in table.columns">
-								<div class="table-panel-table-header-inner pointer" ng-click="toggleColumnSort(col, $index,0)" ng-if="col.text.indexOf('|')<=-1" >
+								<div class="table-panel-table-header-inner pointer" ng-click="toggleColumnSort(col, $index,0)" ng-if="col.text.indexOf('|')<=-1 && !col.deviation" >
 									{{col.text}}
 									<span class="table-panel-table-header-controls" ng-if="col.sort">
 										<i class="fa fa-caret-down" ng-show="col.desc"></i>
 										<i class="fa fa-caret-up" ng-hide="col.desc"></i>
 									</span>
 								</div>
-								<div class="table-panel-table-header-inner pointer" ng-click="toggleColumnSort(col, $index,0)" ng-if="col.text.indexOf('|')>-1"  align="left">
+								<div class="table-panel-table-header-inner pointer" ng-click="toggleColumnSort(col, $index,0)" ng-if="col.text.indexOf('|')>-1 && col.deviation"  align="left">
 									<span style="float:left">  {{ col.text.split('|')[0] }}</span>			  
 									<span class="table-panel-table-header-controls" ng-if="col.sort">
 										<i class="fa fa-caret-down" ng-show="col.desc"></i>
 										<i class="fa fa-caret-up" ng-hide="col.desc"></i>
 									</span>
 								</div>
-								<div style="float:right;padding-right:100px" ng-if="col.text.indexOf('|')>-1" ng-click="toggleColumnSort(col, $index,1)">
+								<div style="float:right;padding-right:100px" ng-if="col.text.indexOf('|')>-1 && col.deviation" ng-click="toggleColumnSort(col, $index,1)">
 									<span align="right "style="float:right;top:0;position:absolute ;color: #2ab2e4;padding: .45em 0 .45em 1.1em;"  ng-if="col.text.indexOf('|')>-1"  > {{ col.text.split('|')[1] }}
 										<span class="table-panel-table-header-controls" ng-if="col.sort">
 											<i class="fa fa-caret-down" ng-show="col.desc"></i>

@@ -30,7 +30,7 @@ export default class TableModel {
         return 1;
       }
 
-      if (a.toString().indexOf('|') >-1) {
+      if (a.toString().indexOf('|') >-1 && options.deviation === true) {
         a = Number(a.split('|')[devindex]);
         b= Number(b.split('|')[devindex]);
         if (isNaN(a) || a === undefined) {
