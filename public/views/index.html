@@ -26,13 +26,13 @@
 	</head>
 
 	<body ng-cloak>
-			
+
 		<grafana-app>
-	
+
 			<aside class="sidemenu-wrapper">
 				<sidemenu ng-if="contextSrv.sidemenu"></sidemenu>
 			</aside>
-				
+
 			<div class="page-alert-list">
 				<div ng-repeat='alert in dashAlerts.list' class="alert-{{alert.severity}} alert">
 					<button type="button" class="alert-close" ng-click="dashAlerts.clear(alert)">
@@ -42,7 +42,7 @@
 					<div ng-bind='alert.text'></div>
 				</div>
 			</div>
-			
+
 			<div ng-view class="main-view"></div>
 		</grafana-app>
   </body>
