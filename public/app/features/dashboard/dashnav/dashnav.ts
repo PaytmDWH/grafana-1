@@ -3,11 +3,14 @@
 import _ from 'lodash';
 import moment from 'moment';
 import angular from 'angular';
+import pdfMake from "pdfmake";
+import html2canvas from "html2canvas";
+import $ from 'jquery';
 
 export class DashNavCtrl {
   user: any;
   /** @ngInject */
-  constructor($scope, $rootScope, alertSrv, $location, playlistSrv, backendSrv, $timeout) {
+  constructor($scope, $rootScope, alertSrv, $location, playlistSrv, backendSrv, timeSrv, $timeout,googleAnalyticsSrv) {
 
     $scope.init = function() {
       $scope.onAppEvent('save-dashboard', $scope.saveDashboard);
@@ -154,6 +157,33 @@ export class DashNavCtrl {
         src: './app/features/dashboard/partials/saveDashboardAs.html',
         scope: newScope,
       });
+    };
+
+    $scope.exportDashboardToPDF = function(){
+
+
+
+      $('#loader-window').show();
+      //take snip row wise
+       html2canvas(document.getElementById("dashboardContainer"), {
+            onrendered: function (canvas) {
+                var data = canvas.toDataURL();
+                var docDefinition = {
+                    pageSize: {height:'auto',width:600},
+                    content: [{
+                        image: data,
+                        width: 500,
+                    }]
+                };
+                var range = timeSrv.timeRangeForFileName();
+                var fileName = $scope.dashboard.title+"_"+ range.from+"_"+range.to+".pdf"
+                pdfMake.createPdf(docDefinition).download(fileName,()=>{
+                  $('#loader-window').hide();
+                  googleAnalyticsSrv.sendEvent({category:'dashboard',action:'export',label:$scope.dashboard.title})   
+                });
+            }
+        });
+      
     };
 
     $scope.exportDashboard = function() {

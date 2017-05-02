@@ -38,14 +38,19 @@ function tablePanel() {
 
       function appendTableRows(tbodyElem) {
         var temp_data = data;
-        if (typeof temp_data.deviationMapping !== "undefined") {
+        if (typeof temp_data.deviationprocess === "undefined"){
           for (var i = 0;i<temp_data.columns.length;i++) {
-            if (temp_data.columns[i].text in temp_data.deviationMapping) {
-                temp_data.columns[i].text= temp_data.deviationMapping[temp_data.columns[i].text]
-                +'|'+temp_data.columns[i].text;
+            temp_data.columns[i].deviation=false;
+            if (typeof temp_data.deviationMapping !== "undefined") {
+              if (temp_data.columns[i].text in temp_data.deviationMapping) {
+                  temp_data.columns[i].text= temp_data.deviationMapping[temp_data.columns[i].text]
+                  +'|'+temp_data.columns[i].text;
+                  temp_data.columns[i].deviation=true;
               }
+            }
           }
         }
+        temp_data.deviationprocess=true;
         var renderer = new TableRenderer(panel, temp_data, scope.dashboard.timezone);
         tbodyElem.empty();
         tbodyElem.html(renderer.render(scope.pageIndex));
