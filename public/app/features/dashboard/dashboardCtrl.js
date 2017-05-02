@@ -50,7 +50,6 @@ function (angular, $, config, moment) {
       templateValuesSrv.init(dashboard).finally(function() {
         dynamicDashboardSrv.init(dashboard);
         unsavedChangesSrv.init(dashboard, $scope);
-
         $scope.dashboard = dashboard;
         $scope.dashboardMeta = dashboard.meta;
         $scope.dashboardViewState = dashboardViewStateSrv.create($scope);

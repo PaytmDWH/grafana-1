@@ -20,6 +20,12 @@ function(angular, coreModule) {
         window.ga('send', 'pageview', { page: $location.url()});
       });
     };
+    
+    this.sendEvent = function(gaeventObj){
+      if(gaeventObj){
+        window.ga('send','event',gaeventObj.category,gaeventObj.action,gaeventObj.label);
+      }
+    }
 
   }).run(function(googleAnalyticsSrv) {
     if (window.ga) {
