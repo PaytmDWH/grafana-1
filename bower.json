@@ -19,7 +19,7 @@
     "angular-mocks": "~1.5.0",
     "angular-sanitize": "~1.5.0",
     "angular-bindonce": "~0.3.3",
-    "html2canvas": "^0.4.1",
+    "html2canvas": "^0.5",
     "pdfmake": "^0.1.27"
   }
 }

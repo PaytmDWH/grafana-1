@@ -160,13 +160,19 @@ export class DashNavCtrl {
     };
 
     $scope.exportDashboardToPDF = function(){
-
-
-
       $('#loader-window').show();
-      //take snip row wise
-       html2canvas(document.getElementById("dashboardContainer"), {
-            onrendered: function (canvas) {
+      html2canvas(document.getElementById("dashboardContainer"), {onclone: function(document) {
+                var tablesList=document.getElementsByClassName('table-panel-scroll');
+                var len= tablesList.length;
+                for(let i=0;i<len;i++){
+                    tablesList.item(i).style='';
+                }
+                for(let i=0;i<len;i++){
+                    tablesList.item(i).classList='';
+                }
+
+            }}).then(
+                  function (canvas) {
                 var data = canvas.toDataURL();
                 var docDefinition = {
                     pageSize: {height:'auto',width:600},
@@ -181,9 +187,9 @@ export class DashNavCtrl {
                   $('#loader-window').hide();
                   googleAnalyticsSrv.sendEvent({category:'dashboard',action:'export',label:$scope.dashboard.title})   
                 });
-            }
-        });
-      
+            }).catch(function(error){
+              console.log(error);
+            });
     };
 
     $scope.exportDashboard = function() {
