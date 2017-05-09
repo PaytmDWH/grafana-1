@@ -167,7 +167,7 @@ export class DashNavCtrl {
                 for(let i=0;i<len;i++){
                     tablesList.item(i).style='';
                 }
-                for(let i=0;i<len;i++){
+                for(let i=len-1;i>=0;i++){
                     tablesList.item(i).classList='';
                 }
 
