@@ -9,7 +9,7 @@ System.config({
     "angular": "vendor/angular/angular.js",
     "bootstrap": "vendor/bootstrap/bootstrap.js",
     "pdfmake": "vendor/pdfmake/build/pdfmake.js",
-    "html2canvas": "vendor/html2canvas/build/html2canvas.js",
+    "html2canvas": "vendor/html2canvas/dist/html2canvas.js",
     'angular-route':          'vendor/angular-route/angular-route.js',
     'angular-sanitize':       'vendor/angular-sanitize/angular-sanitize.js',
     "angular-ui":             "vendor/angular-ui/ui-bootstrap-tpls.js",
