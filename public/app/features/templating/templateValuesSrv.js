@@ -218,8 +218,7 @@ function (angular, _, kbn) {
       variable.options = [];
       return $http({
         method: 'GET',
-        url: variable.query,
-        params: {'variable': variable.name}
+        url: variable.query
       }).then(function successCallback(response) {
         return _.sortBy(response.data, 'text');
       }, function errorCallback() {
