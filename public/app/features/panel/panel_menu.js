@@ -12,6 +12,7 @@ function (angular, $, _) {
       var linkTemplate =
           '<span class="panel-title drag-handle pointer">' +
             '<span class="panel-title-text drag-handle">{{panel.title | interpolateTemplateVars:this}}</span>' +
+            '<span class="panel-tooltip"><i class="grafana-tip fa fa-question-circle" bs-tooltip="panel.title_info"> </i> </span>' +
             '<span class="panel-links-btn"><i class="fa fa-external-link"></i></span>' +
             '<span class="panel-time-info" ng-show="panelMeta.timeInfo"><i class="fa fa-clock-o"></i> {{panelMeta.timeInfo}}</span>' +
           '</span>';
@@ -72,18 +73,22 @@ function (angular, $, _) {
         link: function($scope, elem) {
           var $link = $(linkTemplate);
           var $panelLinksBtn = $link.find(".panel-links-btn");
+          var $panelTitleInfo = $link.find(".panel-tooltip");
           var $panelContainer = elem.parents(".panel-container");
           var menuScope = null;
           var timeout = null;
           var $menu = null;
 
-          elem.append($link);
-
+          elem.append($link);      
           $scope.$watchCollection('panel.links', function(newValue) {
             var showIcon = (newValue ? newValue.length > 0 : false) && $scope.panel.title !== '';
             $panelLinksBtn.toggle(showIcon);
           });
 
+          $scope.$watch('panel.title_info', function(titleInfo) {
+             var showTitleInfo = (titleInfo ? titleInfo.length > 0 : false) && $scope.panel.title !== '';
+             $panelTitleInfo.toggle(showTitleInfo);
+          });
           function dismiss(time, force) {
             clearTimeout(timeout);
             timeout = null;
