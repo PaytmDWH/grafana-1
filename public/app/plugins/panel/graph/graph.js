@@ -465,18 +465,21 @@ function (angular, $, moment, _, kbn, GraphTooltip) {
 
         function time_format(interval, ticks, min, max) {
           if (min && max && ticks) {
+            var range= max- min;
             var secPerTick = ((max - min) / ticks) / 1000;
+            var oneDay  = 86400000;
+            var oneYear = 31536000000;
 
             if (secPerTick <= 45) {
               return "%H:%M:%S";
             }
-            if (secPerTick <= 7200) {
+            if (secPerTick <= 7200 || range <= oneDay) {
               return "%H:%M";
             }
-            if (secPerTick <= 80000) {
+            if (secPerTick <= 80000 ) {
               return "%m/%d %H:%M";
             }
-            if (secPerTick <= 2419200) {
+            if (secPerTick <= 2419200 || range <= oneYear) {
               return "%m/%d";
             }
             return "%Y-%m";
