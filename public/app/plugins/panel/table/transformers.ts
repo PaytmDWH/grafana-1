@@ -204,10 +204,8 @@ transformers['json'] = {
         for (y = 0; y < series.datapoints.length; y++) {
           var dp = series.datapoints[y];
           if (_.isObject(dp)) {
-            console.log("found object :")
             var flattened = flatten(dp, null);
             total +=  flattened[panel.distribution_on_column.value];
-            console.log("total is modified");
           }
         }
       }
@@ -235,7 +233,7 @@ transformers['json'] = {
           }
 
           if(panel.distribution_column_toggle){
-            values.push(flattened[panel.distribution_on_column.value]/total * 100);
+            values.push(Math.round((flattened[panel.distribution_on_column.value]/total) * 10000)/100);
           }
         } else {
           values.push(JSON.stringify(dp));
