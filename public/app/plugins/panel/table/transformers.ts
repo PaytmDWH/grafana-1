@@ -188,9 +188,32 @@ transformers['json'] = {
   },
   transform: function(data, panel, model) {
     var i, y, z;
+    var total=0;
     for (i = 0; i < panel.columns.length; i++) {
       model.columns.push({text: panel.columns[i].text});
     }
+
+
+    //here goes the logic to calculate distribution over the selected column and add it to the mel
+    if(panel.distribution_column_toggle){
+    var distribution_column_text=  '% '+panel.distribution_on_column.text;
+    model.columns.push({text: distribution_column_text}); 
+    for (i = 0; i < data.length; i++) 
+      { 
+        var series = data[i];
+        for (y = 0; y < series.datapoints.length; y++) {
+          var dp = series.datapoints[y];
+          if (_.isObject(dp)) {
+            var flattened = flatten(dp, null);
+            total +=  flattened[panel.distribution_on_column.value];
+          }
+        }
+      }
+    }
+
+
+    //////////////////////////////////////////////////////////////
+
 
     if (model.columns.length === 0) {
       model.columns.push({text: 'JSON'});
@@ -208,9 +231,15 @@ transformers['json'] = {
           for (z = 0; z < panel.columns.length; z++) {
             values.push(flattened[panel.columns[z].value]);
           }
+
+          if(panel.distribution_column_toggle){
+            values.push(Math.round((flattened[panel.distribution_on_column.value]/total) * 10000)/100);
+          }
         } else {
           values.push(JSON.stringify(dp));
         }
+
+
 
         model.rows.push(values);
       }

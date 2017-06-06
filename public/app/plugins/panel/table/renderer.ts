@@ -99,7 +99,7 @@ export class TableRenderer {
   }
 
   renderCell(columnIndex, value , addWidthHack = false) {
-    if (typeof value !== "undefined") {
+    if (typeof value !== "undefined" && value !== null) {
        if  ((value.toString().split("|").length >1) && (this.table.columns[0].text !== "JSON") && this.table.deviationcolumnindex.includes(columnIndex)) {
           var temp_val_1 = this.formatColumnValue(columnIndex, Number(value.toString().split("|")[0]));
           let valueFormater = kbn.valueFormats["deviationpercent"];

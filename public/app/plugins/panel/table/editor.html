@@ -13,7 +13,28 @@
 							ng-options="k as v.description for (k, v) in transformers"
 							ng-change="transformChanged()"></select>
 					</li>
+
+				
+				<li class="tight-form-item">	
+						Column for Distribution calculation
+
+						<li class="tight-form-item">
+						<editor-checkbox text="Required" model="panel.distribution_column_toggle"></editor-checkbox>
+					</li>
+
+					</li>
+
+
+					<li>
+						<select class="input-medium tight-form-input" 
+								ng-model="panel.distribution_on_column"  
+								ng-options="column as column.text for column in panel.columns"
+
+								>
+								</select>
+					</li>
 				</ul>
+
 				<div class="clearfix"></div>
 			</div>
 			<div class="tight-form">
@@ -57,6 +78,7 @@
 					<li>
 						<select class="input-small tight-form-input" ng-model="panel.fontSize" ng-options="f for f in fontSizes" ng-change="render()"></select>
 					</li>
+
 				</ul>
 				<div class="clearfix"></div>
 			</div>
