@@ -207,7 +207,7 @@ function (angular, _, moment, kbn, ElasticQueryBuilder, IndexPattern, ElasticRes
         var luceneQuery = angular.toJson(target.query || '*');
         // remove inner quotes
         luceneQuery = luceneQuery.substr(1, luceneQuery.length - 2);
-        luceneQuery = luceneQuery.replace(" and ", " AND ").replace(" or "," OR ").replace(" not "," NOT ");
+        luceneQuery = luceneQuery.replace(/( and )(?=(?:(?:[^"]*"){2})*[^"]*$)/g, ' AND ').replace(/( or )(?=(?:(?:[^"]*"){2})*[^"]*$)/g, ' OR ').replace(/( not )(?=(?:(?:[^"]*"){2})*[^"]*$)/g, ' NOT ');
         luceneQuery = templateSrv.replace(luceneQuery, options.scopedVars);
         luceneQuery = luceneQuery.replace(new RegExp("[AND |OR |OR NOT |AND NOT ]*[A-Za-z_0-9]*:a123a","gm"),"");
         luceneQuery = luceneQuery.trim();
